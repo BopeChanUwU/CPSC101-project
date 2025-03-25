@@ -164,6 +164,6 @@ public class AsciiBeads {
         System.out.println("     "+this.getPegged(0, 0, 3)+"  /      "+this.getPegged(1, 0, 3)+"         "+this.getPegged(2, 0, 3)+"         "+this.getPegged(3, 0, 3)+"  /");
         System.out.println("     "+this.getPegged(0, 0, 2)+" /       "+this.getPegged(1, 0, 2)+"         "+this.getPegged(2, 0, 2)+"         "+this.getPegged(3, 0, 2)+" /");
         System.out.println("     "+this.getPegged(0, 0, 1)+"/        "+this.getPegged(1, 0, 1)+"         "+this.getPegged(2, 0, 1)+"         "+this.getPegged(3, 0, 1)+"/");
-        System.out.println("(A1)"+this.getPegged(0, 0, 0)+"---------"+this.getPegged(1, 0, 0)+"---------"+this.getPegged(2, 0, 0)+"---------"+this.getPegged(3, 0, 0));
+        System.out.println(" (A1)"+this.getPegged(0, 0, 0)+"---------"+this.getPegged(1, 0, 0)+"---------"+this.getPegged(2, 0, 0)+"---------"+this.getPegged(3, 0, 0));
     }
 }

@@ -76,6 +76,7 @@ public class ComponentManager {
                 /* "/Users/tristensandhu/Desktop/CPSC101 " +
                 "project/score4/resources/misc./AIbuddy.png" */));
         }catch(IOException e) {
+            System.err.println("image not found");
             e.printStackTrace();
         }
     }
