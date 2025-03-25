@@ -1,0 +1,143 @@
+look into enum for updateing board state 
+
+new challenge currently have a moveable bead now we need to be able to update possition of multiple beads
+as well as make sure we move the appropriate colored bead for each command.
+- idea make another substring that contains the string "color" (white or black) pass that into update method for compManager
+- with this we need a way to keep track of what bead[] we are changing (and not just changing the same one each play)
+- make a counter for black and white that increments each time we use update. (would we need 2 updatemethodsthen?)
+
+new change to make things easier (possibly)
+-make an array of point2d objects that hold the x and y for each possible paint location
+
+NOTES FROM MEETING
+-attributes are setters
+-behaviors are getters
+
+try to meet for around 3 hours a week
+game is score 4
+how many ways can you win?
+setting up a way to share code/documents
+design 1 is due feb 5th
+run gui on its own thread (cave of programming yt for more info)
+swing set size refers to number of pixels
+2058 allens office
+
+ascii version //done
+store bars in an array //done
+on B or W turn change there bars to B/W //done
+
+bonus add logic to have them drop into place //done
+maybe a second "lazy" array with a index that goes up by one each time that xy is selected //done
+
+new bonus add check for winning board //done
+if(count1 >= 4){
+
+}
+
+add a variable to store the last move made use that to look up win condition? 
+if(condition)corner{
+    if(condition){
+    }
+    else{
+    }
+    else{
+    }
+    else{
+    }
+    else{
+    }
+    else{
+        break
+    }
+}
+else(condition){
+    if(condition)...
+}
+... continue (7x4 outter if else covers 1 outer row and column / inner if else will cover all possible connection paths )
+
+what should my condition be? (outter if else)
+(game.getPegged(x,y,z).equals("W")) -> use this but sub in x y z values
+
+is inner loop the same? but checking all possible lines (max 7 possible wins per peg maybe less)
+
+also should probably do a do while type loop when i take input so they cant try to use an invalid play (more than 4 a peg)
+
+* is it 25 outter if else? if so then do i just need to find all winning lines or is it 100 max
+
+or is it 118? (18 winning lines per corner peg 16 per edge peg run check on two outter edges covers the whole board)
+
+we only need to search for a win based off the last peg played whats a fast way to search that?
+step 1 find a way to store the last spot a move was played 
+step 2 bunch of if statments where the positions to check stem from the last stored move
+
+how many cases?
+one for a peg 
+
+// all stuff before this has been implemented (atleast a first pass)
+
+new bonus make computer player
+find a way to change move input to desired implementation ("add (color) to (index).") note: all commands will end in "."
+index should be in the for A4 (x axis is ABCD and y axis is 1234)
+an ugly solution would be make another array that stores your "index" then use that to pull x and y (true index of game board)
+
+
+                                                            27,660 small
+                                                            29,160 
+
+                                                            lab 2 test1 results
+                                                            Test1 START
+                                                            00:00:00 time1 this is with empty constructor
+                                                            07:41:00 time2 this is with int int int constructor
+                                                            08:06:00 time2 after .advanceBy
+                                                            07:41:00 time3 is a copy of time 2 pre advance
+                                                            29160
+                                                            -1500
+                                                            08:06:00 time1 after time1.advanceBy(time2.comparTo(time1))
+                                                            true
+                                                            07:41:00 time 1 after time1.advanceBy(time3.compareTo(time1))
+                                                            the times are: time1 = 07:41:00, 08:06:00, 07:41:00
+                                                            Test1 COMPLETE!
+
+                                                            Test2 Start
+                                                            Test2 START
+                                                            00:00:00 time1 this is with empty constructor
+                                                            07:41:00 time2 this is with int int int constructor
+                                                            08:06:00 time2 after .advanceBy
+                                                            07:41:00 time3 is a copy of time 2 pre advance
+                                                            115560
+                                                            115560
+                                                            -1500
+                                                            08:06:00 time1 after time1.advanceBy(time2.comparTo(time1))
+                                                            true
+                                                            07:41:00 time 1 after time1.advanceBy(time3.compareTo(time1))
+                                                            the times are: time1 = 07:41:00, 08:06:00, 07:41:00
+                                                            Test2 COMPLETE!
+
+                                                            test3 START
+                                                            
+                                                            00:00:00 time1 this is with empty constructor
+                                                            07:41:00 time2 this is with int int int constructor
+                                                            08:06:00 time2 after .advanceBy
+                                                            07:41:00 time3 is a copy of time 2 pre advance
+                                                            115560
+                                                            115560
+                                                            -1500
+                                                            08:06:00 time1 after time1.advanceBy(time2.comparTo(time1))
+                                                            true
+                                                            07:41:00 time 1 after time1.advanceBy(time3.compareTo(time1))
+                                                            the times are: time1 = 07:41:00, 08:06:00, 07:41:00
+                                                            
+                                                            Exception in thread "main" java.lang.ClassCastException: lab2.version2.Time cannot be cast to java.lang.Comparable
+                                                                    at java.util.ComparableTimSort.countRunAndMakeAscending(ComparableTimSort.java:320)
+                                                                    at java.util.ComparableTimSort.sort(ComparableTimSort.java:188)
+                                                                    at java.util.Arrays.sort(Arrays.java:1246)
+                                                                    at lab2.TimeTest.main(TimeTest.java:37)
+                                                            //this is a run time error 
+                                                            test3 COMPLETE!
+
+                                                            test4 START
+                                                            00:00:00
+                                                            02:17:26
+                                                            12:02:34
+                                                            23:50:37
+                                                            test4 COMPLETE!
