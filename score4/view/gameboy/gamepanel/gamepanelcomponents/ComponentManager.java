@@ -133,11 +133,29 @@ public class ComponentManager {
         
         //just some test beads to see how it all fits
         
-        g2.translate(45,200);
+        g2.translate(39,260);
         g2.rotate(90*(Math.PI/180));
 
         g2.drawImage(bBead[1].getBead(), /*image */
             x, /* int x */
+            y,  /* int y */
+            bBead[1].getBeadSize(),  /* int hight */
+        bBead[1].getBeadSize(),null);   /* int width / img observer */
+
+        g2.drawImage(wBead[1].getBead(), /*image */
+            -23, /* int x */
+            y,  /* int y */
+            bBead[1].getBeadSize(),  /* int hight */
+        bBead[1].getBeadSize(),null);   /* int width / img observer */
+
+        g2.drawImage(bBead[2].getBead(), /*image */
+            -46, /* int x */
+            y,  /* int y */
+            bBead[1].getBeadSize(),  /* int hight */
+        bBead[1].getBeadSize(),null);   /* int width / img observer */
+
+        g2.drawImage(wBead[2].getBead(), /*image */
+            -69, /* int x */
             y,  /* int y */
             bBead[1].getBeadSize(),  /* int hight */
         bBead[1].getBeadSize(),null);   /* int width / img observer */
