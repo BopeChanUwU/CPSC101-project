@@ -30,7 +30,7 @@ public class LeftPanel extends JPanel{
     /**
      * 
      */
-    public LeftPanel(){
+    public LeftPanel() {
 
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         setBackground(new Color(73,71,134));
@@ -41,11 +41,12 @@ public class LeftPanel extends JPanel{
      * @param g2
      * @throws Exception
      */
-    public void draw(Graphics2D g2) throws Exception{
+    public void draw(Graphics2D g2) throws Exception {
+        
         BufferedImage image = ImageIO.read(new File(
             "/Users/tristensandhu/Desktop/CPSC101 "+
             "project/score4/resources/misc./LeftBorder.png"));
-        for (int i = 0; i < 336; i= i+48) {
+        for (int i = 0; i < 336; i += 48) {
             
             g2.drawImage(image,0, i, tileSize, tileSize,null);
         }

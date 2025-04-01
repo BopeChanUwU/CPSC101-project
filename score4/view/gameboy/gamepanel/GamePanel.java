@@ -37,7 +37,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     public GamePanel(){
 
         
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
     }
 
     /**
@@ -48,9 +48,8 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
-        /* peg.draw(g2); */
         compManager.draw(g2);//tile comes before beads
-        this.paintChildren(g2);//paints buttons and stuff back 
+        paintChildren(g2);//paints buttons and stuff back 
         g2.dispose();//get rid of g2 for mem management
     }
 

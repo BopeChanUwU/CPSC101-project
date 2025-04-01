@@ -44,11 +44,11 @@ public class RightPanel extends JPanel {
     public void draw(Graphics2D g2) throws Exception {
 
         BufferedImage image = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
+            "/Users/tristensandhu/Desktop/CPSC101 " +
             "project/score4/resources/misc./LeftBorder.png"));
-        for (int i = 0; i < 336; i = i+48) {
+        for (int i = 0; i < 336; i += 48) {
             
-            g2.drawImage(image,48, i, tileSize, tileSize,null);
+            g2.drawImage(image, -15, i, tileSize, tileSize,null);
         }
     }
 
@@ -60,6 +60,7 @@ public class RightPanel extends JPanel {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
+        
         try {
             draw(g2);
         } catch (Exception e) {
