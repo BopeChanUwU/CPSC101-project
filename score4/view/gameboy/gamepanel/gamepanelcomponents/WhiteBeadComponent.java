@@ -11,8 +11,17 @@ import javax.swing.JComponent;
 
 import score4.view.Bead;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 //this class is incharge of painting white beads
-public class WhiteBeadComponent extends JComponent implements Bead{
+public class WhiteBeadComponent extends JComponent implements Bead {
 
     private int xIndex;
     private int yIndex;
@@ -30,7 +39,7 @@ public class WhiteBeadComponent extends JComponent implements Bead{
                 "/Users/tristensandhu/Desktop/CPSC101 " +
                 "project/score4/resources/beads/Wbead.png"));  //white beads
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         
         xIndex = 0;

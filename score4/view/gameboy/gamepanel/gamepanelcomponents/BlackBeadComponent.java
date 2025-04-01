@@ -11,6 +11,15 @@ import javax.swing.JComponent;
 
 import score4.view.Bead;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 //this class is incharge of painting black beads
 public class BlackBeadComponent extends JComponent implements Bead{
 
@@ -39,6 +48,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
     /**
      * 
      */
+    @Override
     public void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
@@ -48,6 +58,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
     /**
      * 
      */
+    @Override
     public void setBead(int x, int y) {
 
         xIndex = x;
@@ -58,6 +69,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
     /**
      * 
      */
+    @Override
     public BufferedImage getBead() {
 
         return this.bead;
@@ -66,6 +78,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
     /**
      * 
      */
+    @Override
     public int getXIndex() {
 
         return this.xIndex;
@@ -74,6 +87,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
     /**
      * 
      */
+    @Override
     public int getYIndex() {
 
         return this.yIndex;
@@ -82,6 +96,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
     /**
      * 
      */
+    @Override
     public int getBeadSize(){
         
         return beadSize;

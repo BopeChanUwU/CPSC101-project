@@ -9,6 +9,15 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class RightPanel extends JPanel {
 
     private final int originalTileSize = 16;// size of each tile 
@@ -54,7 +63,7 @@ public class RightPanel extends JPanel {
         try {
             draw(g2);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         paintChildren(g2);
         g2.dispose();//get rid of g2 for mem management

@@ -5,12 +5,20 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
-import javax.swing.event.EventListenerList;
 
 import score4.controller.PanelEvent;
 import score4.controller.PanelListener;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class GamePanel extends JPanel /* implements PanelListener */{
 
     final int originalTileSize = 16;// size of each tile 
@@ -20,8 +28,8 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     private final int screenWidth = tileSize*MaxScreenCol;
     private final int screenHeight = tileSize*MaxScreenRow+1;
 
-    private EventListenerList listenerList = new EventListenerList();
-    private ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
+    //private EventListenerList listenerList = new EventListenerList();
+    private final ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
     
     /**
      * 

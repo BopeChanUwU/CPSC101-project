@@ -9,6 +9,15 @@ import javax.imageio.ImageIO;
 import score4.view.gameboy.gamepanel.*;
 import score4.view.gameboy.tile.Tile;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 // THIS IS GAME BOARD!!!!!
 public class ComponentManager {
     GamePanel gp;

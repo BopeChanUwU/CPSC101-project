@@ -3,6 +3,15 @@ package score4.model;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class Line {
 
     private int deltaX;
@@ -10,7 +19,7 @@ public class Line {
     private int deltaZ;
 
     private final Position3D[] line = new Position3D[4];
-    
+
     private static final ArrayList<Line> theLines = new ArrayList<>();
 
     /**

@@ -3,6 +3,7 @@ package score4.view.gameboy;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -18,13 +19,22 @@ import score4.view.gameboy.borderpanel.RightPanel;
 import score4.view.gameboy.borderpanel.TitlePanel;
 import score4.view.gameboy.gamepanel.*;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class GameboyPanel extends JPanel{
     
-    private BottomPanel bp = new BottomPanel();
-    private TitlePanel tp = new TitlePanel();
-    private LeftPanel lp = new LeftPanel();
-    private RightPanel rp = new RightPanel();
-    private GamePanel gp = new GamePanel();
+    private final BottomPanel bp = new BottomPanel();
+    private final TitlePanel tp = new TitlePanel();
+    private final LeftPanel lp = new LeftPanel();
+    private final RightPanel rp = new RightPanel();
+    private final GamePanel gp = new GamePanel();
     private ImageIcon image2;
     private boolean player1 = true;
 
@@ -33,15 +43,15 @@ public class GameboyPanel extends JPanel{
      */
     public GameboyPanel(){
 
-        this.setLayout(new BorderLayout());
-        this.initialize(gp);
+        setLayout(new BorderLayout());
+        initialize(gp);
     }
 
     /**
      * 
      * @param gp
      */
-    public void initialize(GamePanel gp){
+    public final void initialize(GamePanel gp){
 
         //create bottom bar with enter and input field
         add(bp, BorderLayout.SOUTH);
@@ -106,7 +116,7 @@ public class GameboyPanel extends JPanel{
             image2 = new ImageIcon(ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 "+
                 "project/score4/resources/misc./enter3.png")));
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("This should never happen so what did you do!!!!");
         }
         button.setBorder(BorderFactory.createLineBorder(new Color(73,71,134)));

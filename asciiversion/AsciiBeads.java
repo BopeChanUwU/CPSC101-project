@@ -1,23 +1,33 @@
 package asciiversion;
+
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class AsciiBeads {
 
-   private static String[][][] beads = new String[4][4][4];
+   private static final String[][][] beads = new String[4][4][4];
 
-   private static int[][] z = new int[4][4];
+   private static final int[][] z = new int[4][4];
 
     /**
      * AsciiBeads constructor
      * initializes z to a 4x4 array and fills it with 0's
      * initializes beads to a 4x4x4 array and fills it with |'s (pipes)
      */
-   AsciiBeads() {
+    AsciiBeads() {
     
        for (String[][] bead2 : beads) {
            for (String[] bead1 : bead2) {
-               for (String bead : bead1) {
+                for (String bead : bead1) {
 
                    bead = "|";
-               }
+                }
            }
        }
    }
@@ -29,15 +39,15 @@ public class AsciiBeads {
     * @param i integer representing x position on game board
     * @param j integer representing y position on game board
     */
-   public void setWhite(int i,int j) {
+    public void setWhite(int i,int j) {
 
-    int k = z[i][j];
-    if(k<=3) {
+        int k = z[i][j];
+        if(k<=3) {
 
-        beads[i][j][k] = "W";
-        z[i][j]++;
+            beads[i][j][k] = "W";
+            z[i][j]++;
+        }
     }
-   }
 
    /**
     * takes in a users input as two sperate integers (x,y) then uses those as indexs to find "hight"
@@ -46,14 +56,14 @@ public class AsciiBeads {
     * @param i integer representing x position on game board
     * @param j integer representing y position on game board
     */
-   public void setBlack(int i,int j) {
+    public void setBlack(int i,int j) {
 
-    int l = z[i][j];
-    if(l<=3) {
+        int l = z[i][j];
+        if(l<=3) {
 
-        beads[i][j][l] = "B";
-        z[i][j]++;
-    }
+            beads[i][j][l] = "B";
+            z[i][j]++;
+        }
    }
 
    /**
@@ -63,10 +73,10 @@ public class AsciiBeads {
     * @param z integer index for z axis
     * @return String element in beads[][][]
     */
-   public String getPegged(int x,int y,int z){
+    public String getPegged(int x,int y,int z){
 
-    return beads[x][y][z];
-   }
+        return beads[x][y][z];
+    }
 
    /**
     * returns the location of the next valid placement on the z axis
@@ -74,11 +84,11 @@ public class AsciiBeads {
     * @param y integer location on y axis
     * @return integer the next valid hight to play 
     */
-   public int getZ(int x, int y) {
+    public int getZ(int x, int y) {
 
-    return z[x][y];
-   }
-   
+        return z[x][y];
+    }
+
    /**
     * takes in the index of the last move played as well as who played it then uses these to see
     * if it was a winning move or not
@@ -88,7 +98,7 @@ public class AsciiBeads {
     * @param token String determines whether its black or whites move
     * @return boolean true if win condition found false if no win found
     */
-   public boolean checkWinner(int x,int y,int z,String token) {
+    public boolean checkWinner(int x,int y,int z,String token) {
 
         if (x==0&&beads[x][y][z].equals(beads[x+1][y][z])&&beads[x][y][z].equals(beads[x+2][y][z])&&beads[x][y][z].equals(beads[x+3][y][z])&&beads[x][y][z].equals(token)) {
             return true;

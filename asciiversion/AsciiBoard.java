@@ -2,11 +2,20 @@ package asciiversion;
 
 import java.util.Scanner;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class AsciiBoard {
     public static void main(String[] args) {
 
         AsciiBeads game = new AsciiBeads();
-        
+
         try (Scanner keyboard = new Scanner(System.in)) {
 
             InputValidator validator = new InputValidator();

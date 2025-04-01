@@ -1,5 +1,14 @@
 package score4.model;
 
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> Implements a Position3D class
+ *
+ * @author Tristen Sandhu
+ * Student Number: 230165842
+ * @version 1
+ */
 public class HumanPlayer implements Player{
 
     private Colour beadColour;
@@ -8,9 +17,19 @@ public class HumanPlayer implements Player{
      * 
      * @param n
      */
-    public HumanPlayer(int n){
+    public HumanPlayer(int n) {
 
+        if(n<0 || n>2){
 
+            throw new IllegalArgumentException("this is a 2 player dumby not a " + n + " player game");
+        } else if( n == 1) {
+
+            beadColour = Colour.White;
+        } else {
+
+            beadColour = Colour.Black;
+        }
+        
     }
 
     /**
@@ -18,7 +37,7 @@ public class HumanPlayer implements Player{
      */
     @Override
     public void move() {
-        // TODO Auto-generated method stub
+
         throw new UnsupportedOperationException("Unimplemented method 'move'");
     }
 
@@ -27,11 +46,7 @@ public class HumanPlayer implements Player{
      */
     @Override
     public void getMove() {
-        // TODO Auto-generated method stub
+        
         throw new UnsupportedOperationException("Unimplemented method 'getMove'");
     }
-
-  
-
-
 }
