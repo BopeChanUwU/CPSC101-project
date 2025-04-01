@@ -71,7 +71,7 @@ public class ComponentManager {
     /**
      * 
      */
-    public void getTileImage(){
+    public final void getTileImage(){
         try{
 
             tile[0] = new Tile();
@@ -105,8 +105,7 @@ public class ComponentManager {
             for (int index2 = 0; index2 < 576; index2+=48) {
                 g2.drawImage(tile[0].image,index,index2,
                     gp.tileSize,gp.tileSize,null);//this is grass (0)
-            }
-            
+            } 
         }
 
         //paint board
@@ -124,55 +123,50 @@ public class ComponentManager {
             
             g2.drawImage(pC.getPeg(),index,128,gp.tileSize,
                 2*gp.tileSize,null);//this is a peg (2)
-            
         }
         
         for (int index = 80; index < 550; index+=120) {
             
             g2.drawImage(pC.getPeg(),index,64,gp.tileSize,
                 2*gp.tileSize,null);//this is a peg (2)
-            
         }
         
         for (int index = 120; index < 660; index+=120) {
             
             g2.drawImage(pC.getPeg(),index,4,gp.tileSize,
                 2*gp.tileSize,null);//this is a peg (2)
-            
         }
 
         //ai buddy for when you select vs computer
         g2.drawImage(tile[2].image,523,201,-2*gp.tileSize+5,
             2*gp.tileSize-5,null); 
         
-        //just some test beads to see how it all fits
+        //just some test beads to see how it all fits//////////////////////////////////////////
         
         g2.translate(39,260);
         g2.rotate(90*(Math.PI/180));
 
-        g2.drawImage(bBead[1].getBead(), /*image */
+        g2.drawImage(bBead[2].getBead(), /*image */
+            -128, /* int x */
+            -80,  /* int y */
+            bBead[1].getBeadSize(),  /* int hight */
+        bBead[1].getBeadSize(),null);   /* int width / img observer */
+
+        for (BlackBeadComponent blackBead : bBead) {
+            g2.drawImage(blackBead.getBead(), /*image */
             x, /* int x */
             y,  /* int y */
-            bBead[1].getBeadSize(),  /* int hight */
-        bBead[1].getBeadSize(),null);   /* int width / img observer */
+            blackBead.getBeadSize(),  /* int hight */
+            blackBead.getBeadSize(),null);   /* int width / img observer */
+        }
 
-        g2.drawImage(wBead[1].getBead(), /*image */
-            -23, /* int x */
-            y,  /* int y */
-            bBead[1].getBeadSize(),  /* int hight */
-        bBead[1].getBeadSize(),null);   /* int width / img observer */
-
-        g2.drawImage(bBead[2].getBead(), /*image */
-            -46, /* int x */
-            y,  /* int y */
-            bBead[1].getBeadSize(),  /* int hight */
-        bBead[1].getBeadSize(),null);   /* int width / img observer */
-
-        g2.drawImage(wBead[2].getBead(), /*image */
+        for (WhiteBeadComponent whiteBead : wBead) {
+            g2.drawImage(whiteBead.getBead(), /*image */
             -69, /* int x */
             y,  /* int y */
-            bBead[1].getBeadSize(),  /* int hight */
-        bBead[1].getBeadSize(),null);   /* int width / img observer */
+            whiteBead.getBeadSize(),  /* int hight */
+            whiteBead.getBeadSize(),null);   /* int width / img observer */
+        }
 
         g2.dispose();
     }
