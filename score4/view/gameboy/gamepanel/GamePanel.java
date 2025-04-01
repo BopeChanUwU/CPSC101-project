@@ -34,9 +34,8 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     /**
      * 
      */
-    public GamePanel(){
+    public GamePanel() {
 
-        
         setPreferredSize(new Dimension(screenWidth, screenHeight));
     }
 
@@ -44,7 +43,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
      * 
      */
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
@@ -61,8 +60,10 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
         Object[] listeners = listenerList.getListenerList();
 
-        for(int i = 0; i < listeners.length; i = i + 2){     //steps through list 2 at a time because first is class second is listener
-            if(listeners[i] == PanelListener.class){
+        for(int i = 0; i < listeners.length; i = i + 2) { //steps through list 2 at a time because first is class second is listener
+            
+            if(listeners[i] == PanelListener.class) {
+
                 ((PanelListener) listeners[i+1]).panelEventOccured(event);
             }
         }
@@ -87,11 +88,11 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     }
 
     /**
-     * 
-     * @return
+     * gets the Component Manager
+     * @return ComponentManager
      */
-    public ComponentManager passComponentManager(){
+    public ComponentManager passComponentManager() {
 
-        return this.compManager;
+        return compManager;
     }
 }
