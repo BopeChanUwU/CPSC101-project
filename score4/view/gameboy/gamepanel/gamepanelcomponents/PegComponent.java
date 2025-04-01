@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
@@ -14,8 +15,12 @@ public class PegComponent extends JComponent{
     private int locationY;
     private final int pegSizeX = 48;
     private final int pegSizeY = 96;
+
     private BufferedImage peg;
 
+    /**
+     * 
+     */
     public PegComponent() {
 
         try {
@@ -30,16 +35,28 @@ public class PegComponent extends JComponent{
         locationY = 0;
     }
     
+    /**
+     * 
+     * @return
+     */
     public BufferedImage getPeg(){
         return this.peg;
     }
 
+    /**
+     * 
+     */
     public void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(peg,locationX, locationY, pegSizeX, pegSizeY, null);
     }
 
+    /**
+     * 
+     * @param x
+     * @param y
+     */
     public void setPeg(int x, int y) {
 
         locationX = x;
@@ -47,6 +64,10 @@ public class PegComponent extends JComponent{
         repaint();
     }
 
+    /**
+     * 
+     * @param g2
+     */
     public void draw(Graphics2D g2){
 
         g2.drawImage(peg, locationX, locationY, null);

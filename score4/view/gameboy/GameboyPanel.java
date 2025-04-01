@@ -3,14 +3,15 @@ package score4.view.gameboy;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.io.File;
+
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 import score4.controller.Controller;
-//import score4.model.Colour;
 import score4.view.gameboy.borderpanel.BottomPanel;
 import score4.view.gameboy.borderpanel.LeftPanel;
 import score4.view.gameboy.borderpanel.RightPanel;
@@ -27,12 +28,19 @@ public class GameboyPanel extends JPanel{
     private ImageIcon image2;
     private boolean player1 = true;
 
+    /**
+     * 
+     */
     public GameboyPanel(){
 
         this.setLayout(new BorderLayout());
         this.initialize(gp);
     }
 
+    /**
+     * 
+     * @param gp
+     */
     public void initialize(GamePanel gp){
 
         //create bottom bar with enter and input field
@@ -62,6 +70,7 @@ public class GameboyPanel extends JPanel{
         
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
+
                 if(textField.getText().equals("")){
                     System.out.println("please input move...");
                 }else {
@@ -88,9 +97,6 @@ public class GameboyPanel extends JPanel{
                         //need to call repaint
                         player1 = true;
                     }
-                    //how do i get this repaint to repaint gp
-                    /* System.out.println(getPeg().getX()+"  "+getPeg().getY());
-                    update(getPeg().getXLocation(),getPeg().getYLocation()); */
                 }
             } 
         });
@@ -110,9 +116,14 @@ public class GameboyPanel extends JPanel{
         setVisible(true); 
     }
 
+    /**
+     * 
+     * @param gap
+     * @param x
+     * @param y
+     */
     public void updatePanel(GamePanel gap,int x, int y) {
 
-        /* gap.passComponentManager().update(x, y); */
         gap.repaint();
     }
 }

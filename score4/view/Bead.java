@@ -4,15 +4,34 @@ import java.awt.image.BufferedImage;
 
 public interface Bead {
 
-    final int beadSize = 32;
-
+    /**
+     * 
+     * @param x
+     * @param y
+     */
     void setBead(int x,int y);
 
+    /**
+     * 
+     * @return
+     */
     BufferedImage getBead();
 
+    /**
+     * 
+     * @return
+     */
     int getXIndex();
 
+    /**
+     * 
+     * @return
+     */
     int getYIndex();
 
+    /**
+     * 
+     * @return
+     */
     int getBeadSize();
 }

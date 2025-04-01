@@ -3,8 +3,10 @@ package score4.view.gameboy.gamepanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+
 import javax.swing.JPanel;
 import javax.swing.event.EventListenerList;
+
 import score4.controller.PanelEvent;
 import score4.controller.PanelListener;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
@@ -19,18 +21,20 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     private final int screenHeight = tileSize*MaxScreenRow+1;
 
     private EventListenerList listenerList = new EventListenerList();
-
     private ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
-    //PegComponent peg = new PegComponent();
-    //Controller controller;
     
-
+    /**
+     * 
+     */
     public GamePanel(){
 
         
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
     }
 
+    /**
+     * 
+     */
     @Override
     public void paintComponent(Graphics g){
 
@@ -42,6 +46,10 @@ public class GamePanel extends JPanel /* implements PanelListener */{
         g2.dispose();//get rid of g2 for mem management
     }
 
+    /**
+     * 
+     * @param event
+     */
     public void firePanelEvent(PanelEvent event){
 
         Object[] listeners = listenerList.getListenerList();
@@ -53,29 +61,30 @@ public class GamePanel extends JPanel /* implements PanelListener */{
         }
     }
 
+    /**
+     * 
+     * @param listener
+     */
     public void addPanelListener(PanelListener listener) {
 
         listenerList.add(PanelListener.class, listener);
     }
 
+    /**
+     * 
+     * @param listener
+     */
     public void removePanelListener(PanelListener listener) {
 
         listenerList.remove(PanelListener.class, listener);
     }
 
-    /* public void update(){
-
-        this.paintComponent(Graphics g = new graphics());
-    } */
-
+    /**
+     * 
+     * @return
+     */
     public ComponentManager passComponentManager(){
 
         return this.compManager;
     }
-
-    /* public Controller getController() {
-
-        return compManager.getController();
-    } */
-
 }

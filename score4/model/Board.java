@@ -6,31 +6,56 @@ public class Board {
     private int x;
     private int y;
 
+    /**
+     * 
+     */
     public Board() {
 
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard.length; j++) {
+        for (Peg[] gameBoard1 : gameBoard) {
 
-                gameBoard[i][j] = new Peg();
+            for (Peg gameBoard2 : gameBoard1) {
+
+                gameBoard2 = new Peg();
             }
         }
     }
 
+    /**
+     * 
+     * @param row
+     * @param col
+     * @return
+     */
     public Peg getPeg(int row, int col) {
 
         return gameBoard[row][col];
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getX() {
 
         return x;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getY() {
 
         return y;
     }
 
+    /**
+     * 
+     * @param row
+     * @param col
+     * @param hieght
+     * @return
+     */
     public Bead getColourAt(int row, int col, int hieght) {
 
         return getPeg(row, col).getBead(hieght);
@@ -39,78 +64,79 @@ public class Board {
     /**
      * takes in a string and returns the location of the peg to play on
      * @param input A String denoting the peg you wish to play on
+     * @throws IllegalArgumentException if input is invalid
      */
     public void realMove(String input) {
 
         switch(input){
-            case "A1":
+            case "A1" -> {
                 x = 0;
                 y = 0;
-                break;
-            case "A2":
+            }
+            case "A2" -> {
                 x = 0;
                 y = 1;
-                break;
-            case "A3":
+            }
+            case "A3" -> {
                 x = 0;
                 y = 2;
-                break;
-            case "A4":
+            }
+            case "A4" -> {
                 x = 0;
                 y = 3;
-                break;
-            case "B1":
+            }
+            case "B1" -> {
                 x = 1;
                 y = 0;
-                break;
-            case "B2":
+            }
+            case "B2" -> {
                 x = 1;
                 y = 1;
-                break;
-            case "B3":
+            }
+            case "B3" -> {
                 x = 1;
                 y = 2;
-                break;
-            case "B4":
+            }
+            case "B4" -> {
                 x = 1;
                 y = 3;
-                break;
-            case "C1":
+            }
+            case "C1" -> {
                 x = 2;
                 y = 0;
-                break;
-            case "C2":
+            }
+            case "C2" -> {
                 x = 2;
                 y = 1;
-                break;
-            case "C3":
+            }
+            case "C3" -> {
                 x = 2;
                 y = 2;
-                break;
-            case "C4":
+            }
+            case "C4" -> {
                 x = 2;
                 y = 3;
-                break;
-            case "D1":
+            }
+            case "D1" -> {
                 x = 3;
                 y = 0;
-                break;
-            case "D2":
+            }
+            case "D2" -> {
                 x = 3;
                 y = 1;
-                break;
-            case "D3":
+            }
+            case "D3" -> {
                 x = 3;
                 y = 2;
-                break;
-            case "D4":
+            }
+            case "D4" -> {
                 x = 3;
                 y = 3;
-                break;
-            default:
-                x = -1;
-                y = -1;
-                break;
+            }
+            default -> {
+                
+                throw new IllegalArgumentException("Oi! what made you think this input was okay? " + input);
+            }
         }
     }  
 

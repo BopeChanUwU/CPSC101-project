@@ -1,6 +1,8 @@
 package asciiversion;
 public class AsciiBeads {
+
    private static String[][][] beads = new String[4][4][4];
+
    private static int[][] z = new int[4][4];
 
     /**
@@ -8,14 +10,16 @@ public class AsciiBeads {
      * initializes z to a 4x4 array and fills it with 0's
      * initializes beads to a 4x4x4 array and fills it with |'s (pipes)
      */
-   AsciiBeads(){
-    for (int i = 0; i < beads.length; i++) {
-        for (int j = 0; j < beads.length; j++) {
-            for (int k = 0; k < beads.length; k++) {
-                beads[i][j][k] = "|";
-            }
-        }
-    }
+   AsciiBeads() {
+    
+       for (String[][] bead2 : beads) {
+           for (String[] bead1 : bead2) {
+               for (String bead : bead1) {
+
+                   bead = "|";
+               }
+           }
+       }
    }
 
    /**
@@ -25,13 +29,14 @@ public class AsciiBeads {
     * @param i integer representing x position on game board
     * @param j integer representing y position on game board
     */
-   public void setWhite(int i,int j){
+   public void setWhite(int i,int j) {
+
     int k = z[i][j];
-    if(k<=3){
+    if(k<=3) {
+
         beads[i][j][k] = "W";
         z[i][j]++;
     }
-        // still need to find a way to reprompt move if invalid move
    }
 
    /**
@@ -41,9 +46,11 @@ public class AsciiBeads {
     * @param i integer representing x position on game board
     * @param j integer representing y position on game board
     */
-   public void setBlack(int i,int j){
+   public void setBlack(int i,int j) {
+
     int l = z[i][j];
-    if(l<=3){
+    if(l<=3) {
+
         beads[i][j][l] = "B";
         z[i][j]++;
     }
@@ -57,9 +64,8 @@ public class AsciiBeads {
     * @return String element in beads[][][]
     */
    public String getPegged(int x,int y,int z){
-    //if(x<=3&&y<=3&&z<=3){
+
     return beads[x][y][z];
-    //}
    }
 
    /**
@@ -68,9 +74,11 @@ public class AsciiBeads {
     * @param y integer location on y axis
     * @return integer the next valid hight to play 
     */
-   public int getZ(int x, int y){
+   public int getZ(int x, int y) {
+
     return z[x][y];
    }
+   
    /**
     * takes in the index of the last move played as well as who played it then uses these to see
     * if it was a winning move or not
@@ -80,7 +88,8 @@ public class AsciiBeads {
     * @param token String determines whether its black or whites move
     * @return boolean true if win condition found false if no win found
     */
-   public boolean checkWinner(int x,int y,int z,String token){
+   public boolean checkWinner(int x,int y,int z,String token) {
+
         if (x==0&&beads[x][y][z].equals(beads[x+1][y][z])&&beads[x][y][z].equals(beads[x+2][y][z])&&beads[x][y][z].equals(beads[x+3][y][z])&&beads[x][y][z].equals(token)) {
             return true;
         } else if (x==3&&beads[x][y][z].equals(beads[x-1][y][z])&&beads[x][y][z].equals(beads[x-2][y][z])&&beads[x][y][z].equals(beads[x-3][y][z])&&beads[x][y][z].equals(token)){
@@ -141,10 +150,12 @@ public class AsciiBeads {
             return false;
         }
     } 
+
     /**
      * Prints out current game board
      */
-    public void showBoard(){
+    public void showBoard() {
+
         System.out.println("      _____ ____ _____ _____ ____    ___    __ ");
         System.out.println("     |   __|    |     |  _  |  __|  | | |  |  |");
         System.out.println("     |__   |  --|  |  |    -|  __|  |_  |  |__|");

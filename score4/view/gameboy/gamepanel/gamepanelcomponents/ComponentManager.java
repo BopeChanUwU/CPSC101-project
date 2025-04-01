@@ -3,7 +3,9 @@ package score4.view.gameboy.gamepanel.gamepanelcomponents;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
+
 import score4.view.gameboy.gamepanel.*;
 import score4.view.gameboy.tile.Tile;
 
@@ -14,10 +16,8 @@ public class ComponentManager {
     PegComponent pC;
     WhiteBeadComponent[] wBead;
     BlackBeadComponent[] bBead;
-    int x = 0;
-    int y = 0;
-
-    //this ones x and y need to get updated
+    int x = 0;//update these pls
+    int y = 0;//update these pls
 
     /**
      * 
@@ -39,7 +39,9 @@ public class ComponentManager {
         setBBead();
     }
              
-    //puts a bbc in the bc[]
+    /**
+     * 
+     */
     private void setBBead() {
 
         for (int i = 0; i < 32; i++) {
@@ -47,7 +49,9 @@ public class ComponentManager {
         }
     }
         
-    //puts a wbc in the wb[]
+    /**
+     * 
+     */
     private void setWBead() {
                 
         for (int i = 0; i < 32; i++) {
@@ -77,7 +81,7 @@ public class ComponentManager {
                 "project/score4/resources/misc./AIbuddy.png" */));
         }catch(IOException e) {
             System.err.println("image not found");
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 
