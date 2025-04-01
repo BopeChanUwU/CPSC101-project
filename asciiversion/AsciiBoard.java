@@ -37,7 +37,7 @@ public class AsciiBoard {
                 //prompt for move
                 System.out.println("White enter your move (add White bead to B3.):");
                 String input = keyboard.nextLine();
-                String realInput = input.substring(19, 21);
+                String realInput = input.substring(18, 20);
                 validator.realMove(realInput);
                 int z = game.getZ(validator.getX(), validator.getY());
                 game.setWhite(validator.getX(),validator.getY());
@@ -62,6 +62,8 @@ public class AsciiBoard {
                     
                     //prompt for move
                     System.out.println("Black enter your move (add Black bead to B3.):");
+                    input = keyboard.nextLine();
+                    realInput = input.substring(18, 20);
                     validator.realMove(realInput);
                     z = game.getZ(validator.getX(), validator.getY());
                     game.setBlack(validator.getX(),validator.getY());

@@ -24,9 +24,9 @@ public class AsciiBeads {
     
        for (String[][] bead2 : beads) {
            for (String[] bead1 : bead2) {
-                for (String bead : bead1) {
+                for (int i = 0; i < 4; i++) {
 
-                   bead = "|";
+                   bead1[i] = "|";
                 }
            }
        }
