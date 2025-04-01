@@ -1,120 +1,206 @@
 package score4.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Line {
 
-    Board gameBoard;
+    private int deltaX;
+    private int deltaY;
+    private int deltaZ;
 
-    //stores all possible lines to search through
-    ArrayList<int[]> allPossibleLines = new ArrayList<>();
+    private final Position3D[] line = new Position3D[4];
+    
+    private static final ArrayList<Line> theLines = new ArrayList<>();
 
-    //have these just store indexes for 3d array (board)
-    //easy lines
-    int[] lineX = {0, 1, 2, 3}; // S -> N (change in x)
-    int[] lineY = {0, 1, 2, 3}; // W -> E (change in y)
-    int[] lineZ = {0, 1, 2, 3}; // ^ -> v (change in z) should be 16 lines
-
-    //medium lines (not sure how to do this because i want two index changes) maybe jump by 2 for these
-    int[] lineXY1 = {3,0, 2,1, 1,2, 0,3}; // NE -> SW (change in x and y)
-    int[] lineXY2 = {0,3, 1,2, 2,1, 3,1}; // SE -> NW (change in x and y)
-    int[] lineYZ1 = {3,3, 2,2, 1,1, 0,0}; // ^E -> vW (change in y and z)
-    int[] lineYZ2 = {0,3, 1,2, 2,1, 3,0}; // ^W -> vE (change in y and z)
-    int[] lineXZ1 = {3,3, 2,2, 1,1, 0,0}; // ^N -> vS (change in x and z)
-    int[] lineXZ2 = {0,3, 1,2, 2,1, 3,0}; // ^S -> vN (change in x and z) should be 4 lines
-
-    //hard lines (not sure how to do this because i want three index changes ) maybe jump by 3 for these
-    int[] lineXYZ1 = {0,0,3, 1,1,2, 2,2,1, 3,3,0}; // ^SW -> vNE (change in all)
-    int[] lineXYZ2 = {3,3,3, 2,2,2, 1,1,1, 0,0,0}; // ^NE -> vSW (change in all)
-    int[] lineXYZ3 = {0,3,3, 1,2,2, 2,1,1, 3,0,0}; // ^SE -> vNW (change in all)
-    int[] lineXYZ4 = {3,0,3, 2,1,2, 1,2,1, 0,3,0}; // ^NW -> vSE (change in all) should be 1 line
-
-    //maybe make it a single param constructor later if we find a way to make it expand that seems tricky tho 
-    //currently all i think this needs is to take in a game board so it has the same board as the rest of the game
-    public Line(Board gameBoard) {
-
-        this.gameBoard = gameBoard;
-    }
-
-    //this will check all possible lines to see if any return 4
-    public Boolean checkForWin(Colour colour) {
-
+    /**
+     * This method returns a boolean by checking that your start does not equal to your end as 
+     * you cant have a line with only one point and checking as well to see if your row, column,
+     * and height all either start where they end or that they end 4 spaces away.
+     * @param start Position3D the position the line starts at
+     * @param end Position3D the position the line ends at
+     * @return a boolean whether or not this is a legal line
+     */
+    public static boolean isLegalStartEnd(Position3D start, Position3D end) {
         
-        return false;
+        return ! start.equals(end) 
+        && (end.getRow() - start.getRow()) % 3 == 0
+        && (end.getColumn() - start.getColumn()) % 3 == 0
+        && (end.getHeight() - start.getHeight()) % 3 == 0;
     }
 
-    public int[][] checkLineX(Colour colour){
+    /**
+     * A 2 parameter constructor that takes in 2 Position3D points and creates a line if 
+     * the start and end are legal 
+     * @param start A Position3D object representing the start of a line 
+     * @param end A Position3D object representing the end of a line 
+     * @throws IllegalArgumentException if start and end are not legal lines
+     */
+    public Line(Position3D start, Position3D end) {
+        
+        if(isLegalStartEnd(start, end)) {
 
-        int count;
-        int[][] lineLength = {{0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0}}; /* each row represents lines in a given z 
-        col represent lines in a given y */
-        for (int i = 0; i < 10; i++) { //gets my z
-            for (int j = 0; j < 4; j++) { // gets my y
-                count = 0;
-                for (int k = 0; k < 4; k++) { // used to check LineX
+            deltaX = (end.getRow() - start.getRow()) / 3;
+            deltaY = (end.getColumn() - start.getColumn()) / 3;
+            deltaZ = (end.getHeight() - start.getHeight()) / 3;
+            line[0] = start;
+            line[3] = end;
+            for (int i = 1; i < 3; i++) {
 
-                    if(gameBoard.getPeg(lineX[k], j).getBead(i).getColour() == colour) {
-
-                        count++;
-                    } else {
-
-                        lineLength[i][j] = 0;
-                        break;
-                    }
-                    lineLength[i][j] = count;
-                }
+                line[i] = new Position3D(start.getRow() + (deltaX * i), 
+                    start.getColumn() + (deltaY * i), 
+                    start.getHeight() + (deltaZ * i));
             }
+        } else {
+
+            throw new IllegalArgumentException("Illegal Line: " + start + " and " 
+                + end + "must be 4 points away from eachother");
         }
-        return lineLength;
     }
 
-    public int[][] checkLineY(Colour colour){
-
-        int count;
-        int[][] lineLength = {{0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0}}; /* each row represents lines in a given z 
-        col represent lines in a given y */
-        for (int i = 0; i < 10; i++) { //gets my z
-            for (int j = 0; j < 4; j++) { // gets my x
-                count = 0;
-                for (int k = 0; k < 4; k++) { // used to check LineY
-
-                    if(gameBoard.getPeg(j, lineY[k]).getBead(i).getColour() == colour) {
-
-                        count++;
-                    } else {
-
-                        lineLength[i][j] = 0;
-                        break;
-                    }
-                    lineLength[i][j] = count;
-                }
+    /**
+     * This method returns an array list of all 76 possible lines.
+     * @return ArrayList<Line> all possible lines
+     */
+    public static ArrayList<Line> allLines() {
+        
+        // skew 1
+        // X
+        for (int i = 0; i < 4; i++) { 
+            for (int j = 0; j < 4; j++) {
+                
+            theLines.add(new Line(new Position3D(0, i, j), new Position3D(3, i, j)));
             }
         }
-        return lineLength;
+        // Y
+        for (int i = 0; i < 4; i++) { 
+            for (int j = 0; j < 4; j++) {
+                
+                theLines.add(new Line(new Position3D(i, 0, j), new Position3D(i, 3, j)));
+            }
+        }
+        // Z
+        for (int i = 0; i < 4; i++) { 
+            for (int j = 0; j < 4; j++) {
+
+                theLines.add(new Line(new Position3D(i, j, 0), new Position3D(i, j, 3)));
+            }
+        }
+        //skew 2
+        // XY
+        for (int i = 0; i < 4; i++) { 
+
+            theLines.add(new Line(new Position3D(0, 0, i), new Position3D(3, 3, i)));
+            theLines.add(new Line(new Position3D(0, 3, i), new Position3D(3, 0, i)));
+        }
+        // XZ
+        for (int i = 0; i < 4; i++) { 
+            
+            theLines.add(new Line(new Position3D(0, i, 0), new Position3D(3, i, 3)));
+            theLines.add(new Line(new Position3D(0, i, 3), new Position3D(3, i, 0)));
+        }
+        // YZ
+        for (int i = 0; i < 4; i++) { 
+            
+            theLines.add(new Line(new Position3D(i, 0, 0), new Position3D(i, 3, 3)));
+            theLines.add(new Line(new Position3D(i, 0, 3), new Position3D(i, 3, 0)));
+        }
+        //skew 3
+        // XYZ
+        theLines.add(new Line(new Position3D(0, 0, 0), new Position3D(3, 3, 3)));
+        theLines.add(new Line(new Position3D(0, 0, 3), new Position3D(3, 3, 0)));
+        theLines.add(new Line(new Position3D(3, 0, 0), new Position3D(0, 3, 3)));
+        theLines.add(new Line(new Position3D(3, 0, 3), new Position3D(0, 3, 0)));
+        
+        return theLines;
     }
 
-    public int[][] checkLineZ(Colour colour){
 
-        int count;
-        int[][] lineLength = {{0,0,0,0}, {0,0,0,0}, {0,0,0,0}, {0,0,0,0}}; /* each row represents lines in a given z 
-        col represent lines in a given y */
-        for (int i = 0; i < 10; i++) { //gets my x
-            for (int j = 0; j < 4; j++) { // gets my y
-                count = 0;
-                for (int k = 0; k < 4; k++) { // used to check LineZ
+    /**
+     * This method returns an array list of all of the lines that contain p.
+     * @param p Position3D position to seach for lines through
+     * @return A ArrayList of all possible lines through p
+     */
+    public static ArrayList<Line> allLinesThrough(Position3D p) {
+        
+        ArrayList<Line> linesThrough = new ArrayList<>();
+        for (Line line : allLines()) {
 
-                    if(gameBoard.getPeg(i, j).getBead(lineZ[k]).getColour() == colour) {
+            if(line.hasPosition3D(p)) {
 
-                        count++;
-                    } else {
-
-                        lineLength[i][j] = 0;
-                        break;
-                    }
-                    lineLength[i][j] = count;
-                }
+                linesThrough.add(line);
             }
         }
-        return lineLength;
+        return linesThrough;
+    }
+
+    /**
+     * Gets the position contained in the line (0-3)
+     * @param k int position in line
+     * @return Point3D object representing the specified position in the line
+     */
+    public final Position3D getPosition3D(int k) {
+
+        return new Position3D(
+            line[k].getRow(),
+            line[k].getColumn(),
+            line[k].getHeight());
+    }
+
+    /**
+     * This method returns true if this line contains p
+     * @param p A Position3D object
+     * @return A Boolean 
+     */
+    public boolean hasPosition3D(Position3D p) {
+        
+        return p.equals(line[0])
+            ||p.equals(line[1])
+            ||p.equals(line[2])
+            ||p.equals(line[3]);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(line[0],line[1],line[2],line[3]);
+    }
+
+    /** 
+     * Should only return true if "o" is a Line object containing the same Position3Ds. 
+     */
+    @Override
+    public boolean equals(Object o) { 
+
+        if(this.getClass() !=  o.getClass()) {
+            
+            return false;
+        }
+        return this.equals((Line) o);
+    }
+
+    /**
+     *  toString() should return, something like “[B1(1),B2(2),B3(3),B4(4)]” 
+     */
+    @Override
+    public String toString() {
+        
+        return "[" + line[0].toString() +
+            "," + line[1].toString() +
+            "," + line[2].toString() + 
+            "," + line[3].toString() + "]";
+    }
+
+    /**
+     * Compares this line to a specified line to see if they have the same points
+     * @param ell a Line you wish to compare
+     * @return A boolean whether or not they contain the same Position3D objects
+     */
+    public boolean equals(Line ell) {
+
+        return line[0].equals(ell.getPosition3D(0))
+        && line[1].equals(ell.getPosition3D(1))
+        && line[2].equals(ell.getPosition3D(2))
+        && line[3].equals(ell.getPosition3D(3));
     }
 }
