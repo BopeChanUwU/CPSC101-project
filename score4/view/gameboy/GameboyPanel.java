@@ -81,29 +81,35 @@ public class GameboyPanel extends JPanel{
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
 
-                if(textField.getText().equals("")){
-                    System.out.println("please input move...");
-                }else {
+                if(!textField.getText().equals("")){
+
                     if(player1 == true){    // white player
 
                     String input = textField.getText();
                     String realInput = input.substring(18, 20);
-                    String beadColour = input.substring(5, 10);
-                    beadColour.toLowerCase();
                     System.out.println(realInput); // gives a parsable play
                     getGameBoard().realMove(realInput); //gets location of peg to play on
                     getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
+                    
+                    getGamePanel().passComponentManager().setWhiteBead(getGameBoard().getX(),
+                        getGameBoard().getY(),
+                        getGameBoard().getPeg(getGameBoard().getX(),getGameBoard().getY())
+                        .getPegHeight());
+                    
+                    getGamePanel().update();
                     //need to call repaint
                     player1 = false;
                     } else {    // black player
 
                         String input = textField.getText();
                         String realInput = input.substring(18, 20);
-                        String beadColour = input.substring(5, 10);
-                        beadColour.toLowerCase();
                         System.out.println(realInput); // gives a parsable play
                         getGameBoard().realMove(realInput);
                         getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
+                        getGamePanel().passComponentManager().setBlackBead(getGameBoard().getX(),
+                        getGameBoard().getY(),
+                        getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).getPegHeight());
+                        getGamePanel().update();
                         //need to call repaint
                         player1 = true;
                     }
@@ -124,16 +130,5 @@ public class GameboyPanel extends JPanel{
         button.setSize(64, 32);
 
         setVisible(true); 
-    }
-
-    /**
-     * 
-     * @param gap
-     * @param x
-     * @param y
-     */
-    public void updatePanel(GamePanel gap,int x, int y) {
-
-        gap.repaint();
     }
 }

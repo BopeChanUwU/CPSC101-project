@@ -12,67 +12,51 @@ package score4.model;
 public class Peg {
 
 
-    private Bead[] pegHieght = new Bead[4];
+    private final Bead[] pegHeight = new Bead[4];
 
-    private int currentBead = 0;
-    private int currentHieght = 0;
-    private int xLocation;
-    private int yLocation;
+    private int currentHeight = 0;
+
 
     public Peg() {
 
-        for (int i = 0; i < pegHieght.length; i++) {
+        for (int i = 0; i < pegHeight.length; i++) {
 
-            pegHieght[i] = new Bead(Colour.Empty);
+            pegHeight[i] = new Bead(Colour.Empty);
         }
     }
 
-    //stuff to send to paint
-    private final int x2DConvert = 10;
-    private final int y2DConvert = 10;
-    private final int z2DConvert = 10;
+    /**
+     * 
+     * @param hieght
+     * @return
+     */
+    public Bead getBead(int height) {
 
-    /////////////////3D MODE///////////////////////////////////////////////
+        return pegHeight[height];
+    }
 
-    public Bead getBead(int hieght) {
+    public int getPegHeight() {
 
-        return pegHieght[hieght];
+        return currentHeight;
     }
     
+    /**
+     * 
+     * @param player1
+     */
     public void setBead(boolean player1) {
 
-        if(currentHieght>=4) {
+        if(currentHeight>=4) {
 
             if (player1 == true) {
             
-                pegHieght[currentHieght].setColour(Colour.White);
-                currentHieght++;
-                currentBead++;
+                pegHeight[currentHeight].setColour(Colour.White);
+                currentHeight++;
             } else {
 
-                pegHieght[currentHieght].setColour(Colour.Black);
-                currentHieght++;
-                currentBead++;
+                pegHeight[currentHeight].setColour(Colour.Black);
+                currentHeight++;
             }
         }
-    }
-
-    /////////////////2D MODE///////////////////////////////////////////////////////////
-
-    /*something to convert from xyz to just xy for painting purposes
-    still need to figure out proper shifting for both x and y */
-    public void convertTo2D(int x, int y, int z) {
-
-        switch (y) {
-
-            case 0 -> xLocation = x*x2DConvert + 8;
-
-            case 1 -> xLocation = x*x2DConvert;
-
-            case 2 -> xLocation = x*x2DConvert;
-
-            case 3 -> xLocation = x*x2DConvert;
-        }
-        yLocation = y*y2DConvert + z*z2DConvert;
     }
 }

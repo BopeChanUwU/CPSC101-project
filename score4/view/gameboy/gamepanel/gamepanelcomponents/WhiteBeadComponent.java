@@ -30,15 +30,17 @@ public class WhiteBeadComponent extends JComponent implements Bead {
     private BufferedImage bead;
 
     /**
-     * 
+     * constructs a WhiteBeadComponent with default x and y values
      */
     public WhiteBeadComponent() {
 
         try {
+
             bead = ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 " +
                 "project/score4/resources/beads/Wbead.png"));  //white beads
         } catch (IOException e) {
+
             //e.printStackTrace();
         }
         
@@ -47,7 +49,8 @@ public class WhiteBeadComponent extends JComponent implements Bead {
     }
 
     /**
-     * 
+     * paints the Bead
+     * @param Graphics g rendering object
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -57,45 +60,48 @@ public class WhiteBeadComponent extends JComponent implements Bead {
     }
 
     /**
-     * 
+     * sets the beads xIndex and yIndex
      */
     @Override
     public void setBead(int x, int y) {
 
         xIndex = x;
         yIndex = y;
-        repaint();
     }
 
     /**
-     * 
+     * gets image of a white bead
+     * @return BufferedImage image of a white bead
      */
     @Override
     public BufferedImage getBead() {
 
-        return this.bead;
+        return bead;
     }
 
     /**
-     * 
+     * gets the position of the bead on the x-axis
+     * @return int X position
      */
     @Override
     public int getXIndex() {
 
-        return this.xIndex;
+        return xIndex;
     }
 
     /**
-     * 
+     * gets the position of the bead on the y-axis
+     * @return int Y position
      */
     @Override
     public int getYIndex() {
 
-        return this.yIndex;
+        return yIndex;
     }
 
     /**
-     * 
+     * gets the size of the bead
+     * @return int size of the bead
      */
     @Override
     public int getBeadSize() {

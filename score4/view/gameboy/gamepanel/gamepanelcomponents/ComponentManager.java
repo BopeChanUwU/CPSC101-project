@@ -20,13 +20,19 @@ import score4.view.gameboy.tile.Tile;
  */
 // THIS IS GAME BOARD!!!!!
 public class ComponentManager {
+
     GamePanel gp;
     Tile[] tile;
     PegComponent pC;
-    WhiteBeadComponent[] wBead;
-    BlackBeadComponent[] bBead;
-    int x = 0;//update these pls
-    int y = 0;//update these pls
+    WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
+    BlackBeadComponent[] bBead = new BlackBeadComponent[32];
+
+    private int countBlack = 0;
+    private int countWhite = 0;
+
+    private int[] xPosition = new int[64]; //plan store game locations to move stuff 
+    private int[] yPosition = new int[64];
+
 
     /**
      * 
@@ -42,36 +48,102 @@ public class ComponentManager {
         pC = new PegComponent();
 
         wBead = new WhiteBeadComponent[32];
-        setWBead();
+        for (int i = 0; i < 32; i++) {
+            wBead[i] = new WhiteBeadComponent();
+
+        }
         
         bBead = new BlackBeadComponent[32];
-        setBBead();
+        for (int i = 0; i < 32; i++) {
+            bBead[i] = new BlackBeadComponent();
+
+        }
     }
              
     /**
-     * 
+     * This method sets the location of a black bead on the screen
+     * @param x int x position
+     * @param y int y position
+     * @param z int z position
      */
-    private void setBBead() {
+    public void setBlackBead(int x, int y, int z) {
 
-        for (int i = 0; i < 32; i++) {
-            bBead[i] = new BlackBeadComponent();
+        int x2D;
+        int y2D;
+
+        switch (x) {
+            case 0 -> { x2D = 0;
+            }
+            case 1 -> { x2D = 40;
+            }
+            case 2 -> { x2D = 80;
+            }
+            case 3 -> { x2D = 120;
+            }
+            default -> throw new AssertionError();
         }
+
+        switch (y) {
+            case 0 -> { y2D = 0 + z*32;
+            }
+            case 1 -> { y2D = 64 + z*32;
+            }
+            case 2 -> { y2D = 128 + z*32;
+            }
+            case 3 -> { y2D = 192 + z*32;
+            }
+            default -> throw new AssertionError();
+        }
+
+        bBead[countBlack].setBead(x2D, y2D);
+        countBlack++;
     }
         
     /**
-     * 
+     * This method sets the location of a white bead on the screen
+     * @param x int x position
+     * @param y int y position
+     * @param z int z position
      */
-    private void setWBead() {
-                
-        for (int i = 0; i < 32; i++) {
-            wBead[i] = new WhiteBeadComponent();
+    public void setWhiteBead(int x, int y, int z) {
+        
+        int x2D;
+        int y2D;
+
+        switch (x) {
+            case 0 -> { x2D = 0;
+            }
+            case 1 -> { x2D = 40;
+            }
+            case 2 -> { x2D = 80;
+            }
+            case 3 -> { x2D = 120;
+            }
+            default -> throw new AssertionError();
         }
+
+        switch (y) {
+            case 0 -> { y2D = 0 + z*32;
+            }
+            case 1 -> { y2D = 64 + z*32;
+            }
+            case 2 -> { y2D = 128 + z*32;
+            }
+            case 3 -> { y2D = 192 + z*32;
+            }
+            default -> throw new AssertionError();
+        }
+
+        wBead[countWhite].setBead(x2D, y2D);
+        countWhite++;
+        wBead[countWhite].repaint();
     }
 
     /**
-     * 
+     * Gets some of my assests i didnt make into objects
      */
-    public final void getTileImage(){
+    public final void getTileImage() {
+
         try{
 
             tile[0] = new Tile();
@@ -80,15 +152,16 @@ public class ComponentManager {
                 "project/score4/resources/tile/Grass.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(new File(/* "/score4/resources/board/board.png" */
+            tile[1].image = ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 " +
                 "project/score4/resources/board/board.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(new File("/Users/tristensandhu/Desktop/CPSC101 project/score4/resources/misc./AIbuddy.png"
-                /* "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/misc./AIbuddy.png" */));
+            tile[2].image = ImageIO.read(new File(
+                "/Users/tristensandhu/Desktop/CPSC101 " +
+                "project/score4/resources/misc./AIbuddy.png"));
         }catch(IOException e) {
+
             System.err.println("image not found");
             //e.printStackTrace();
         }
@@ -96,86 +169,97 @@ public class ComponentManager {
 
     /**
      * 
-     * @param g2
+     * @param Graphics2D g2 rendering object
      */
     public void draw(Graphics2D g2){
 
         //paint the grass background
-        for (int index = 0; index < 768; index+=48) {
-            for (int index2 = 0; index2 < 576; index2+=48) {
-                g2.drawImage(tile[0].image,index,index2,
-                    gp.tileSize,gp.tileSize,null);//this is grass (0)
+        for (int x = 0; x < 768; x += 48) {
+            for (int y = 0; y < 576; y += 48) {
+
+                g2.drawImage(tile[0].image, x, y,
+                    gp.tileSize, /* width */
+                    gp.tileSize, /* height */
+                    null);//this is grass (0)
             } 
         }
 
         //paint board
-        g2.drawImage(tile[1].image,25,96,10*gp.tileSize,
-            4*gp.tileSize,null);
+        g2.drawImage(tile[1].image, 25, 96,
+            480,
+            192,
+            null);
 
         //build the pegs
-        for (int index = 0; index < 480; index+=120) {
+        for (int x = 0; x < 480; x += 120) {
 
-            g2.drawImage(pC.getPeg(),index,192,gp.tileSize,
-                2*gp.tileSize,null);//this is a peg (2)
+            g2.drawImage(pC.getPeg(),
+                x, 192,
+                pC.getPegSizeX(), /* width */
+                pC.getPegSizeY(), /* height */
+                null);//this is a peg (2)
         }
 
-        for (int index = 40; index < 450; index+=120) {
+        for (int x = 40; x < 450; x += 120) {
             
-            g2.drawImage(pC.getPeg(),index,128,gp.tileSize,
-                2*gp.tileSize,null);//this is a peg (2)
+            g2.drawImage(pC.getPeg(),
+                x, 128,
+                pC.getPegSizeX(), /* width */
+                pC.getPegSizeY(), /* height */
+                null);//this is a peg (2)
         }
         
-        for (int index = 80; index < 550; index+=120) {
+        for (int x = 80; x < 550; x += 120) {
             
-            g2.drawImage(pC.getPeg(),index,64,gp.tileSize,
-                2*gp.tileSize,null);//this is a peg (2)
+            g2.drawImage(pC.getPeg(),
+                x, 64,
+                pC.getPegSizeX(), /* width */
+                pC.getPegSizeY(), /* height */
+                null);//this is a peg (2)
         }
         
-        for (int index = 120; index < 660; index+=120) {
+        for (int x = 120; x < 660; x += 120) {
             
-            g2.drawImage(pC.getPeg(),index,4,gp.tileSize,
-                2*gp.tileSize,null);//this is a peg (2)
+            g2.drawImage(pC.getPeg(),
+                x, 4,
+                pC.getPegSizeX(), /* width */
+                pC.getPegSizeY(), /* height */
+                null);//this is a peg (2)
         }
 
-        //ai buddy for when you select vs computer
-        g2.drawImage(tile[2].image,523,201,-2*gp.tileSize+5,
-            2*gp.tileSize-5,null); 
-        
-        //just some test beads to see how it all fits//////////////////////////////////////////
-        
-        g2.translate(39,260);
-        g2.rotate(90*(Math.PI/180));
+        //ai buddy for when you select vs computer figure out the details later 
+        g2.drawImage(tile[2].image,523,201,
+            -101, /* width is inverted so he faces the correct direction */
+            91,
+            null); 
 
-        g2.drawImage(bBead[2].getBead(), /*image */
-            -128, /* int x */
-            -80,  /* int y */
-            bBead[1].getBeadSize(),  /* int hight */
-        bBead[1].getBeadSize(),null);   /* int width / img observer */
-
+        g2.translate(8, 260);
+        //paint black beads
         for (BlackBeadComponent blackBead : bBead) {
+
             g2.drawImage(blackBead.getBead(), /*image */
-            x, /* int x */
-            y,  /* int y */
+            blackBead.getXIndex(), /* int x */
+            blackBead.getYIndex(),  /* int y */
             blackBead.getBeadSize(),  /* int hight */
             blackBead.getBeadSize(),null);   /* int width / img observer */
         }
 
-        for (WhiteBeadComponent whiteBead : wBead) {
+        //paint white beads
+        /* for (WhiteBeadComponent whiteBead : wBead) {
+
             g2.drawImage(whiteBead.getBead(), /*image */
-            -69, /* int x */
-            y,  /* int y */
-            whiteBead.getBeadSize(),  /* int hight */
-            whiteBead.getBeadSize(),null);   /* int width / img observer */
-        }
+            //whiteBead.getXIndex(), /* int x */
+            //whiteBead.getYIndex(),  /* int y */
+            //whiteBead.getBeadSize(),  /* int hight */
+            //whiteBead.getBeadSize(),null);   /* int width / img observer */
+        //} 
+
+        g2.drawImage(wBead[1].getBead(), /*image */
+            /* wBead[0].getXIndex() */40, /* int x */
+            wBead[1].getYIndex(),  /* int y */
+            wBead[1].getBeadSize(),  /* int hight */
+            wBead[1].getBeadSize(),null);   /* int width / img observer */
 
         g2.dispose();
-    }
-
-    public void setX(int number){
-        x = number;
-    }
-
-    public void setY(int number){
-        y = number;
     }
 }

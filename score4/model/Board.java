@@ -22,10 +22,11 @@ public class Board {
 
         for (Peg[] gameBoard1 : gameBoard) {
 
-            for (Peg gameBoard2 : gameBoard1) {
-
-                gameBoard2 = new Peg();
+            for (int i = 0; i < 4; i++) {
+                
+            gameBoard1[i] = new Peg();
             }
+            
         }
     }
 

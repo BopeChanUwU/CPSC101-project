@@ -28,15 +28,15 @@ public class PegComponent extends JComponent{
     private BufferedImage peg;
 
     /**
-     * 
+     * constructs a peg with default start locations
      */
     public PegComponent() {
 
         try {
-            peg = ImageIO.read(new File("score4/resources/misc./pegs.png"
-                /* "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/misc./pegs.png") */));
+
+            peg = ImageIO.read(new File("score4/resources/misc./pegs.png"));
         } catch (IOException e) {
+
             //e.printStackTrace();
         }
 
@@ -45,15 +45,17 @@ public class PegComponent extends JComponent{
     }
     
     /**
-     * 
-     * @return
+     * gets the image of the peg
+     * @return BufferedImage peg
      */
-    public BufferedImage getPeg(){
-        return this.peg;
+    public BufferedImage getPeg() {
+
+        return peg;
     }
 
     /**
-     * 
+     * paints the Peg
+     * @param Graphics g rendering object
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -65,21 +67,50 @@ public class PegComponent extends JComponent{
     /**
      * 
      * @param x
-     * @param y
      */
-    public void setPeg(int x, int y) {
+    public void setXLocation(int x) {
 
         locationX = x;
-        locationY = y;
-        repaint();
     }
 
     /**
      * 
-     * @param g2
+     * @param y
      */
-    public void draw(Graphics2D g2){
+    public void setYLocation(int y) {
 
-        g2.drawImage(peg, locationX, locationY, null);
+        locationY = y;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getXLocation() {
+
+        return locationX;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getYLocation() {
+
+        return locationY;
+    }
+
+    /**
+     * 
+     * @return
+     */
+    public int getPegSizeX() {
+
+        return pegSizeX;
+    }
+
+    public int getPegSizeY() {
+
+        return pegSizeY;
     }
 }

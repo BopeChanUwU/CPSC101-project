@@ -26,10 +26,11 @@ public class BlackBeadComponent extends JComponent implements Bead{
     private int xIndex;
     private int yIndex;
     private final int beadSize = 32;
+
     private BufferedImage bead;
 
     /**
-     * 
+     * constructs a BlackBeadComponent with default x and y values
      */
     public BlackBeadComponent() {
 
@@ -46,7 +47,8 @@ public class BlackBeadComponent extends JComponent implements Bead{
     }
 
     /**
-     * 
+     * paints the Bead
+     * @param Graphics g rendering object
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -56,48 +58,51 @@ public class BlackBeadComponent extends JComponent implements Bead{
     }
 
     /**
-     * 
+     * sets the beads xIndex and yIndex
      */
     @Override
     public void setBead(int x, int y) {
 
         xIndex = x;
         yIndex = y;
-        repaint();
     }
 
     /**
-     * 
+     * gets image of a black bead
+     * @return BufferedImage image of a black bead
      */
     @Override
     public BufferedImage getBead() {
 
-        return this.bead;
+        return bead;
     }
 
     /**
-     * 
+     * gets the position of the bead on the x-axis
+     * @return int X position
      */
     @Override
     public int getXIndex() {
 
-        return this.xIndex;
+        return xIndex;
     }
 
     /**
-     * 
+     * gets the position of the bead on the y-axis
+     * @return int Y position
      */
     @Override
     public int getYIndex() {
 
-        return this.yIndex;
+        return yIndex;
     }
 
     /**
-     * 
+     * gets the size of the bead
+     * @return int size of the bead
      */
     @Override
-    public int getBeadSize(){
+    public int getBeadSize() {
         
         return beadSize;
     }

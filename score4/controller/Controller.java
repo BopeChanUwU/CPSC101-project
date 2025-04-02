@@ -28,8 +28,9 @@ public class Controller implements ActionListener {
     private GamePanel gp;
 
     /**
-     * 
-     * @param gap
+     * a one parameter constructor that makes a controller for 
+     * a given GamePanel
+     * @param gap GamePanel 
      */
     public Controller(GamePanel gap) {
 
@@ -38,27 +39,29 @@ public class Controller implements ActionListener {
     }
 
     /**
-     * 
-     * @return
+     * gets the game board
+     * @return Board the game board
      */
     public Board getGameBoard() {
 
         return gameBoard;
     }
 
-    /**
-     * 
-     */
+    public GamePanel getGamePanel(){
+
+        return gp;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       
+       /* doing this in the view cause meh */
     }
 
     /**
      * 
-     * @param x
-     * @param y
+     * @param x 
+     * @param y 
      */
     public void update(int x, int y){
 

@@ -30,7 +30,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
     //private EventListenerList listenerList = new EventListenerList();
     private final ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
-    
+
     /**
      * 
      */
@@ -94,5 +94,11 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     public ComponentManager passComponentManager() {
 
         return compManager;
+    }
+
+    public void update(){
+
+        super.repaint();
+        repaint();
     }
 }
