@@ -95,10 +95,4 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
         return compManager;
     }
-
-    public void update(){
-
-        super.repaint();
-        repaint();
-    }
 }

@@ -30,8 +30,8 @@ public class ComponentManager {
     private int countBlack = 0;
     private int countWhite = 0;
 
-    private int[] xPosition = new int[64]; //plan store game locations to move stuff 
-    private int[] yPosition = new int[64];
+    private int[][] xPosition = new int[2][64]; //plan store game locations to move stuff 
+    private int[][] yPosition = new int[2][64];
 
 
     /**
@@ -50,13 +50,15 @@ public class ComponentManager {
         wBead = new WhiteBeadComponent[32];
         for (int i = 0; i < 32; i++) {
             wBead[i] = new WhiteBeadComponent();
-
+            xPosition[0][i] = wBead[i].getXIndex();
+            yPosition[0][i] = wBead[i].getYIndex();
         }
         
         bBead = new BlackBeadComponent[32];
         for (int i = 0; i < 32; i++) {
             bBead[i] = new BlackBeadComponent();
-
+            xPosition[1][i] = bBead[i].getXIndex();
+            yPosition[1][i] = bBead[i].getYIndex();
         }
     }
              
@@ -134,9 +136,11 @@ public class ComponentManager {
             default -> throw new AssertionError();
         }
 
+        xPosition[0][countWhite] = x2D;
+        yPosition[0][countWhite] = y2D;
+
         wBead[countWhite].setBead(x2D, y2D);
         countWhite++;
-        wBead[countWhite].repaint();
     }
 
     /**
@@ -235,28 +239,32 @@ public class ComponentManager {
 
         g2.translate(8, 260);
         //paint black beads
+        int i = 0;
         for (BlackBeadComponent blackBead : bBead) {
 
             g2.drawImage(blackBead.getBead(), /*image */
-            blackBead.getXIndex(), /* int x */
-            blackBead.getYIndex(),  /* int y */
+            xPosition[1][i] = blackBead.getXIndex(), /* int x */
+            yPosition[1][i] = blackBead.getYIndex(),  /* int y */
             blackBead.getBeadSize(),  /* int hight */
             blackBead.getBeadSize(),null);   /* int width / img observer */
+            i++;
         }
 
         //paint white beads
-        /* for (WhiteBeadComponent whiteBead : wBead) {
+        i = 0;
+        for (WhiteBeadComponent whiteBead : wBead) {
 
             g2.drawImage(whiteBead.getBead(), /*image */
-            //whiteBead.getXIndex(), /* int x */
-            //whiteBead.getYIndex(),  /* int y */
-            //whiteBead.getBeadSize(),  /* int hight */
-            //whiteBead.getBeadSize(),null);   /* int width / img observer */
-        //} 
+            xPosition[0][i] = whiteBead.getXIndex(), /* int x */
+            yPosition[0][i] = whiteBead.getYIndex(),  /* int y */
+            whiteBead.getBeadSize(),  /* int hight */
+            whiteBead.getBeadSize(),null);   /* int width / img observer */
+            i++;
+        } 
 
         g2.drawImage(wBead[1].getBead(), /*image */
             /* wBead[0].getXIndex() */40, /* int x */
-            wBead[1].getYIndex(),  /* int y */
+            /* wBead[1].getYIndex() */ this.xPosition[0][1],  /* int y */
             wBead[1].getBeadSize(),  /* int hight */
             wBead[1].getBeadSize(),null);   /* int width / img observer */
 

@@ -3,11 +3,8 @@ package score4.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JTextField;
-
 import score4.model.Board;
-
-import score4.view.gameboy.gamepanel.GamePanel;
+import score4.view.gameboy.GameboyPanel;
 
 /**
  * This file is part of a Score4 game
@@ -21,20 +18,20 @@ import score4.view.gameboy.gamepanel.GamePanel;
 //Controller exposes data and commands needed by the view (acts as bridge from V -> M)///////////////////////////////////////////
 public class Controller implements ActionListener {
 
-    private JTextField textField;
+    private final Board gameBoard;
 
-    private Board gameBoard;
+    private final GameboyPanel gameBoyPanel;
 
-    private GamePanel gp;
+    private boolean player1 = true;
 
     /**
      * a one parameter constructor that makes a controller for 
      * a given GamePanel
      * @param gap GamePanel 
      */
-    public Controller(GamePanel gap) {
+    public Controller(GameboyPanel gbp) {
 
-        gp = gap;
+        gameBoyPanel = gbp;
         gameBoard = new Board();
     }
 
@@ -47,16 +44,51 @@ public class Controller implements ActionListener {
         return gameBoard;
     }
 
-    public GamePanel getGamePanel(){
+    public GameboyPanel getGamePanel(){
 
-        return gp;
+        return gameBoyPanel;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
-       /* doing this in the view cause meh */
-    }
+        if(!gameBoyPanel.textField.getText().equals("")){
+
+            if(player1 == true){    // white player
+
+            String input = gameBoyPanel.textField.getText();
+            String realInput = input.substring(18, 20);
+            System.out.println(realInput); // gives a parsable play
+            getGameBoard().realMove(realInput); //gets location of peg to play on
+            getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
+            
+            gameBoyPanel.getGamePanel().passComponentManager().setWhiteBead(getGameBoard().getX(),
+                getGameBoard().getY(),
+                getGameBoard().getPeg(getGameBoard().getX(),getGameBoard().getY())
+                    .getPegHeight());
+            
+            gameBoyPanel.update();
+            //need to call repaint
+            player1 = false;
+            } else {    // black player
+
+                String input = gameBoyPanel.textField.getText();
+                String realInput = input.substring(18, 20);
+                System.out.println(realInput); // gives a parsable play
+                getGameBoard().realMove(realInput);
+                getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
+                
+                gameBoyPanel.getGamePanel().passComponentManager().setBlackBead(getGameBoard().getX(),
+                    getGameBoard().getY(),
+                    getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY())
+                        .getPegHeight());
+
+                gameBoyPanel.update();
+                //need to call repaint
+                player1 = true;
+            }
+        }
+    } 
 
     /**
      * 

@@ -2,6 +2,7 @@ package score4.view.gameboy;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.TextField;
 import java.io.File;
 import java.io.IOException;
 
@@ -10,7 +11,6 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import score4.controller.Controller;
 import score4.view.gameboy.borderpanel.BottomPanel;
@@ -34,9 +34,12 @@ public class GameboyPanel extends JPanel{
     private final TitlePanel tp = new TitlePanel();
     private final LeftPanel lp = new LeftPanel();
     private final RightPanel rp = new RightPanel();
-    private final GamePanel gp = new GamePanel();
+    private GamePanel gp = new GamePanel();   /* game panel  */
+
     private ImageIcon image2;
-    private boolean player1 = true;
+
+    private final Controller controller = new Controller(this);
+    public TextField textField = new TextField();
 
     /**
      * 
@@ -68,7 +71,7 @@ public class GameboyPanel extends JPanel{
         // create game screen
         add(gp, BorderLayout.CENTER);
 
-        JTextField textField = new JTextField();
+        /* JTextField textField = new JTextField(); */
         bp.add(textField);
         textField.setBackground(new Color(159,146,189));
         textField.setFont(new java.awt.Font(TOOL_TIP_TEXT_KEY, ABORT, 
@@ -76,46 +79,7 @@ public class GameboyPanel extends JPanel{
 
         JButton button = new JButton();
         bp.add(button);
-        button.addActionListener(new  Controller(gp){
-        
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-
-                if(!textField.getText().equals("")){
-
-                    if(player1 == true){    // white player
-
-                    String input = textField.getText();
-                    String realInput = input.substring(18, 20);
-                    System.out.println(realInput); // gives a parsable play
-                    getGameBoard().realMove(realInput); //gets location of peg to play on
-                    getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
-                    
-                    getGamePanel().passComponentManager().setWhiteBead(getGameBoard().getX(),
-                        getGameBoard().getY(),
-                        getGameBoard().getPeg(getGameBoard().getX(),getGameBoard().getY())
-                        .getPegHeight());
-                    
-                    getGamePanel().update();
-                    //need to call repaint
-                    player1 = false;
-                    } else {    // black player
-
-                        String input = textField.getText();
-                        String realInput = input.substring(18, 20);
-                        System.out.println(realInput); // gives a parsable play
-                        getGameBoard().realMove(realInput);
-                        getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
-                        getGamePanel().passComponentManager().setBlackBead(getGameBoard().getX(),
-                        getGameBoard().getY(),
-                        getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).getPegHeight());
-                        getGamePanel().update();
-                        //need to call repaint
-                        player1 = true;
-                    }
-                }
-            } 
-        });
+        button.addActionListener(controller);
 
         //gets image icon "enter"
         try{
@@ -130,5 +94,15 @@ public class GameboyPanel extends JPanel{
         button.setSize(64, 32);
 
         setVisible(true); 
+    }
+
+    public GamePanel getGamePanel(){
+
+        return gp;
+    }
+
+    public void update(){
+
+        repaint();
     }
 }
