@@ -17,10 +17,10 @@ import score4.view.gameboy.GameboyPanel;
  */
 public class GameFrame extends JFrame{
 
-    private GameboyPanel gP;
+    private final GameboyPanel gP = new GameboyPanel();
 
     /**
-     * 
+     * constructs GameFrame 
      */
     public GameFrame(){
 
@@ -28,7 +28,7 @@ public class GameFrame extends JFrame{
     }
 
     /**
-     * 
+     * static method to call the constructor
      */
     public static void go(){
 
@@ -36,14 +36,14 @@ public class GameFrame extends JFrame{
     }
 
     /**
-     * 
-     * @param gP
+     * sets the contents of the GameFrame
+     * @param gP GameboyPanel holds the game screen
      */
     public final void initialize(GameboyPanel gP){
 
         setSize(500,1000);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(gP = new GameboyPanel(),BorderLayout.CENTER);
+        add(gP ,BorderLayout.CENTER);
         pack();
         setVisible(true);
     }

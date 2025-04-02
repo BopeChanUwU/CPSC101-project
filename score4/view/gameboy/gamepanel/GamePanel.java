@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
-import score4.controller.PanelEvent;
-import score4.controller.PanelListener;
+//import score4.controller.PanelEvent;
+//import score4.controller.PanelListener;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 
 /**
@@ -21,7 +21,7 @@ import score4.view.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
  */
 public class GamePanel extends JPanel /* implements PanelListener */{
 
-    final int originalTileSize = 16;// size of each tile 
+    private final int originalTileSize = 16;// size of each tile 
     public final int tileSize = originalTileSize*3;//real tile is 48x48
     private final int MaxScreenCol = 11;
     private final int MaxScreenRow = 6;
@@ -32,7 +32,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     private final ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
 
     /**
-     * 
+     * constructs a GamePanel
      */
     public GamePanel() {
 
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     }
 
     /**
-     * 
+     * paints the game panel 
      */
     @Override
     public void paintComponent(Graphics g) {
@@ -53,10 +53,35 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     }
 
     /**
+     * gets the Component Manager
+     * @return ComponentManager
+     */
+    public ComponentManager passComponentManager() {
+
+        return this.compManager;
+    }
+
+    /**
+     * 
+     */
+    public void updateComponentManager(){
+
+        //maybe change position here and see what happens
+    }
+
+    /**
+     * repaints GamePanel
+     */
+    public void update(){
+
+        repaint();
+    }
+
+    /**
      * 
      * @param event
      */
-    public void firePanelEvent(PanelEvent event){
+    /* public void firePanelEvent(PanelEvent event) {
 
         Object[] listeners = listenerList.getListenerList();
 
@@ -67,32 +92,23 @@ public class GamePanel extends JPanel /* implements PanelListener */{
                 ((PanelListener) listeners[i+1]).panelEventOccured(event);
             }
         }
-    }
+    } */
 
     /**
      * 
      * @param listener
      */
-    public void addPanelListener(PanelListener listener) {
+    /* public void addPanelListener(PanelListener listener) {
 
         listenerList.add(PanelListener.class, listener);
-    }
+    } */
 
     /**
      * 
      * @param listener
      */
-    public void removePanelListener(PanelListener listener) {
+    /* public void removePanelListener(PanelListener listener) {
 
         listenerList.remove(PanelListener.class, listener);
-    }
-
-    /**
-     * gets the Component Manager
-     * @return ComponentManager
-     */
-    public ComponentManager passComponentManager() {
-
-        return compManager;
-    }
+    } */
 }

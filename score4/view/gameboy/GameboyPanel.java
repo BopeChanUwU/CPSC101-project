@@ -34,7 +34,7 @@ public class GameboyPanel extends JPanel{
     private final TitlePanel tp = new TitlePanel();
     private final LeftPanel lp = new LeftPanel();
     private final RightPanel rp = new RightPanel();
-    private final GamePanel gp = new GamePanel();   /* game panel  */
+    private final GamePanel gp = new GamePanel();   /* game screen  */
 
     private ImageIcon image2;
 
@@ -42,36 +42,35 @@ public class GameboyPanel extends JPanel{
     public TextField textField = new TextField();
 
     /**
-     * 
+     * constructs a GameboyPanel
      */
     public GameboyPanel(){
 
         setLayout(new BorderLayout());
-        initialize(gp);
+        initialize();
     }
 
     /**
-     * 
-     * @param gp
+     * creates all the stuff inside the panel
+     * @param gp GamePanel game view
      */
-    public final void initialize(GamePanel gp){
+    public final void initialize(){
 
-        //create bottom bar with enter and input field
+        /* create bottom bar with enter and input field */
         add(bp, BorderLayout.SOUTH);
 
-        //create title bar
+        /* create title bar */
         add(tp, BorderLayout.NORTH); 
 
-        //create left side frame
+        /* create left side frame */
         add(lp, BorderLayout.WEST);
 
-        //create panel4 right side frame
+        /* create panel4 right side frame */
         add(rp, BorderLayout.EAST);
 
-        // create game screen
+        /* create game screen */
         add(gp, BorderLayout.CENTER);
 
-        /* JTextField textField = new JTextField(); */
         bp.add(textField);
         textField.setBackground(new Color(159,146,189));
         textField.setFont(new java.awt.Font(TOOL_TIP_TEXT_KEY, ABORT, 
@@ -81,7 +80,7 @@ public class GameboyPanel extends JPanel{
         bp.add(button);
         button.addActionListener(controller);
 
-        //gets image icon "enter"
+        /* gets image icon "enter" */
         try{
             image2 = new ImageIcon(ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 "+
@@ -96,13 +95,12 @@ public class GameboyPanel extends JPanel{
         setVisible(true); 
     }
 
+    /**
+     * This method gets the GamePanel
+     * @return GamePanel the game screen
+     */
     public GamePanel getGamePanel(){
 
-        return gp;
-    }
-
-    public void update(){
-
-        repaint();
+        return this.gp;
     }
 }

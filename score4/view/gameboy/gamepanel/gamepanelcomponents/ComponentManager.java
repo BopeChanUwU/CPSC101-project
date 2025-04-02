@@ -21,7 +21,7 @@ import score4.view.gameboy.tile.Tile;
 // THIS IS GAME BOARD!!!!!
 public class ComponentManager {
 
-    GamePanel gp;
+    private final GamePanel gp;
     Tile[] tile;
     PegComponent pC;
     WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
@@ -30,8 +30,8 @@ public class ComponentManager {
     private int countBlack = 0;
     private int countWhite = 0;
 
-    private final int[][] xPosition = new int[2][64]; //plan store game locations to move stuff 
-    private final int[][] yPosition = new int[2][64];
+    private final int[][] xPosition = new int[2][32]; //plan store game locations to move stuff 
+    private final int[][] yPosition = new int[2][32];
 
 
     /**
@@ -264,7 +264,7 @@ public class ComponentManager {
 
         g2.drawImage(wBead[1].getBead(), /*image */
             /* wBead[0].getXIndex() */40, /* int x */
-            /* wBead[1].getYIndex() */ this.xPosition[0][1],  /* int y */
+            /* wBead[1].getYIndex() */ xPosition[0][1],  /* int y */
             wBead[1].getBeadSize(),  /* int hight */
             wBead[1].getBeadSize(),null);   /* int width / img observer */
 

@@ -27,7 +27,7 @@ public class Controller implements ActionListener {
     /**
      * a one parameter constructor that makes a controller for 
      * a given GamePanel
-     * @param gap GamePanel 
+     * @param gbp GamePanel 
      */
     public Controller(GameboyPanel gbp) {
 
@@ -44,10 +44,11 @@ public class Controller implements ActionListener {
         return gameBoard;
     }
 
-    public GameboyPanel getGamePanel(){
+
+    /* public GameboyPanel getGamePanel(){
 
         return gameBoyPanel;
-    }
+    } */
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -67,36 +68,25 @@ public class Controller implements ActionListener {
                 getGameBoard().getPeg(getGameBoard().getX(),getGameBoard().getY())
                     .getPegHeight());
             
-            gameBoyPanel.update();
-            //need to call repaint
+            gameBoyPanel.getGamePanel().update(); /* repaint */
             player1 = false;
             } else {    // black player
 
+                /* model stuff */
                 String input = gameBoyPanel.textField.getText();
                 String realInput = input.substring(18, 20);
                 System.out.println(realInput); // gives a parsable play
                 getGameBoard().realMove(realInput);
                 getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
-                
+                /* set beads location in view */
                 gameBoyPanel.getGamePanel().passComponentManager().setBlackBead(getGameBoard().getX(),
                     getGameBoard().getY(),
                     getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY())
                         .getPegHeight());
 
-                gameBoyPanel.update();
-                //need to call repaint
+                gameBoyPanel.getGamePanel().update(); /* repaint */
                 player1 = true;
             }
         }
-    } 
-
-    /**
-     * 
-     * @param x 
-     * @param y 
-     */
-    public void update(int x, int y){
-
-        
-    } 
+    }
 }
