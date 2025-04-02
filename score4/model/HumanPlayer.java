@@ -32,6 +32,12 @@ public class HumanPlayer implements Player{
         
     }
 
+
+    public Colour getColour(){
+
+        return beadColour;
+    }
+
     /**
      * 
      */

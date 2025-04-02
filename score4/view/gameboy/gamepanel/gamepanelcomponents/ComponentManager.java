@@ -30,8 +30,8 @@ public class ComponentManager {
     private int countBlack = 0;
     private int countWhite = 0;
 
-    private int[][] xPosition = new int[2][64]; //plan store game locations to move stuff 
-    private int[][] yPosition = new int[2][64];
+    private final int[][] xPosition = new int[2][64]; //plan store game locations to move stuff 
+    private final int[][] yPosition = new int[2][64];
 
 
     /**

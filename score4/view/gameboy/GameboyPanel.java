@@ -34,7 +34,7 @@ public class GameboyPanel extends JPanel{
     private final TitlePanel tp = new TitlePanel();
     private final LeftPanel lp = new LeftPanel();
     private final RightPanel rp = new RightPanel();
-    private GamePanel gp = new GamePanel();   /* game panel  */
+    private final GamePanel gp = new GamePanel();   /* game panel  */
 
     private ImageIcon image2;
 
