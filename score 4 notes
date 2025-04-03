@@ -1,3 +1,10 @@
+x off set between colums = 40
+y off set between rows = 64
+
+x starts at 0
+y starts at 0
+
+
 look into enum for updateing board state 
 
 new challenge currently have a moveable bead now we need to be able to update possition of multiple beads

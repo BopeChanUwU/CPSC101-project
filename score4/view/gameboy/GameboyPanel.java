@@ -56,19 +56,19 @@ public class GameboyPanel extends JPanel{
      */
     public final void initialize(){
 
-        /* create bottom bar with enter and input field */
+        // create bottom bar with enter and input field 
         add(bp, BorderLayout.SOUTH);
 
-        /* create title bar */
+        // create title bar 
         add(tp, BorderLayout.NORTH); 
 
-        /* create left side frame */
+        // create left side frame 
         add(lp, BorderLayout.WEST);
 
-        /* create panel4 right side frame */
+        // create panel4 right side frame 
         add(rp, BorderLayout.EAST);
 
-        /* create game screen */
+        // create game screen 
         add(gp, BorderLayout.CENTER);
 
         bp.add(textField);
@@ -78,9 +78,9 @@ public class GameboyPanel extends JPanel{
 
         JButton button = new JButton();
         bp.add(button);
-        button.addActionListener(controller);
+        button.addActionListener(controller); //action event happens in controller class
 
-        /* gets image icon "enter" */
+        // gets image icon "enter" 
         try{
             image2 = new ImageIcon(ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 "+

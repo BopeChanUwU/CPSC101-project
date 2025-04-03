@@ -79,7 +79,7 @@ public class Controller implements ActionListener {
                 getGameBoard().realMove(realInput);
                 getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
                 /* set beads location in view */
-                gameBoyPanel.getGamePanel().passComponentManager().setBlackBead(getGameBoard().getX(),
+                gameBoyPanel.getGamePanel().setBlackBead(getGameBoard().getX(),
                     getGameBoard().getY(),
                     getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY())
                         .getPegHeight());

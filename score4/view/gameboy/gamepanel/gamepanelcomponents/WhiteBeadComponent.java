@@ -1,5 +1,6 @@
 package score4.view.gameboy.gamepanel.gamepanelcomponents;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.io.File;
@@ -38,14 +39,15 @@ public class WhiteBeadComponent extends JComponent implements Bead {
 
             bead = ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/beads/Wbead.png"));  //white beads
+                "project/score4/resources/beads/Wbead.png"));  // white beads
         } catch (IOException e) {
 
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         
-        xIndex = 0;
-        yIndex = 0;
+        xIndex = 50;
+        yIndex = 50;
+        System.out.println("bead constructed");
     }
 
     /**
@@ -56,7 +58,8 @@ public class WhiteBeadComponent extends JComponent implements Bead {
     public void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(bead,xIndex, yIndex, beadSize, beadSize, null);
+        g2.drawImage(bead, this.xIndex, this.yIndex, beadSize, beadSize, null);
+        System.out.println("were painting!!!");
     }
 
     /**

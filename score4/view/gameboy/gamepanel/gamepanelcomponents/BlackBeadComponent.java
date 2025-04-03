@@ -37,9 +37,9 @@ public class BlackBeadComponent extends JComponent implements Bead{
         try {
             bead = ImageIO.read(new File(
                 "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/beads/Bbead.png"));  //black beads
+                "project/score4/resources/beads/Bbead.png"));  // black beads
         } catch (IOException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         
         xIndex = 0;
