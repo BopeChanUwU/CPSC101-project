@@ -13,10 +13,12 @@ import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a Controller class that handles the game logic
+ * and communication between the model and the view. It listens for
+ * user input from the GameboyPanel and updates the game state
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
+
  * @version 1
  */
 //Controller exposes data and commands needed by the view (acts as bridge from V -> M)///////////////////////////////////////////

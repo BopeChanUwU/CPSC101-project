@@ -3,10 +3,9 @@ package score4.model;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a Bead class that represents a bead in the game.
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class Bead {
@@ -14,8 +13,9 @@ public class Bead {
     Colour beadColour;
 
     /**
-     * 
-     * @param colour
+     * Constructor for the Bead class
+     * @param colour Colour of the bead
+     * @throws IllegalArgumentException if colour is null
      */
     public Bead(Colour colour) {
 
@@ -23,8 +23,9 @@ public class Bead {
     }
 
     /**
-     * 
-     * @return
+     * gets the bead colour
+     * @return Colour beadColour
+     * @throws IllegalArgumentException if beadColour is null
      */
     public Colour getColour() {
 
@@ -32,8 +33,9 @@ public class Bead {
     }
 
     /**
-     * 
-     * @param colour
+     * sets the bead colour
+     * @param colour Colour of the bead
+     * @throws IllegalArgumentException if colour is null
      */
     public void setColour(Colour colour){
 

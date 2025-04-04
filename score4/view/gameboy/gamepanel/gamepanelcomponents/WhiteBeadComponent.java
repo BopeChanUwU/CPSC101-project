@@ -13,13 +13,13 @@ import score4.view.Bead;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a WhiteBeadComponent class these are the white beads
+ * for the view
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
-//this class is incharge of painting white beads
+
 public class WhiteBeadComponent extends JComponent implements Bead {
 
     private int xIndex;

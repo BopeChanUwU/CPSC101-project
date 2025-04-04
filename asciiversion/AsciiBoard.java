@@ -5,10 +5,9 @@ import java.util.Scanner;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a AsciiBoard class that runs the game in ASCII format.
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class AsciiBoard {

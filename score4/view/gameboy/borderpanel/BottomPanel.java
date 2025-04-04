@@ -15,10 +15,9 @@ import java.awt.Color;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a BottomPanel class
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class BottomPanel extends JPanel {
@@ -31,7 +30,7 @@ public class BottomPanel extends JPanel {
     private final int screenHeight = tileSize * MaxScreenRow;
 
     /**
-     * 
+     * BottomPanel constructor
      */
     public BottomPanel() {
 
@@ -44,11 +43,10 @@ public class BottomPanel extends JPanel {
         setBackground(new Color(73,71,134));
     }
 
-    // this draws my bottom game bit 
     /**
-     * 
-     * @param g2
-     * @throws Exception
+     * draws the bottom panel
+     * @param g2 graphics 2D object
+     * @throws Exception resource not found
      */
     public void draw(Graphics2D g2) throws Exception {
 
@@ -81,7 +79,9 @@ public class BottomPanel extends JPanel {
     }
 
     /**
-     * 
+     * paints the bottom panel
+     * @param Graphics g rendering object
+     * @throws Exception draw error
      */
     @Override
     public void paintComponent(Graphics g) {

@@ -17,10 +17,9 @@ import java.io.IOException;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a TitlePanel class this is the title bar for the game
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class TitlePanel extends JPanel {
@@ -37,7 +36,7 @@ public class TitlePanel extends JPanel {
     private ImageIcon image;
 
     /**
-     * 
+     * TitlePanel constructor
      */
     public TitlePanel() {
         
@@ -60,9 +59,9 @@ public class TitlePanel extends JPanel {
     }
 
     /**
-     * 
-     * @param g2
-     * @throws Exception
+     * draws the title panel
+     * @param g2 graphics 2D object
+     * @throws Exception resource not found
      */
     public void draw(Graphics2D g2) throws Exception {
 
@@ -83,7 +82,9 @@ public class TitlePanel extends JPanel {
     }
 
     /**
-     * 
+     * paints the title panel
+     * @param g graphics object
+     * @throws Exception draw error
      */
     @Override
     public void paintComponent(Graphics g){

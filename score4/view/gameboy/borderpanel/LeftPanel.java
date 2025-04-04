@@ -14,10 +14,9 @@ import java.awt.image.BufferedImage;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a LeftPanel class 
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class LeftPanel extends JPanel{
@@ -30,7 +29,7 @@ public class LeftPanel extends JPanel{
     private final int screenHeight = tileSize * MaxScreenRow;
 
     /**
-     * 
+     * LeftPanel constructor
      */
     public LeftPanel() {
 
@@ -39,9 +38,9 @@ public class LeftPanel extends JPanel{
     }
 
     /**
-     * 
-     * @param g2
-     * @throws Exception
+     * draws the left panel
+     * @param g2 graphics 2D object
+     * @throws Exception resource not found
      */
     public void draw(Graphics2D g2) throws Exception {
        
@@ -54,7 +53,9 @@ public class LeftPanel extends JPanel{
     }
 
     /**
-     * 
+     * paints the left panel
+     * @param g graphics object
+     * @throws Exception draw error
      */
     @Override
     public void paintComponent(Graphics g){

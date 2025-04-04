@@ -5,42 +5,41 @@ import java.awt.image.BufferedImage;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a Bead interface for the view
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public interface Bead {
 
     /**
-     * 
-     * @param x
-     * @param y
+     * sets the bead location
+     * @param x int x location
+     * @param y int y location
      */
     void setBead(int x,int y);
 
     /**
-     * 
-     * @return
+     * gets the bead image
+     * @return BufferedImage bead
      */
     BufferedImage getBead();
 
     /**
-     * 
-     * @return
+     * gets the beads x location
+     * @return int x location
      */
     int getXIndex();
 
     /**
-     * 
-     * @return
+     * gets the beads y location
+     * @return int y location
      */
     int getYIndex();
 
     /**
-     * 
-     * @return
+     * gets the beads size
+     * @return int bead size
      */
     int getBeadSize();
 }

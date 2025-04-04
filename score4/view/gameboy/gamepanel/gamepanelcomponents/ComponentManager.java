@@ -11,13 +11,13 @@ import score4.view.gameboy.tile.Tile;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a ComponentManager class has the images for 
+ * the game board and the pegs tells the game panel to draw them
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
-// THIS IS GAME BOARD!!!!!
+
 public class ComponentManager {
 
     private final GamePanel gp;

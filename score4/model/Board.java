@@ -3,20 +3,23 @@ package score4.model;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a Board class that represents the game board.
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class Board {
 
-    private Peg[][] gameBoard = new Peg[4][4];
+    private final Peg[][] gameBoard = new Peg[4][4];
     private int x;
     private int y;
 
     /**
-     * 
+     * Board constructor
+     * <p> This constructor initializes the game board with Peg objects.
+     * <p> Each Peg object is initialized with a default constructor.
+     * <p> The game board is a 4x4 array of Peg objects.
+     * <p> The Peg class is used to represent the pegs on the game board.
      */
     public Board() {
 
@@ -31,10 +34,11 @@ public class Board {
     }
 
     /**
-     * 
-     * @param row
-     * @param col
-     * @return
+     * gets the peg at a given location
+     * @param row int row
+     * @param col int column
+     * @return Peg peg
+     * @throws IllegalArgumentException if row or column is out of bounds
      */
     public Peg getPeg(int row, int col) {
 
@@ -42,8 +46,8 @@ public class Board {
     }
 
     /**
-     * 
-     * @return
+     * gets pegs x location on the board
+     * @return int peg location in the x 
      */
     public int getX() {
 
@@ -51,8 +55,8 @@ public class Board {
     }
 
     /**
-     * 
-     * @return
+     * gets pegs y location on the board
+     * @return int peg location in the y
      */
     public int getY() {
 
@@ -60,11 +64,14 @@ public class Board {
     }
 
     /**
-     * 
-     * @param row
-     * @param col
-     * @param hieght
-     * @return
+     * gets the colour of the bead at a given location
+     * @param row int row
+     * @param col int column
+     * @param hieght int height
+     * @return Bead bead
+     * @throws IllegalArgumentException if row, column, or height is out of bounds
+     * @throws NullPointerException if the peg is null
+     * @throws ArrayIndexOutOfBoundsException if the height is out of bounds
      */
     public Bead getColourAt(int row, int col, int hieght) {
 

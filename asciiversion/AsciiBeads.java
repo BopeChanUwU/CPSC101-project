@@ -3,7 +3,7 @@ package asciiversion;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a AsciiBeads class that represents the game board in a 3D array.
  *
  * @author Tristen Sandhu
  * Student Number: 230165842

@@ -3,10 +3,9 @@ package score4.model;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a HumanPlayer class that represents a human player in the game.
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class HumanPlayer implements Player{
@@ -14,8 +13,9 @@ public class HumanPlayer implements Player{
     private Colour beadColour;
     
     /**
-     * 
-     * @param n
+     * HumanPlayer constructor
+     * @param n int representing the player number
+     * @throws IllegalArgumentException if n is not 1 or 2
      */
     public HumanPlayer(int n) {
 
@@ -32,7 +32,10 @@ public class HumanPlayer implements Player{
         
     }
 
-
+    /**
+     * gets the bead colour
+     * @return Colour beadColour
+     */
     public Colour getColour(){
 
         return beadColour;
@@ -48,7 +51,7 @@ public class HumanPlayer implements Player{
     }
 
     /**
-     * 
+     * gets a Move recommended by the AI
      */
     @Override
     public void getMove() {

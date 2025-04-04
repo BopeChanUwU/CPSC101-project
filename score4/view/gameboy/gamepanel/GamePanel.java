@@ -13,10 +13,10 @@ import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a GamePanel class it pretty much just draws the game board 
+ * and moves the beads around
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class GamePanel extends JPanel /* implements PanelListener */{
@@ -32,7 +32,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
     private final WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
     private final BlackBeadComponent[] bBead = new BlackBeadComponent[32];
-    private final ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
+    private final ComponentManager compManager = new ComponentManager(this);
 
     /**
      * constructs a GamePanel

@@ -21,10 +21,11 @@ import score4.view.gameboy.gamepanel.*;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a GameboyPanel class this is the main panel for the game
+ * it contains the game screen and the title bar and the bottom bar
+ * and the left and right side panels
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class GameboyPanel extends JPanel{

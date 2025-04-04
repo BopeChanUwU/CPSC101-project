@@ -13,10 +13,9 @@ import java.awt.image.BufferedImage;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a RightPanel class
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class RightPanel extends JPanel {
@@ -29,7 +28,7 @@ public class RightPanel extends JPanel {
     private final int screenHeight = tileSize * MaxScreenRow;
 
     /**
-     * 
+     * RightPanel constructor
      */
     public RightPanel() {
 
@@ -38,9 +37,9 @@ public class RightPanel extends JPanel {
     }
 
     /**
-     * 
-     * @param g2
-     * @throws Exception
+     * draws the right panel
+     * @param g2 graphics 2D object
+     * @throws Exception resource not found
      */
     public void draw(Graphics2D g2) throws Exception {
 
@@ -53,7 +52,9 @@ public class RightPanel extends JPanel {
     }
 
     /**
-     * 
+     * paints the right panel
+     * @param g graphics object
+     * @throws Exception draw error
      */
     @Override
     public void paintComponent(Graphics g){

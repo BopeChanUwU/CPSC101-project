@@ -11,10 +11,10 @@ import javax.swing.JComponent;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a Position3D class
+ * <p> Implements a PegComponent class these are the pegs
+ * for the view
  *
  * @author Tristen Sandhu
- * Student Number: 230165842
  * @version 1
  */
 public class PegComponent extends JComponent{
