@@ -7,8 +7,6 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
-//import score4.controller.PanelEvent;
-//import score4.controller.PanelListener;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 
@@ -34,7 +32,6 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
     private final WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
     private final BlackBeadComponent[] bBead = new BlackBeadComponent[32];
-    //private EventListenerList listenerList = new EventListenerList();
     private final ComponentManager compManager = new ComponentManager(this);//tile manager draws game board
 
     /**
@@ -50,25 +47,23 @@ public class GamePanel extends JPanel /* implements PanelListener */{
         for (int i = 0; i < 32; i++) {
             
             bBead[i] = new BlackBeadComponent();
-            bBead[i].setSize(32, 32);
-            bBead[i].setVisible(false);
             this.add(bBead[i]);
-            bBead[i].setLocation(0, 0);
+            bBead[i].setBounds(bBead[i].getXIndex(), bBead[i].getYIndex(), 32, 32);
             bBead[i].setSize(32, 32);
             bBead[i].setPreferredSize(new Dimension(32, 32));
             bBead[i].setMinimumSize(new Dimension(32, 32));
+            bBead[i].setVisible(true);
         }
 
         for (int i = 0; i < 32; i++) {
             
             wBead[i] = new WhiteBeadComponent();
-            wBead[i].setSize(32, 32);
-            wBead[i].setVisible(false);
             this.add(wBead[i]);
-            wBead[i].setLocation(0, 0);
+            wBead[i].setBounds(wBead[i].getXIndex(), wBead[i].getYIndex(), 32, 32);
             wBead[i].setSize(32, 32);
             wBead[i].setPreferredSize(new Dimension(32, 32));
             wBead[i].setMinimumSize(new Dimension(32, 32));
+            setVisible(true);
         }
 
         setVisible(true);
