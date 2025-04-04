@@ -33,6 +33,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
      */
     public BlackBeadComponent() {
 
+        super();
         try {
 
             bead = ImageIO.read(getClass()
@@ -44,6 +45,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
         
         xIndex = 0;
         yIndex = 0;
+        setVisible(true);
     }
 
     /**
@@ -53,8 +55,10 @@ public class BlackBeadComponent extends JComponent implements Bead{
     @Override
     protected void paintComponent(Graphics g) {
 
+        super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(bead,xIndex, yIndex, beadSize, beadSize, null);
+        System.out.println("black beads painting!");
     }
 
     /**
@@ -65,6 +69,8 @@ public class BlackBeadComponent extends JComponent implements Bead{
 
         xIndex = x;
         yIndex = y;
+        setVisible(true);
+        repaint();
     }
 
     /**

@@ -33,7 +33,7 @@ public class GameFrame extends JFrame{
      */
     public static void go(){
 
-        new GameFrame(); 
+        GameFrame game = new GameFrame(); 
     }
 
     /**

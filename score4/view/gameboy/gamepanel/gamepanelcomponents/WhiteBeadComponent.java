@@ -46,8 +46,6 @@ public class WhiteBeadComponent extends JComponent implements Bead {
         xIndex = 50;
         yIndex = 50;
         setVisible(true);
-        System.out.println("bead constructed");
-        this.repaint();
     }
 
     /**
@@ -59,8 +57,8 @@ public class WhiteBeadComponent extends JComponent implements Bead {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(bead, this.xIndex, this.yIndex, beadSize, beadSize, null);
-        System.out.println("were painting!!!");
+        g2.drawImage(bead, xIndex, yIndex, beadSize, beadSize, null);
+        System.out.println("white beads painting!");
         
     }
 
@@ -72,8 +70,8 @@ public class WhiteBeadComponent extends JComponent implements Bead {
 
         xIndex = x;
         yIndex = y;
-        setBounds(xIndex, yIndex, beadSize, beadSize);
-
+        setVisible(true);
+        repaint(); 
     }
 
     /**

@@ -63,7 +63,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
             
             wBead[i] = new WhiteBeadComponent();
             wBead[i].setSize(32, 32);
-            wBead[i].setVisible(true);
+            wBead[i].setVisible(false);
             this.add(wBead[i]);
             wBead[i].setLocation(0, 0);
             wBead[i].setSize(32, 32);
@@ -75,81 +75,40 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     }
 
     /**
-     * This method sets the location of a white bead on the screen
-     * @param x int x position
-     * @param y int y position
-     * @param z int z position
+     * This method returns the number of white beads
+     * @return int number of white beads
      */
-    public void setWhiteBead(int x, int y, int z) {
-        
-        int x2D;
-        int y2D;
+    public int getCountWhite() {
 
-        switch (x) {
-            case 0 -> { x2D = 0;
-            }
-            case 1 -> { x2D = 40;
-            }
-            case 2 -> { x2D = 80;
-            }
-            case 3 -> { x2D = 120;
-            }
-            default -> throw new AssertionError();
-        }
+        return countWhite;
+    }
+    /**
+     * This method returns the number of white beads
+     * @return int number of white beads
+     */
+    public WhiteBeadComponent getWhiteBead(int i) {
 
-        switch (y) {
-            case 0 -> { y2D = 0 + z*32;
-            }
-            case 1 -> { y2D = 64 + z*32;
-            }
-            case 2 -> { y2D = 128 + z*32;
-            }
-            case 3 -> { y2D = 192 + z*32;
-            }
-            default -> throw new AssertionError();
-        }
-
-        wBead[countWhite].setBead(x2D, y2D);
         countWhite++;
+        return wBead[i];
     }
 
     /**
-     * This method sets the location of a black bead on the screen
-     * @param x int x position
-     * @param y int y position
-     * @param z int z position
+     * This method returns the number of black beads
+     * @return int number of black beads
      */
-    public void setBlackBead(int x, int y, int z) {
+    public int getCountBlack() {
 
-        int x2D;
-        int y2D;
+        return countBlack;
+    }
 
-        switch (x) {
-            case 0 -> { x2D = 0;
-            }
-            case 1 -> { x2D = 40;
-            }
-            case 2 -> { x2D = 80;
-            }
-            case 3 -> { x2D = 120;
-            }
-            default -> throw new AssertionError();
-        }
+    /**
+     * This method returns the number of black beads
+     * @return int number of black beads
+     */
+    public BlackBeadComponent getBlackBead(int i) {
 
-        switch (y) {
-            case 0 -> { y2D = 0 + z*32;
-            }
-            case 1 -> { y2D = 64 + z*32;
-            }
-            case 2 -> { y2D = 128 + z*32;
-            }
-            case 3 -> { y2D = 192 + z*32;
-            }
-            default -> throw new AssertionError();
-        }
-
-        bBead[countBlack].setBead(x2D, y2D);
-        countBlack++;    
+        countBlack++;
+        return bBead[i];
     }
 
     /**
@@ -169,54 +128,10 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     }
 
     /**
-     * gets the Component Manager
-     * @return ComponentManager
-     */
-    public ComponentManager passComponentManager() {
-
-        return this.compManager;
-    }
-
-    /**
      * repaints GamePanel
      */
     public void update(){
 
         repaint();
     }
-
-    /**
-     * 
-     * @param event
-     */
-    /* public void firePanelEvent(PanelEvent event) {
-
-        Object[] listeners = listenerList.getListenerList();
-
-        for(int i = 0; i < listeners.length; i = i + 2) { //steps through list 2 at a time because first is class second is listener
-            
-            if(listeners[i] == PanelListener.class) {
-
-                ((PanelListener) listeners[i+1]).panelEventOccured(event);
-            }
-        }
-    } */
-
-    /**
-     * 
-     * @param listener
-     */
-    /* public void addPanelListener(PanelListener listener) {
-
-        listenerList.add(PanelListener.class, listener);
-    } */
-
-    /**
-     * 
-     * @param listener
-     */
-    /* public void removePanelListener(PanelListener listener) {
-
-        listenerList.remove(PanelListener.class, listener);
-    } */
 }

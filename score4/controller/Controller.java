@@ -4,7 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import score4.model.Board;
+import score4.model.Peg;
 import score4.view.gameboy.GameboyPanel;
+import score4.view.gameboy.gamepanel.GamePanel;
+import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
+import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 
 /**
  * This file is part of a Score4 game
@@ -57,34 +61,36 @@ public class Controller implements ActionListener {
 
             if(player1 == true){    // white player
 
-            String input = gameBoyPanel.textField.getText();
-            String realInput = input.substring(18, 20);
-            System.out.println(realInput); // gives a parsable play
-            getGameBoard().realMove(realInput); //gets location of peg to play on
-            getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
-            
-            gameBoyPanel.getGamePanel().setWhiteBead(getGameBoard().getX(),
-                getGameBoard().getY(),
-                getGameBoard().getPeg(getGameBoard().getX(),getGameBoard().getY())
-                    .getPegHeight());
-            
-            gameBoyPanel.getGamePanel().update(); /* repaint */
-            player1 = false;
-            } else {    // black player
-
-                /* model stuff */
+                GamePanel gp = gameBoyPanel.getGamePanel();
+                WhiteBeadComponent wBead = gp.getWhiteBead(gp.getCountWhite());
+                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
                 String input = gameBoyPanel.textField.getText();
                 String realInput = input.substring(18, 20);
+
+                System.out.println(realInput); // gives a parsable play
+                gameBoard.realMove(realInput); //gets location of peg to play on
+                peg.setBead(player1); //sets bead at location
+
+                /* set beads location in view */
+                wBead.setBead(gameBoard.getX(),gameBoard.getY());
+                gp.update(); /* repaint */
+                player1 = false;
+            } else {    // black player
+
+                GamePanel gp = gameBoyPanel.getGamePanel();
+                BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
+                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
+                String input = gameBoyPanel.textField.getText();
+                String realInput = input.substring(18, 20);
+
+                /* model stuff */
                 System.out.println(realInput); // gives a parsable play
                 getGameBoard().realMove(realInput);
-                getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY()).setBead(player1); //sets bead at location
+                peg.setBead(player1); //sets bead at location
+                
                 /* set beads location in view */
-                gameBoyPanel.getGamePanel().setBlackBead(getGameBoard().getX(),
-                    getGameBoard().getY(),
-                    getGameBoard().getPeg(getGameBoard().getX(), getGameBoard().getY())
-                        .getPegHeight());
-
-                gameBoyPanel.getGamePanel().update(); /* repaint */
+                bBead.setBead(gameBoard.getX(),gameBoard.getY());
+                gp.update(); /* repaint */
                 player1 = true;
             }
         }
