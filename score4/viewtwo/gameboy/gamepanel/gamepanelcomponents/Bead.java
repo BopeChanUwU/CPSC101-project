@@ -17,7 +17,7 @@ public interface Bead {
      * @param x int x location
      * @param y int y location
      */
-    void setBead(int x,int y);
+    void setBead(int x,int y, int z);
 
     /**
      * gets the bead image

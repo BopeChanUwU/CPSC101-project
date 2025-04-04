@@ -41,9 +41,8 @@ public class WhiteBeadComponent extends JComponent implements Bead {
             System.err.println("White bead not found");
         }
         
-        xIndex = 50;
-        yIndex = 50;
-        setVisible(true);
+        xIndex = 10;
+        yIndex = 0;
     }
 
     /**
@@ -68,7 +67,23 @@ public class WhiteBeadComponent extends JComponent implements Bead {
      * sets the beads xIndex and yIndex
      */
     @Override
-    public void setBead(int x, int y) {
+    public void setBead(int x, int y, int z) {
+
+        switch (x) {
+            case 0 -> xIndex = 8;
+            case 1 -> xIndex = 48;
+            case 2 -> xIndex = 88;
+            case 3 -> xIndex = 128;
+            default -> throw new AssertionError();
+        }
+
+        switch (y) {
+            case 0 -> yIndex = 260 + 32 * z;
+            case 1 -> yIndex = 196 + 32 * z;
+            case 2 -> yIndex = 132 + 32 * z;
+            case 3 -> yIndex = 68 + 32 * z;
+            default -> throw new AssertionError();
+        }
 
         xIndex = x;
         yIndex = y;

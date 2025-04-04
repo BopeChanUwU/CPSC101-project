@@ -59,7 +59,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
             
             wBead[i] = new WhiteBeadComponent();
             this.add(wBead[i]);
-            wBead[i].setBounds(8, 260, 32, 32);
+            wBead[i].setBounds(wBead[i].getXIndex(), wBead[i].getYIndex(), 32, 32);
             wBead[i].setSize(32, 32);
             wBead[i].setPreferredSize(new Dimension(32, 32));
             wBead[i].setMinimumSize(new Dimension(32, 32));
