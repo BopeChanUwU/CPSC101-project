@@ -48,12 +48,6 @@ public class Controller implements ActionListener {
         return gameBoard;
     }
 
-
-    /* public GameboyPanel getGamePanel(){
-
-        return gameBoyPanel;
-    } */
-
     @Override
     public void actionPerformed(ActionEvent e) {
 
