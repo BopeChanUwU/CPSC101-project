@@ -1,6 +1,5 @@
 package score4.view.gameboy.gamepanel.gamepanelcomponents;
 
-import java.io.File;
 import java.io.IOException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,10 +33,10 @@ public class PegComponent extends JComponent{
 
         try {
 
-            peg = ImageIO.read(new File("score4/resources/misc./pegs.png"));
+            peg = ImageIO.read(getClass().getResource("resources/misc./pegs.png"));
         } catch (IOException e) {
 
-            //e.printStackTrace();
+            System.err.println("Peg not found");
         }
 
         locationX = 0;

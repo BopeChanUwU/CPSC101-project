@@ -24,6 +24,7 @@ public class GameFrame extends JFrame{
      */
     public GameFrame(){
 
+        super();
         this.initialize(gP);
     }
 

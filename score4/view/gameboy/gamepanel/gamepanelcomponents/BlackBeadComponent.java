@@ -3,7 +3,6 @@ package score4.view.gameboy.gamepanel.gamepanelcomponents;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -35,11 +34,12 @@ public class BlackBeadComponent extends JComponent implements Bead{
     public BlackBeadComponent() {
 
         try {
-            bead = ImageIO.read(new File(
-                "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/beads/Bbead.png"));  // black beads
+
+            bead = ImageIO.read(getClass()
+            .getResource("resources/beads/Wbead.png"));  // black beads
         } catch (IOException e) {
-            e.printStackTrace();
+
+            System.err.println("Black bead not found");
         }
         
         xIndex = 0;
@@ -51,7 +51,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
      * @param Graphics g rendering object
      */
     @Override
-    public void paintComponent(Graphics g) {
+    protected void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
         g2.drawImage(bead,xIndex, yIndex, beadSize, beadSize, null);

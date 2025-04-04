@@ -3,7 +3,6 @@ package score4.view.gameboy;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.TextField;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -46,6 +45,7 @@ public class GameboyPanel extends JPanel{
      */
     public GameboyPanel(){
 
+        super();
         setLayout(new BorderLayout());
         initialize();
     }
@@ -81,12 +81,12 @@ public class GameboyPanel extends JPanel{
         button.addActionListener(controller); //action event happens in controller class
 
         // gets image icon "enter" 
-        try{
-            image2 = new ImageIcon(ImageIO.read(new File(
-                "/Users/tristensandhu/Desktop/CPSC101 "+
-                "project/score4/resources/misc./enter3.png")));
+        try {
+
+            image2 = new ImageIcon(ImageIO.read(getClass().getResource("resources/enter3.png")));
         } catch (IOException e) {
-            System.out.println("This should never happen so what did you do!!!!");
+
+            System.err.println("This should never happen so what did you do!!!!");
         }
         button.setBorder(BorderFactory.createLineBorder(new Color(73,71,134)));
         button.setIcon(image2);

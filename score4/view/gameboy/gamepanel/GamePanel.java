@@ -42,18 +42,33 @@ public class GamePanel extends JPanel /* implements PanelListener */{
      */
     public GamePanel() {
 
+        super();
         setPreferredSize(new Dimension(screenWidth, screenHeight));
 
         setLayout(null);
 
         for (int i = 0; i < 32; i++) {
-            add(bBead[i] = new BlackBeadComponent());
+            
+            bBead[i] = new BlackBeadComponent();
+            bBead[i].setSize(32, 32);
+            bBead[i].setVisible(false);
+            this.add(bBead[i]);
+            bBead[i].setLocation(0, 0);
+            bBead[i].setSize(32, 32);
+            bBead[i].setPreferredSize(new Dimension(32, 32));
+            bBead[i].setMinimumSize(new Dimension(32, 32));
         }
 
         for (int i = 0; i < 32; i++) {
-            add(wBead[i] = new WhiteBeadComponent());
-            wBead[i].setPreferredSize(new Dimension(screenWidth,screenHeight));
-            wBead[i].setBounds(100, 100, 50, 50);
+            
+            wBead[i] = new WhiteBeadComponent();
+            wBead[i].setSize(32, 32);
+            wBead[i].setVisible(true);
+            this.add(wBead[i]);
+            wBead[i].setLocation(0, 0);
+            wBead[i].setSize(32, 32);
+            wBead[i].setPreferredSize(new Dimension(32, 32));
+            wBead[i].setMinimumSize(new Dimension(32, 32));
         }
 
         setVisible(true);
@@ -141,39 +156,16 @@ public class GamePanel extends JPanel /* implements PanelListener */{
      * paints the game panel 
      */
     @Override
-    public void paintComponent(Graphics g) {
+    protected  void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
         compManager.draw(g2);//tile comes before beads
 
-        //paint white beads
-        int i = 0;
-        for (WhiteBeadComponent whiteBead : wBead) {
-
-            g2.drawImage(whiteBead.getBead(), //image 
-            whiteBead.getXIndex(), // int x 
-            whiteBead.getYIndex(),  // int y 
-            whiteBead.getBeadSize(),  // int hight 
-            whiteBead.getBeadSize(),null);   // int width / img observer 
-            System.out.println(i);
-            i++;
-        }  
         System.out.println("gamepanel is painting!");
-        //paint black beads
-        /* i = 0;
-        for (BlackBeadComponent blackBead : bBead) {
 
-            g2.drawImage(blackBead.getBead(), // image 
-            blackBead.getXIndex(), // int x 
-            blackBead.getYIndex(),  // int y 
-            blackBead.getBeadSize(),  // int hight 
-            blackBead.getBeadSize(),null);   // int width / img observer 
-            i++;
-        } */
+        paintChildren(g); //paints buttons and stuff back 
 
-        paintChildren(g2); //paints buttons and stuff back 
-        g2.dispose(); //get rid of g2 for mem management
     }
 
     /**
@@ -183,15 +175,6 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     public ComponentManager passComponentManager() {
 
         return this.compManager;
-    }
-
-    /**
-     * (nothing rn) updates the position arrays for ComponentManager
-     * to move beads on screen
-     */
-    public void updateComponentManager(){
-
-        //maybe change position here and see what happens
     }
 
     /**

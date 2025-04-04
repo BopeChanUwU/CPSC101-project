@@ -1,7 +1,6 @@
 package score4.view.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.Graphics2D;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -24,12 +23,6 @@ public class ComponentManager {
     private final GamePanel gp;
     private final Tile[] tile;
     private final PegComponent pC;
-    private final WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
-
-    private int countWhite = 0;
-
-    private final int[][] xPosition = new int[2][32]; // plan store game locations to move stuff 
-    private final int[][] yPosition = new int[2][32];
 
 
     /**
@@ -44,54 +37,6 @@ public class ComponentManager {
         getTileImage();
 
         pC = new PegComponent();
-
-        for (int i = 0; i < 32; i++) {
-            wBead[i] = new WhiteBeadComponent();
-            xPosition[0][i] = wBead[i].getXIndex();
-            yPosition[0][i] = wBead[i].getYIndex();
-        }
-    }
-        
-    /**
-     * This method sets the location of a white bead on the screen
-     * @param x int x position
-     * @param y int y position
-     * @param z int z position
-     */
-    public void setWhiteBead(int x, int y, int z) {
-        
-        int x2D;
-        int y2D;
-
-        switch (x) {
-            case 0 -> { x2D = 0;
-            }
-            case 1 -> { x2D = 40;
-            }
-            case 2 -> { x2D = 80;
-            }
-            case 3 -> { x2D = 120;
-            }
-            default -> throw new AssertionError();
-        }
-
-        switch (y) {
-            case 0 -> { y2D = 0 + z*32;
-            }
-            case 1 -> { y2D = 64 + z*32;
-            }
-            case 2 -> { y2D = 128 + z*32;
-            }
-            case 3 -> { y2D = 192 + z*32;
-            }
-            default -> throw new AssertionError();
-        }
-
-        xPosition[0][countWhite] = x2D;
-        yPosition[0][countWhite] = y2D;
-
-        wBead[countWhite].setBead(x2D, y2D);
-        countWhite++;
     }
 
     /**
@@ -102,23 +47,16 @@ public class ComponentManager {
         try{
 
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new File(
-                "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/tile/Grass.png"));
+            tile[0].image = ImageIO.read(getClass().getResource("resources/tile/grass.png"));
 
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(new File(
-                "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/board/board.png"));
+            tile[1].image = ImageIO.read(getClass().getResource("resources/board/board.png"));
 
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(new File(
-                "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/misc./AIbuddy.png"));
+            tile[2].image = ImageIO.read(getClass().getResource("resources/misc./AIbuddy.png"));
         }catch(IOException e) {
 
-            System.err.println("image not found");
-            e.printStackTrace();
+            System.err.println("Component manager image not found");
         }
     }
 
@@ -188,16 +126,5 @@ public class ComponentManager {
             91,
             null); 
 
-        g2.translate(8, 260);
-        
-
-            System.out.println("bead about to paint");
-            g2.drawImage(wBead[1].getBead(), //image 
-            /* wBead[0].getXIndex() */40, // int x 
-            /* wBead[1].getYIndex() */ yPosition[0][1],  // int y 
-            wBead[1].getBeadSize(),  // int hight 
-            wBead[1].getBeadSize(),null);   // int width / img observer 
-
-        g2.dispose();
     }
 }

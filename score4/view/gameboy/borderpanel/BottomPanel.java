@@ -10,7 +10,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.awt.Color;
 
 /**
@@ -53,37 +52,31 @@ public class BottomPanel extends JPanel {
      */
     public void draw(Graphics2D g2) throws Exception {
 
-        BufferedImage image = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./tlc.png"));
+        //tlc
+        BufferedImage image = ImageIO.read(getClass().getResource("resources/tlc.png"));
         g2.drawImage(image,0,48, tileSize, -tileSize,null);
 
-        BufferedImage image2 = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./tb.png"));
+        //tb
+        BufferedImage image2 = ImageIO.read(getClass().getResource("resources/tb.png"));
         for (int i = 48; i < 576; i = i+48) {
             
             g2.drawImage(image2,i,48, tileSize, -tileSize,null);
         }
 
-        BufferedImage image3 = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./trc2.png"));
+        //trc2
+        BufferedImage image3 = ImageIO.read(getClass().getResource("resources/trc2.png"));
         g2.drawImage(image3,575,48, tileSize, -tileSize,null);
 
-        BufferedImage image4 = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./Direction.png"));
+        //Direction
+        BufferedImage image4 = ImageIO.read(getClass().getResource("resources/direction.png"));
         g2.drawImage(image4,75,150, tileSize * 3, tileSize * 3,null); 
 
-        BufferedImage image5 = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./A.png"));
+        //A
+        BufferedImage image5 = ImageIO.read(getClass().getResource("resources/A.png"));
         g2.drawImage(image5,430,225, tileSize * 12 / 10, tileSize * 12 / 10,null);
 
-        BufferedImage image6 = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./B.png"));
+        //B
+        BufferedImage image6 = ImageIO.read(getClass().getResource("resources/B.png"));
         g2.drawImage(image6,500,150, tileSize * 12 / 10, tileSize * 12 / 10,null);
     }
 
@@ -91,16 +84,19 @@ public class BottomPanel extends JPanel {
      * 
      */
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
+
         try {
+
             draw(g2);
         } catch (Exception e) {
-            //e.printStackTrace();
+
+            System.err.println("Error while drawing in BottomPanel");
         }
+
         paintChildren(g2);
-        g2.dispose();//get rid of g2 for mem management
     }
 }

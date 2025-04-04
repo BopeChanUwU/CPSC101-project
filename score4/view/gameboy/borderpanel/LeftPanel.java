@@ -1,13 +1,15 @@
 package score4.view.gameboy.borderpanel;
 
-import java.awt.Dimension;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
+
 
 /**
  * This file is part of a Score4 game
@@ -42,10 +44,9 @@ public class LeftPanel extends JPanel{
      * @throws Exception
      */
     public void draw(Graphics2D g2) throws Exception {
-        
-        BufferedImage image = ImageIO.read(new File(
-            "/Users/tristensandhu/Desktop/CPSC101 "+
-            "project/score4/resources/misc./LeftBorder.png"));
+       
+        //left border
+        BufferedImage image = ImageIO.read(getClass().getResource("resources/LeftBorder.png"));
         for (int i = 0; i < 336; i += 48) {
             
             g2.drawImage(image,0, i, tileSize, tileSize,null);
@@ -62,11 +63,12 @@ public class LeftPanel extends JPanel{
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
         
         try {
+
             draw(g2);
         } catch (Exception e) {
-            //e.printStackTrace();
+
+            System.err.println("LeftPanel not Painting");
         }
         paintChildren(g2);
-        g2.dispose();//get rid of g2 for mem management
     }
 }

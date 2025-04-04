@@ -1,16 +1,17 @@
 package score4.view.gameboy.borderpanel;
 
-import java.awt.Dimension;
+
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 /**
@@ -47,13 +48,13 @@ public class TitlePanel extends JPanel {
         add(title = new JLabel()); 
         title.setHorizontalAlignment(SwingConstants.CENTER);
         //gets image icon "little contruction boy"
-        try{
-            image = new ImageIcon(ImageIO.read(new File(
-                "/Users/tristensandhu/Desktop/CPSC101 " +
-                "project/score4/resources/misc./construction worker.png")));
+        try {
+
+            //construction worker
+            image = new ImageIcon(ImageIO.read(getClass().getResource("resources/construction worker.png")));
         } catch (IOException e) {
-            System.out.println(
-                "This should never happen so what did you do!!!!");
+            
+            System.err.println("construction worker not found");
         }
         title.setIcon(image);
     }
@@ -63,17 +64,21 @@ public class TitlePanel extends JPanel {
      * @param g2
      * @throws Exception
      */
-    public void draw(Graphics2D g2) throws Exception{
-        BufferedImage image1 = ImageIO.read(new File("/Users/tristensandhu/Desktop/CPSC101 project/score4/resources/misc./tlc.png"));
+    public void draw(Graphics2D g2) throws Exception {
+
+        //tlc
+        BufferedImage image1 = ImageIO.read(getClass().getResource("resources/tlc.png"));
         g2.drawImage(image1,0,0, tileSize, tileSize,null);
 
-        BufferedImage image2 = ImageIO.read(new File("/Users/tristensandhu/Desktop/CPSC101 project/score4/resources/misc./tb.png"));
+        //tb
+        BufferedImage image2 = ImageIO.read(getClass().getResource("resources/tb.png"));
         for (int i = 48; i < 576; i = i+48) {
             
             g2.drawImage(image2,i,0, tileSize, tileSize,null);
         }
 
-        BufferedImage image3 = ImageIO.read(new File("/Users/tristensandhu/Desktop/CPSC101 project/score4/resources/misc./trc2.png"));
+        //trc
+        BufferedImage image3 = ImageIO.read(getClass().getResource("resources/trc.png"));
         g2.drawImage(image3,575,0,this.tileSize,this.tileSize,null);
     }
 
@@ -85,12 +90,15 @@ public class TitlePanel extends JPanel {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g; //casts g from graphics to graphics 2D
+
         try {
+
             draw(g2);
         } catch (Exception e) {
-            //e.printStackTrace();
+
+            System.err.println("Error while drawing in TitlePanel");
         }
+
         paintChildren(g2);
-        g2.dispose(); //get rid of g2 for mem management
     }
 }
