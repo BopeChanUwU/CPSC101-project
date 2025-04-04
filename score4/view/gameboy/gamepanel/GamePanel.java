@@ -59,7 +59,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
             
             wBead[i] = new WhiteBeadComponent();
             this.add(wBead[i]);
-            wBead[i].setBounds(wBead[i].getXIndex(), wBead[i].getYIndex(), 32, 32);
+            wBead[i].setBounds(8, 260, 32, 32);
             wBead[i].setSize(32, 32);
             wBead[i].setPreferredSize(new Dimension(32, 32));
             wBead[i].setMinimumSize(new Dimension(32, 32));
@@ -77,6 +77,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
 
         return countWhite;
     }
+
     /**
      * This method returns the number of white beads
      * @return int number of white beads
@@ -115,11 +116,7 @@ public class GamePanel extends JPanel /* implements PanelListener */{
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
         compManager.draw(g2);//tile comes before beads
-
-        System.out.println("gamepanel is painting!");
-
         paintChildren(g); //paints buttons and stuff back 
-
     }
 
     /**

@@ -125,6 +125,5 @@ public class ComponentManager {
             -101, // width is inverted so he faces the correct direction 
             91,
             null); 
-
     }
 }

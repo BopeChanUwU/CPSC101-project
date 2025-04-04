@@ -37,7 +37,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
         try {
 
             bead = ImageIO.read(getClass()
-            .getResource("resources/beads/Wbead.png"));  // black beads
+            .getResource("resources/beads/Bbead.png"));  // black beads
         } catch (IOException e) {
 
             System.err.println("Black bead not found");
@@ -57,8 +57,12 @@ public class BlackBeadComponent extends JComponent implements Bead{
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(bead,xIndex, yIndex, beadSize, beadSize, null);
-        System.out.println("black beads painting!");
+        // Draw the image at (0, 0) relative to the component
+        if (bead != null) {
+            g2.drawImage(bead, 0, 0, beadSize, beadSize, null);
+        } else {
+            System.err.println("Bead image is null!");
+        }
     }
 
     /**
@@ -69,6 +73,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
 
         xIndex = x;
         yIndex = y;
+        setBounds(xIndex, yIndex, beadSize, beadSize);
         setVisible(true);
         repaint();
     }
