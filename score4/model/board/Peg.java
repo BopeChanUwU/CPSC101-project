@@ -80,7 +80,7 @@ public class Peg {
      */
     public void setBead(boolean player1) {
 
-        if(pegZ>=4) {
+        if(pegZ < 4) {
 
             if (player1 == true) {
             
