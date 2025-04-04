@@ -68,7 +68,7 @@ public class Controller implements ActionListener {
                 peg.setBead(player1); //sets bead at location
 
                 /* set beads location in view */
-                wBead.setBead(gameBoard.getX(),gameBoard.getY());
+                wBead.setBead(peg.getBead().getPosition3D());
                 gp.update(); /* repaint */
                 player1 = false;
             } else {    // black player
@@ -85,7 +85,7 @@ public class Controller implements ActionListener {
                 peg.setBead(player1); //sets bead at location
                 
                 /* set beads location in view */
-                bBead.setBead(gameBoard.getX(),gameBoard.getY());
+                bBead.setBead(peg.getBead().getPosition3D());
                 gp.update(); /* repaint */
                 player1 = true;
             }

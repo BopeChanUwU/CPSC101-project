@@ -1,6 +1,7 @@
 package score4.view.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.image.BufferedImage;
+import score4.model.board.Position3D;
 
 /**
  * This file is part of a Score4 game
@@ -17,7 +18,7 @@ public interface Bead {
      * @param x int x location
      * @param y int y location
      */
-    void setBead(int x,int y, int z);
+    void setBead(Position3D position);
 
     /**
      * gets the bead image

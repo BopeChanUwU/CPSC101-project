@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import score4.model.board.Position3D;
 
 /**
  * This file is part of a Score4 game
@@ -67,9 +68,9 @@ public class WhiteBeadComponent extends JComponent implements Bead {
      * sets the beads xIndex and yIndex
      */
     @Override
-    public void setBead(int x, int y, int z) {
+    public void setBead(Position3D position) {
 
-        switch (x) {
+        switch (position.getRow()) {
             case 0 -> xIndex = 8;
             case 1 -> xIndex = 48;
             case 2 -> xIndex = 88;
@@ -77,16 +78,14 @@ public class WhiteBeadComponent extends JComponent implements Bead {
             default -> throw new AssertionError();
         }
 
-        switch (y) {
-            case 0 -> yIndex = 260 + 32 * z;
-            case 1 -> yIndex = 196 + 32 * z;
-            case 2 -> yIndex = 132 + 32 * z;
-            case 3 -> yIndex = 68 + 32 * z;
+        switch (position.getColumn()) {
+            case 0 -> yIndex = 260 + 32 * position.getHeight();
+            case 1 -> yIndex = 196 + 32 * position.getHeight();
+            case 2 -> yIndex = 132 + 32 * position.getHeight();
+            case 3 -> yIndex = 68 + 32 * position.getHeight();
             default -> throw new AssertionError();
         }
 
-        xIndex = x;
-        yIndex = y;
         setBounds(xIndex, yIndex, beadSize, beadSize);
         setVisible(true);
         repaint(); 
