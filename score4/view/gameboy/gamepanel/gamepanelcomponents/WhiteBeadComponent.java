@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-import score4.view.Bead;
-
 /**
  * This file is part of a Score4 game
  *

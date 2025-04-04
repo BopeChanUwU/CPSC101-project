@@ -1,9 +1,9 @@
-package score4.view.gameboy.gamepanel.gamepanelcomponents;
+package score4.viewtwo.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
@@ -11,14 +11,14 @@ import javax.swing.JComponent;
 /**
  * This file is part of a Score4 game
  *
- * <p> Implements a BlackBeadComponent class these are the black beads
+ * <p> Implements a WhiteBeadComponent class these are the white beads
  * for the view
  *
  * @author Tristen Sandhu
  * @version 1
  */
 
-public class BlackBeadComponent extends JComponent implements Bead{
+public class WhiteBeadComponent extends JComponent implements Bead {
 
     private int xIndex;
     private int yIndex;
@@ -27,22 +27,22 @@ public class BlackBeadComponent extends JComponent implements Bead{
     private BufferedImage bead;
 
     /**
-     * constructs a BlackBeadComponent with default x and y values
+     * constructs a WhiteBeadComponent with default x and y values
      */
-    public BlackBeadComponent() {
+    public WhiteBeadComponent() {
 
         super();
         try {
 
             bead = ImageIO.read(getClass()
-            .getResource("resources/beads/Bbead.png"));  // black beads
+            .getResource("resources/beads/Wbead.png"));
         } catch (IOException e) {
 
-            System.err.println("Black bead not found");
+            System.err.println("White bead not found");
         }
         
-        xIndex = 0;
-        yIndex = 0;
+        xIndex = 50;
+        yIndex = 50;
         setVisible(true);
     }
 
@@ -51,10 +51,11 @@ public class BlackBeadComponent extends JComponent implements Bead{
      * @param Graphics g rendering object
      */
     @Override
-    protected void paintComponent(Graphics g) {
+    protected  void paintComponent(Graphics g) {
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
         // Draw the image at (0, 0) relative to the component
         if (bead != null) {
             g2.drawImage(bead, 0, 0, beadSize, beadSize, null);
@@ -73,12 +74,12 @@ public class BlackBeadComponent extends JComponent implements Bead{
         yIndex = y;
         setBounds(xIndex, yIndex, beadSize, beadSize);
         setVisible(true);
-        repaint();
+        repaint(); 
     }
 
     /**
-     * gets image of a black bead
-     * @return BufferedImage image of a black bead
+     * gets image of a white bead
+     * @return BufferedImage image of a white bead
      */
     @Override
     public BufferedImage getBead() {

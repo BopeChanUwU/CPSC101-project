@@ -1,4 +1,4 @@
-package score4.view;
+package score4.view.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.image.BufferedImage;
 

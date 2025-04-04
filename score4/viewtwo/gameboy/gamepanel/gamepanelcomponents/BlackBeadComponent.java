@@ -1,4 +1,4 @@
-package score4.view.gameboy.gamepanel.gamepanelcomponents;
+package score4.viewtwo.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
