@@ -1,5 +1,7 @@
 package score4.model.board;
 
+import java.util.ArrayList;
+
 /**
  * This file is part of a Score4 game
  *
@@ -10,9 +12,12 @@ package score4.model.board;
  */
 public class Board {
 
+    private Line lines;
     private final Peg[][] gameBoard = new Peg[4][4];
+    private final Peg peg = new Peg();
     private int x;
     private int y;
+    private ArrayList<Position3D> thePositions = new ArrayList<>();
 
     /**
      * Board constructor
@@ -23,13 +28,10 @@ public class Board {
      */
     public Board() {
 
-        for (Peg[] gameBoard1 : gameBoard) {
-
-            for (int i = 0; i < 4; i++) {
-                
-            gameBoard1[i] = new Peg();
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard[i].length; j++) {
+                gameBoard[i][j] = new Peg(i, j);
             }
-            
         }
     }
 
@@ -42,6 +44,14 @@ public class Board {
      */
     public Peg getPeg(int row, int col) {
 
+        if (row < 0 || row > 3) {
+
+            throw new IllegalArgumentException("row is out of bounds");
+        }
+        if (col < 0 || col > 3) {
+
+            throw new IllegalArgumentException("column is out of bounds");
+        }
         return gameBoard[row][col];
     }
 
@@ -76,6 +86,21 @@ public class Board {
     public Bead getColourAt(int row, int col, int hieght) {
 
         return getPeg(row, col).getBead(hieght);
+    }
+
+    public void setThePositions() {
+
+        thePositions = peg.getBead().getThePositions();
+    }
+
+    /**
+     * checks if the game is over
+     * @return boolean true if the game is over, false otherwise
+     */
+    public boolean checkWinner() {
+
+
+        return false;
     }
 
     /**
@@ -156,5 +181,4 @@ public class Board {
             }
         }
     }  
-
 }

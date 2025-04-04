@@ -14,23 +14,29 @@ package score4.model.board;
  */
 public class Peg {
 
-
     private final Bead[] pegHeight = new Bead[4];
+    private final Bead bead = new Bead();
 
-    private int currentHeight = 0;
+    private final int pegX;
+    private final int pegY;
+    private int pegZ = 0;
 
+    public Peg() {
+        
+        pegX = 0;
+        pegY = 0;
+    }
     /**
      * Peg constructor
-     * <p> This constructor initializes the peg with an array of Bead objects.
-     * <p> Each Bead object is initialized with a default constructor.
-     * <p> The peg height is set to 0.
+     * <p> This constructor initializes the Peg object with a given x and y position.
+     * <p> The Peg object is used to represent a peg on the game board.
+     * <p> The Peg class is used to keep track of the state of the game board
+     * and the position of the Beads on the Peg.
      */
-    public Peg() {
+    public Peg(int x, int y) {
 
-        for (int i = 0; i < pegHeight.length; i++) {
-
-            pegHeight[i] = new Bead(Colour.Empty);
-        }
+        pegX = x;
+        pegY = y;
     }
 
     /**
@@ -41,7 +47,21 @@ public class Peg {
      */
     public Bead getBead(int height) {
 
+        if (height < 0 || height > 3) {
+
+            throw new IllegalArgumentException("height is out of bounds");
+        }
+
         return pegHeight[height];
+    }
+
+    /**
+     * gets the bead at a given height
+     * @return Bead bead
+     */
+    public Bead getBead() {
+
+        return bead;
     }
 
     /**
@@ -50,7 +70,7 @@ public class Peg {
      */
     public int getPegHeight() {
 
-        return currentHeight;
+        return pegZ;
     }
     
     /**
@@ -60,17 +80,19 @@ public class Peg {
      */
     public void setBead(boolean player1) {
 
-        if(currentHeight>=4) {
+        if(pegZ>=4) {
 
             if (player1 == true) {
             
-                pegHeight[currentHeight].setColour(Colour.White);
-                currentHeight++;
+                pegHeight[pegZ] = new Bead(Colour.White, new Position3D(pegX, pegY, pegZ));
             } else {
 
-                pegHeight[currentHeight].setColour(Colour.Black);
-                currentHeight++;
+                pegHeight[pegZ] = new Bead(Colour.Black, new Position3D(pegX, pegY, pegZ));
             }
+            pegZ++;
+        } else {
+
+            throw new IllegalArgumentException("height is out of bounds");
         }
     }
 }
