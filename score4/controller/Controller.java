@@ -3,8 +3,8 @@ package score4.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import score4.model.Board;
-import score4.model.Peg;
+import score4.model.board.Board;
+import score4.model.board.Peg;
 import score4.view.gameboy.GameboyPanel;
 import score4.view.gameboy.gamepanel.GamePanel;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;

@@ -1,4 +1,4 @@
-package score4.model;
+package score4.model.board;
 
 /**
  * This file is part of a Score4 game
