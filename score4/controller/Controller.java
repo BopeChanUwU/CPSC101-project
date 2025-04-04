@@ -63,13 +63,14 @@ public class Controller implements ActionListener {
                 String input = gameBoyPanel.textField.getText();
                 String realInput = input.substring(18, 20);
 
+                /* model stuff */
                 System.out.println(realInput); // gives a parsable play
                 gameBoard.realMove(realInput); //gets location of peg to play on
                 peg.setBead(player1); //sets bead at location
 
                 /* set beads location in view */
                 wBead.setBead(peg.getBead().getPosition3D());
-                gp.update(); /* repaint */
+                gp.update(); // repaint 
                 player1 = false;
             } else {    // black player
 
@@ -86,7 +87,7 @@ public class Controller implements ActionListener {
                 
                 /* set beads location in view */
                 bBead.setBead(peg.getBead().getPosition3D());
-                gp.update(); /* repaint */
+                gp.update(); // repaint 
                 player1 = true;
             }
         }
