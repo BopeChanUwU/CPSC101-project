@@ -28,7 +28,7 @@ public class Controller implements ActionListener {
 
     private final GameboyPanel gameBoyPanel;
 
-    private boolean player1 = true;
+    private boolean player1;
 
     /**
      * a one parameter constructor that makes a controller for 
@@ -39,6 +39,7 @@ public class Controller implements ActionListener {
 
         gameBoyPanel = gbp;
         gameBoard = new Board();
+        player1 = true;
     }
 
     /**
@@ -66,10 +67,13 @@ public class Controller implements ActionListener {
                 /* model stuff */
                 System.out.println(realInput); // gives a parsable play
                 gameBoard.realMove(realInput); //gets location of peg to play on
-                peg.setBead(player1); //sets bead at location
+                System.out.println(gameBoard.getX() + " " + gameBoard.getY());
+                peg.setBead(player1); //sets bead at location problem
 
                 /* set beads location in view */
-                wBead.setBead(peg.getBead().getPosition3D());
+                wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
                 gp.update(); // repaint 
                 player1 = false;
             } else {    // black player
@@ -82,11 +86,14 @@ public class Controller implements ActionListener {
 
                 /* model stuff */
                 System.out.println(realInput); // gives a parsable play
-                getGameBoard().realMove(realInput);
+                gameBoard.realMove(realInput);
+                System.out.println(gameBoard.getX() + " " + gameBoard.getY());
                 peg.setBead(player1); //sets bead at location
                 
                 /* set beads location in view */
-                bBead.setBead(peg.getBead().getPosition3D());
+                bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+            
                 gp.update(); // repaint 
                 player1 = true;
             }

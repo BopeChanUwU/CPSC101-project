@@ -71,18 +71,18 @@ public class WhiteBeadComponent extends JComponent implements Bead {
     public void setBead(Position3D position) {
 
         switch (position.getRow()) {
-            case 0 -> xIndex = 8;
-            case 1 -> xIndex = 48;
-            case 2 -> xIndex = 88;
-            case 3 -> xIndex = 128;
+            case 0 -> xIndex = 8 + 40*position.getColumn();
+            case 1 -> xIndex = 128 + 40*position.getColumn();
+            case 2 -> xIndex = 248 + 40*position.getColumn();
+            case 3 -> xIndex = 368 + 40*position.getColumn();
             default -> throw new AssertionError();
         }
 
         switch (position.getColumn()) {
-            case 0 -> yIndex = 260 + 32 * position.getHeight();
-            case 1 -> yIndex = 196 + 32 * position.getHeight();
-            case 2 -> yIndex = 132 + 32 * position.getHeight();
-            case 3 -> yIndex = 68 + 32 * position.getHeight();
+            case 0 -> yIndex = 260 - 22 * position.getHeight();
+            case 1 -> yIndex = 196 - 22 * position.getHeight();
+            case 2 -> yIndex = 132 - 22 * position.getHeight();
+            case 3 -> yIndex = 68 - 22 * position.getHeight();
             default -> throw new AssertionError();
         }
 

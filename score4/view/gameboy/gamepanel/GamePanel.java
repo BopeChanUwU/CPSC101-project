@@ -19,7 +19,7 @@ import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
  * @author Tristen Sandhu
  * @version 1
  */
-public class GamePanel extends JPanel /* implements PanelListener */{
+public class GamePanel extends JPanel {
 
     private final int originalTileSize = 16;// size of each tile 
     public final int tileSize = originalTileSize*3;//real tile is 48x48

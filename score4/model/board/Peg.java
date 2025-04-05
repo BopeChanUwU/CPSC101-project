@@ -17,14 +17,13 @@ public class Peg {
     private final Bead[] pegHeight = new Bead[4];
     private final Bead bead = new Bead();
 
-    private final int pegX;
-    private final int pegY;
+    private  int pegX;
+    private  int pegY;
     private int pegZ = 0;
 
     public Peg() {
         
-        pegX = 0;
-        pegY = 0;
+        
     }
     /**
      * Peg constructor
