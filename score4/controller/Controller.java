@@ -60,9 +60,10 @@ public class Controller implements ActionListener {
 
                 GamePanel gp = gameBoyPanel.getGamePanel();
                 WhiteBeadComponent wBead = gp.getWhiteBead(gp.getCountWhite());
-                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
                 String input = gameBoyPanel.textField.getText();
                 String realInput = input.substring(18, 20);
+                gameBoard.realMove(realInput); //gets location of peg to play on
+                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
 
                 /* model stuff */
                 System.out.println(realInput); // gives a parsable play
@@ -78,15 +79,16 @@ public class Controller implements ActionListener {
                 player1 = false;
             } else {    // black player
 
-                GamePanel gp = gameBoyPanel.getGamePanel();
-                BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
-                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
                 String input = gameBoyPanel.textField.getText();
                 String realInput = input.substring(18, 20);
+                GamePanel gp = gameBoyPanel.getGamePanel();
+                BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
+                gameBoard.realMove(realInput);
+                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
 
                 /* model stuff */
                 System.out.println(realInput); // gives a parsable play
-                gameBoard.realMove(realInput);
+                
                 System.out.println(gameBoard.getX() + " " + gameBoard.getY());
                 peg.setBead(player1); //sets bead at location
                 

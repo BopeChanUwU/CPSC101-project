@@ -48,7 +48,7 @@ public class Peg {
 
         if (height < 0 || height > 3) {
 
-            throw new IllegalArgumentException("height is out of bounds");
+            throw new IllegalArgumentException("height (" + height + ") is out of bounds");
         }
 
         return pegHeight[height];

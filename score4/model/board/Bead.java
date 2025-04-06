@@ -68,7 +68,7 @@ public class Bead {
      */
     public Position3D getPosition3D() {
 
-        return position3D;
+        return this.position3D;
     }
 
     /**
