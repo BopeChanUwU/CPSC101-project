@@ -178,19 +178,15 @@ public class Line {
             for (int j = i + 1; j < beads.size(); j++) {
 
                 if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D()) 
-                    && beads.get(i).getColour() == beads.get(j).getColour()) {
+                    && Bead.coloursMatch(beads.get(i).getColour(), beads.get(j).getColour())) {
 
                     Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
-                    coloursMatch = true;
                     count = 0;
                     for (Bead bead : Bead.getTheBeads()) {
 
-                        if(bead.getColour() == beads.get(i).getColour()) {
+                        if(Bead.coloursMatch(bead.getColour(), beads.get(i).getColour()) && line.hasPosition3D(bead.getPosition3D())) {
 
                             coloursMatch = true;
-                        }
-                        if(line.hasPosition3D(bead.getPosition3D())) {
-
                             count++;
                             if(count == 4 && coloursMatch) {
 

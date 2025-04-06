@@ -143,4 +143,9 @@ public class Bead {
         }
         beadColour = colour;
     }
+
+    public static boolean coloursMatch(Colour colour1, Colour colour2) {
+
+        return colour1 == colour2;
+    }
 }
