@@ -96,12 +96,13 @@ public class Controller implements ActionListener {
                 gp.update(); // repaint 
                 gameBoyPanel.textField.setText(""); // clear text field
 
-                if(score4.model.board.Line.containsLine(Bead.getTheBeads())){
+                if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
                     System.out.println("Game Over");
                     gameBoyPanel.textField.setText("White Wins! Game Over");
                     gameBoyPanel.textField.setEditable(false);
                     return;
-                } // check if game is over
+                } 
                 player1 = false;
             } else {    // black player
 
@@ -139,12 +140,13 @@ public class Controller implements ActionListener {
                 gp.update(); // repaint 
                 gameBoyPanel.textField.setText(""); // clear text field
                 
-                if(score4.model.board.Line.containsLine(Bead.getTheBeads())){
+                if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
                     System.out.println("Game Over");
                     gameBoyPanel.textField.setText("Black Wins! Game Over");
                     gameBoyPanel.textField.setEditable(false);
                     return;
-                } // check if game is over
+                } 
                 player1 = true;
             }
         }
