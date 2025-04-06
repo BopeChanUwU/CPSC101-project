@@ -14,11 +14,11 @@ public class Bead {
 
     private Colour beadColour;
     private Position3D position3D;
-    private static ArrayList<Position3D> thePositions = new ArrayList<>();
+    private static ArrayList<Bead> theBeads = new ArrayList<>();
 
     public Bead() {
 
-        position3D = new Position3D(0, 0, 0);
+        //position3D = new Position3D(0, 0, 0);
     }
 
     /**
@@ -59,9 +59,15 @@ public class Bead {
         }
         beadColour = colour;
         this.position3D = position3D;
-        thePositions.add(position3D);
+        //theBeads.add(this);
     }
 
+    public static Bead createBead(Colour colour, Position3D position3D) {
+            
+        Bead bead = new Bead(colour, position3D);
+        theBeads.add(bead);
+        return bead;
+    }
     /**
      * Gets the position of the bead in 3D space
      * @return Position3D position3D
@@ -95,13 +101,18 @@ public class Bead {
         position3D = new Position3D(row, col, height);
     }
 
+    public void registerBead() {
+
+        theBeads.add(this);
+    }
+
     /**
      * gets the positions arraylist
      * @return ArrayList<Position3D> thePositions
      */
-    public ArrayList<Position3D> getThePositions() {
+    public static ArrayList<Bead> getTheBeads() {
 
-        return thePositions;
+        return theBeads;
     }
 
     /**

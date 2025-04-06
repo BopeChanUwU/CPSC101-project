@@ -15,7 +15,6 @@ package score4.model.board;
 public class Peg {
 
     private final Bead[] pegHeight = new Bead[4];
-    private final Bead bead = new Bead();
 
     private  int pegX;
     private  int pegY;
@@ -58,10 +57,10 @@ public class Peg {
      * gets the bead at a given height
      * @return Bead bead
      */
-    public Bead getBead() {
+/*     public Bead getBead() {
 
         return bead;
-    }
+    } */
 
     /**
      * gets the peg height
@@ -83,10 +82,11 @@ public class Peg {
 
             if (player1 == true) {
             
-                pegHeight[pegZ] = new Bead(Colour.White, new Position3D(pegX, pegY, pegZ));
+                pegHeight[pegZ] = Bead.createBead(Colour.White, new Position3D(pegX, pegY, pegZ));
+
             } else {
 
-                pegHeight[pegZ] = new Bead(Colour.Black, new Position3D(pegX, pegY, pegZ));
+                pegHeight[pegZ] = Bead.createBead(Colour.Black, new Position3D(pegX, pegY, pegZ));
             }
             pegZ++;
         } else {

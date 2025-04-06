@@ -1,6 +1,5 @@
 package score4.model.board;
 
-import java.util.ArrayList;
 
 /**
  * This file is part of a Score4 game
@@ -12,12 +11,11 @@ import java.util.ArrayList;
  */
 public class Board {
 
-    private Line lines;
+    //private Line lines;
     private final Peg[][] gameBoard = new Peg[4][4];
-    private final Peg peg = new Peg();
+    //private final Peg peg = new Peg();
     private int x;
     private int y;
-    private ArrayList<Position3D> thePositions = new ArrayList<>();
 
     /**
      * Board constructor
@@ -88,17 +86,11 @@ public class Board {
         return getPeg(row, col).getBead(hieght);
     }
 
-    public void setThePositions() {
-
-        thePositions = peg.getBead().getThePositions();
-    }
-
     /**
      * checks if the game is over
      * @return boolean true if the game is over, false otherwise
      */
     public boolean checkWinner() {
-
 
         return false;
     }

@@ -170,6 +170,41 @@ public class Line {
             ||p.equals(line[3]);
     }
 
+    public static boolean  containsLine(ArrayList<Bead> beads) {
+
+        boolean coloursMatch;
+        int count;
+        for (int i = 0 ; i < beads.size(); i++) {
+            for (int j = i + 1; j < beads.size(); j++) {
+
+                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D()) 
+                    && beads.get(i).getColour() == beads.get(j).getColour()) {
+
+                    Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
+                    coloursMatch = true;
+                    count = 0;
+                    for (Bead bead : Bead.getTheBeads()) {
+
+                        if(bead.getColour() == beads.get(i).getColour()) {
+
+                            coloursMatch = true;
+                        }
+                        if(line.hasPosition3D(bead.getPosition3D())) {
+
+                            count++;
+                            if(count == 4 && coloursMatch) {
+
+                                return true;
+                            }
+                        }
+                    }
+                } 
+            }
+        }
+        
+        return false;
+    }
+
     @Override
     public int hashCode() {
 
