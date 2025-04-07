@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import score4.controller.Controller;
+import score4.view.gameboy.controller.Controller;
 import score4.viewtwo.gameboy.borderpanel.BottomPanel;
 import score4.viewtwo.gameboy.borderpanel.LeftPanel;
 import score4.viewtwo.gameboy.borderpanel.RightPanel;
