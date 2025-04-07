@@ -2,13 +2,11 @@ package score4.viewtwo.controllertwo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import score4.controller.GameboyController;
+import score4.model.board.Bead;
 import score4.model.board.Board;
 import score4.model.board.Peg;
-import score4.viewtwo.gameboy.GameboyPanel;
 import score4.viewtwo.gameboy.gamepanel.GamePanel;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
@@ -29,7 +27,7 @@ public class ControllerTwo implements ActionListener, GameboyController {
 
     private final Board gameBoard;
 
-    private final GameboyPanel gameBoyPanel;
+    private final GamePanel gamePanel;
 
     private boolean player1;
 
@@ -38,9 +36,9 @@ public class ControllerTwo implements ActionListener, GameboyController {
      * a given GamePanel
      * @param gbp GamePanel 
      */
-    public ControllerTwo(GameboyPanel gbp) {
+    public ControllerTwo(GamePanel gp) {
 
-        gameBoyPanel = gbp;
+        gamePanel = gp;
         gameBoard = new Board();
         player1 = true;
     }
@@ -58,6 +56,745 @@ public class ControllerTwo implements ActionListener, GameboyController {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        
+        // how to get event data to tell which button was pressed
+        System.out.println("Button pressed" + e.getActionCommand());
+
+        switch (e.getActionCommand()) {
+
+            case "0" -> {
+
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(0, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(0, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "1" -> {
+
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(1, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(1, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "2" -> {
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(2, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(2, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "3" -> {
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(3, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(3, 0);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "4" -> {
+
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(0, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(0, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "5" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(1, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(1, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "6" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(2, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(2, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "7" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(3, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(3, 1);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "8" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(0, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(0, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "9" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(1, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(1, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "10" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(2, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(2, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "11" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(3, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(3, 2);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "12" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(0, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(0, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "13" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(1, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(1, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "14" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(2, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(2, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+            case "15" -> {
+                
+                if (player1) {
+
+                    //model stuff
+                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
+                    Peg peg = gameBoard.getPeg(3, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = false;
+                } else {
+
+                    //model stuff
+                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
+                    Peg peg = gameBoard.getPeg(3, 3);
+
+                    /* model stuff */
+                    peg.setBead(player1); //sets bead at location problem
+
+                    /* set beads location in view */
+                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+
+                    gamePanel.update(); // repaint 
+                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+                        System.out.println("Game Over");
+                        return;
+                    } 
+                    player1 = true;
+                }
+
+                gamePanel.repaint();
+            }
+        }
     }
 }

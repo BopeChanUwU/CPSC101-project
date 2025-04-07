@@ -3,9 +3,11 @@ package score4.viewtwo.gameboy.gamepanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.JButton;
 
 import javax.swing.JPanel;
 
+import score4.viewtwo.controllertwo.ControllerTwo;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
@@ -32,6 +34,8 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     private final WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
     private final BlackBeadComponent[] bBead = new BlackBeadComponent[32];
     private final ComponentManager compManager = new ComponentManager(this);
+    private final JButton[] buttons = new JButton[16];
+    private final ControllerTwo controller = new ControllerTwo(this);
 
     /**
      * constructs a GamePanel
@@ -48,9 +52,6 @@ public class GamePanel extends JPanel /* implements PanelListener */{
             bBead[i] = new BlackBeadComponent();
             this.add(bBead[i]);
             bBead[i].setBounds(bBead[i].getXIndex(), bBead[i].getYIndex(), 32, 32);
-            bBead[i].setSize(32, 32);
-            bBead[i].setPreferredSize(new Dimension(32, 32));
-            bBead[i].setMinimumSize(new Dimension(32, 32));
             bBead[i].setVisible(true);
         }
 
@@ -58,12 +59,39 @@ public class GamePanel extends JPanel /* implements PanelListener */{
             
             wBead[i] = new WhiteBeadComponent();
             this.add(wBead[i]);
-            wBead[i].setBounds(8, 260, 32, 32);
-            wBead[i].setSize(32, 32);
-            wBead[i].setPreferredSize(new Dimension(32, 32));
-            wBead[i].setMinimumSize(new Dimension(32, 32));
+            wBead[i].setBounds(wBead[i].getXIndex(), wBead[i].getYIndex(), 32, 32);
             setVisible(true);
         }
+
+        for (int i = 0; i < 16; i++) {
+            
+            buttons[i] = new JButton();
+            this.add(buttons[i]);
+            buttons[i].setVisible(true);
+            buttons[i].addActionListener(controller);
+            buttons[i].setActionCommand(String.valueOf(i));
+            buttons[i].setOpaque(false);
+            buttons[i].setContentAreaFilled(false);
+            buttons[i].setBorderPainted(false);
+            buttons[i].setFocusable(false);
+        }
+        //x jumps by 120 y jumps by 64
+        buttons[0].setBounds(13, 195, 21, 96); // location 0x0
+        buttons[1].setBounds(133, 195, 21, 96); // location 1x0
+        buttons[2].setBounds(253, 195, 21, 96); // location 2x0
+        buttons[3].setBounds(373, 195, 21, 96); // location 3x0
+        buttons[4].setBounds(53, 131, 21, 96); // location 0x1
+        buttons[5].setBounds(173, 131, 21, 96); // location 1x1
+        buttons[6].setBounds(293, 131, 21, 96); // location 2x1
+        buttons[7].setBounds(413, 131, 21, 96); // location 3x1
+        buttons[8].setBounds(93, 67, 21, 96); // location 0x2
+        buttons[9].setBounds(213, 67, 21, 96); // location 1x2
+        buttons[10].setBounds(333, 67, 21, 96); // location 2x2
+        buttons[11].setBounds(453, 67, 21, 96); // location 3x2
+        buttons[12].setBounds(133, 7, 21, 96); // location 0x3
+        buttons[13].setBounds(253, 7, 21, 96); // location 1x3
+        buttons[14].setBounds(373, 7, 21, 96); // location 2x3
+        buttons[15].setBounds(493, 7, 21, 96); // location 3x3
 
         setVisible(true);
     }

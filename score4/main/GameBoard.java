@@ -1,6 +1,6 @@
 package score4.main;
 
-import static score4.view.GameFrame.go;
+import static score4.viewtwo.GameFrame.go;
 /**
  * This file is part of a Score4 game
  *

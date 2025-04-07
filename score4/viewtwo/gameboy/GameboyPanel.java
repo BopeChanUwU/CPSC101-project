@@ -1,17 +1,16 @@
 package score4.viewtwo.gameboy;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+//import java.awt.Color;
 import java.awt.TextField;
-import java.io.IOException;
+//import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
+//import javax.imageio.ImageIO;
+//import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import score4.viewtwo.controllertwo.ControllerTwo;
 import score4.viewtwo.gameboy.borderpanel.BottomPanel;
 import score4.viewtwo.gameboy.borderpanel.LeftPanel;
 import score4.viewtwo.gameboy.borderpanel.RightPanel;
@@ -38,7 +37,7 @@ public class GameboyPanel extends JPanel{
 
     private ImageIcon image2;
 
-    private final ControllerTwo controller = new ControllerTwo(this);
+    //private final ControllerTwo controller = new ControllerTwo(this);
     public TextField textField = new TextField();
 
     /**
@@ -72,14 +71,14 @@ public class GameboyPanel extends JPanel{
         // create game screen 
         add(gp, BorderLayout.CENTER);
 
-        bp.add(textField);
+        /* bp.add(textField);
         textField.setBackground(new Color(159,146,189));
         textField.setFont(new java.awt.Font(TOOL_TIP_TEXT_KEY, ABORT, 
             32));
 
         JButton button = new JButton();
         bp.add(button);
-        button.addActionListener(controller); //action event happens in controller class
+        //button.addActionListener(controller); //action event happens in controller class
 
         // gets image icon "enter" 
         try {
@@ -91,7 +90,7 @@ public class GameboyPanel extends JPanel{
         }
         button.setBorder(BorderFactory.createLineBorder(new Color(73,71,134)));
         button.setIcon(image2);
-        button.setSize(64, 32);
+        button.setSize(64, 32); */
 
         setVisible(true); 
     }
