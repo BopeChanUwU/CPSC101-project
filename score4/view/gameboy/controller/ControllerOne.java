@@ -12,6 +12,7 @@ import score4.view.gameboy.GameboyPanel;
 import score4.view.gameboy.gamepanel.GamePanel;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
+import score4.controller.*;
 
 /**
  * This file is part of a Score4 game
@@ -25,7 +26,7 @@ import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
  * @version 1
  */
 //Controller exposes data and commands needed by the view (acts as bridge from V -> M)///////////////////////////////////////////
-public class Controller implements ActionListener {
+public class ControllerOne implements ActionListener, GameboyController {
 
     private final Board gameBoard;
 
@@ -38,7 +39,7 @@ public class Controller implements ActionListener {
      * a given GamePanel
      * @param gbp GamePanel 
      */
-    public Controller(GameboyPanel gbp) {
+    public ControllerOne(GameboyPanel gbp) {
 
         gameBoyPanel = gbp;
         gameBoard = new Board();
@@ -49,6 +50,7 @@ public class Controller implements ActionListener {
      * gets the game board
      * @return Board the game board
      */
+    @Override
     public Board getGameBoard() {
 
         return gameBoard;
@@ -150,4 +152,6 @@ public class Controller implements ActionListener {
             }
         }
     }
+
+    
 }

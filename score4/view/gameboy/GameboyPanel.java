@@ -15,7 +15,7 @@ import score4.view.gameboy.borderpanel.BottomPanel;
 import score4.view.gameboy.borderpanel.LeftPanel;
 import score4.view.gameboy.borderpanel.RightPanel;
 import score4.view.gameboy.borderpanel.TitlePanel;
-import score4.view.gameboy.controller.Controller;
+import score4.view.gameboy.controller.ControllerOne;
 import score4.view.gameboy.gamepanel.*;
 
 /**
@@ -38,7 +38,7 @@ public class GameboyPanel extends JPanel{
 
     private ImageIcon image2;
 
-    private final Controller controller = new Controller(this);
+    private final ControllerOne controller = new ControllerOne(this);
     public TextField textField = new TextField();
 
     /**
