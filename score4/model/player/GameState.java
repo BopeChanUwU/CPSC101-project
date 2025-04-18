@@ -33,6 +33,17 @@ public class GameState {
     private final int maxTurns = 32;
     private final int maxTurnsPerMove = 1;
 
+    /**
+     * Constructor for the GameState class
+     * initializes the game state to default values
+     * sets the game to not over, not a draw, and no winner
+     * sets the turn to 0 (white)
+     * initializes the board history to an empty board
+     * initializes the board to an empty board
+     * initializes the last move to an empty move
+     * initializes the move count to 0
+     * <p>
+     */
     public GameState() {
         isOver = false;
         isDraw = false;
@@ -44,34 +55,71 @@ public class GameState {
         moveCount = 0;
     }
 
+    /**
+     * sets the game state to over
+     * @param isOver true if game is over
+     * false if game is not over
+     */
     public void setGameOver(boolean isOver) {
         this.isOver = isOver;
     }
 
+    /**
+     * gets the game state
+     * @return true if game is over
+     * false if game is not over
+     */
     public boolean isGameOver() {
         return isOver;
     }
 
+    /**
+     * Sets game status to draw
+     * @param isDraw true if game is a draw
+     */
     public void setDraw(boolean isDraw) {
         this.isDraw = isDraw;
     }
 
+    /**
+     * checks if game is a draw
+     * @return true if game is a draw
+     * false if game is not a draw
+     */
     public boolean isDraw() {
         return isDraw;
     }
 
+    /**
+     * sets the winner of the game
+     * @param winner the winner of the game
+     * 0 = white, 1 = black
+     */
     public void setWinner(int winner) {
         this.winner = winner;
     }
 
+    /**
+     * gets the winner of the game
+     * @return the winner of the game
+     * 0 = white, 1 = black
+     */
     public int getWinner() {
         return winner;
     }
 
+    /**
+     * sets the current turn of the game
+     * @param turn the current turn of the game
+     */
     public void setTurn(int turn) {
         this.turn = turn;
     }
 
+    /**
+     * gets the current turn of the game
+     * @return the current turn of the game
+     */
     public int getTurn() {
         return turn;
     }
