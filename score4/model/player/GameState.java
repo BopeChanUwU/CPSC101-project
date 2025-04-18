@@ -1,5 +1,24 @@
 package score4.model.player;
+/**
+ * This file is part of a Score4 game
+ *
+ * <p> 
+ * This class represents the state of the game. It contains information about
+ * the game board, the current turn, and whether the game is over or a draw.
+ * It also keeps track of the history of moves made during the game.
+ * <p>
+ * The class provides methods to set and get the game state, including the
+ * current turn, winner, and whether the game is over or a draw. It also
+ * provides methods to set and get the game board and the last move made.
+ * <p>
+ * This class is used by the GameboyController to manage the game state
+ * and by the GameboyView to display the game state to the user.
+ * <p>
+ *
+ * @author Tristen Sandhu
 
+ * @version 1
+ */
 public class GameState {
 
     boolean isOver; // game is over
@@ -25,5 +44,35 @@ public class GameState {
         moveCount = 0;
     }
 
+    public void setGameOver(boolean isOver) {
+        this.isOver = isOver;
+    }
 
+    public boolean isGameOver() {
+        return isOver;
+    }
+
+    public void setDraw(boolean isDraw) {
+        this.isDraw = isDraw;
+    }
+
+    public boolean isDraw() {
+        return isDraw;
+    }
+
+    public void setWinner(int winner) {
+        this.winner = winner;
+    }
+
+    public int getWinner() {
+        return winner;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public int getTurn() {
+        return turn;
+    }
 }
