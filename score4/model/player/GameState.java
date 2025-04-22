@@ -32,6 +32,8 @@ public class GameState {
     private final int maxMoves = 64;
     private final int maxTurns = 32;
     private final int maxTurnsPerMove = 1;
+    //need to find a way to copy board state (convert from board with pegs to int[][][])
+    /* IDEA!!! have move both update game state and game view (via model) */
 
     /**
      * Constructor for the GameState class

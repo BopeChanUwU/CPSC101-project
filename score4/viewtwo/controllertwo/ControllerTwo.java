@@ -2,7 +2,6 @@ package score4.viewtwo.controllertwo;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import score4.controller.GameboyController;
 import score4.model.board.Bead;
 import score4.model.board.Board;
@@ -22,7 +21,6 @@ import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 
  * @version 1
  */
-//Controller exposes data and commands needed by the view (acts as bridge from V -> M)///////////////////////////////////////////
 public class ControllerTwo implements ActionListener, GameboyController {
 
     private final Board gameBoard;
@@ -56,9 +54,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // how to get event data to tell which button was pressed
-        System.out.println("Button pressed" + e.getActionCommand());
-
         switch (e.getActionCommand()) {
 
             case "0" -> {
@@ -77,11 +72,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -97,11 +87,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -123,11 +108,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -143,11 +123,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -167,12 +142,7 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
-                    gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
+                    gamePanel.update(); // repaint  
                     player1 = false;
                 } else {
 
@@ -188,11 +158,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -213,11 +178,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -233,11 +193,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -259,11 +214,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -279,11 +229,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -305,11 +250,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -325,11 +265,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -351,11 +286,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -371,11 +301,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -397,11 +322,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -417,11 +337,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -443,11 +358,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -463,11 +373,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -489,11 +394,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -509,11 +409,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -535,11 +430,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -555,11 +445,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -581,11 +466,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -601,11 +481,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -627,11 +502,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -647,11 +517,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -673,11 +538,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -693,11 +553,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -719,11 +574,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -739,11 +589,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
@@ -765,11 +610,6 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = false;
                 } else {
 
@@ -785,16 +625,19 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
 
                     gamePanel.update(); // repaint 
-                    if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                        System.out.println("Game Over");
-                        return;
-                    } 
                     player1 = true;
                 }
 
                 gamePanel.repaint();
             }
         }
+        if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+
+            //add win screen
+            //find way to check if player1 or player2 won
+            //System.out.println("Player 1 wins");
+            //System.out.println("Player 2 wins");
+            System.out.println("Game Over");
+        } 
     }
 }
