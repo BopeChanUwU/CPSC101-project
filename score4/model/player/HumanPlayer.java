@@ -23,7 +23,7 @@ public class HumanPlayer implements Player{
 
         if(n<0 || n>2){
 
-            throw new IllegalArgumentException("this is a 2 player dumby not a " + n + " player game");
+            throw new IllegalArgumentException("this is a 2 player game dumb dumb not a " + n + " player game");
         } else if( n == 1) {
 
             beadColour = Colour.White;
@@ -44,20 +44,20 @@ public class HumanPlayer implements Player{
     }
 
     /**
-     * 
+     * updates the model with the players selected move
      */
     @Override
-    public void move() {
+    public void move(int x) {
 
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        //this should update model stuff
     }
 
     /**
      * gets a Move recommended by the AI
      */
     @Override
-    public void getMove() {
+    public int getMove() {
         
-        throw new UnsupportedOperationException("Unimplemented method 'getMove'");
+        return 1;
     }
 }

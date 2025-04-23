@@ -13,10 +13,10 @@ public interface Player {
     /**
      * 
      */
-    public void move();
+    public void move(int x);
 
     /**
      * gets a Move recommended by the AI
      */
-    public void getMove(); //gets a move recommended by the AI
+    public int getMove(); //gets a move recommended by the AI
 }

@@ -1,4 +1,7 @@
 package score4.model.player;
+
+import score4.model.board.Board;
+
 /**
  * This file is part of a Score4 game
  *
@@ -21,18 +24,15 @@ package score4.model.player;
  */
 public class GameState {
 
-    boolean isOver; // game is over
-    boolean isDraw;
-    int winner;
-    int turn; // 0 = white, 1 = black
-    int[][][] boardHistory;
-    int[][][] board;
-    int[] lastMove;
-    int moveCount;
+    private boolean isOver; // game is over
+    private boolean draw;
+    private int winner;
+    private int turn; // 0 = white, 1 = black
+    private final Board gameBoard;
+    private int[] lastMove; // not sure how to store this right now
+    private int moveCount = 0;
     private final int maxMoves = 64;
     private final int maxTurns = 32;
-    private final int maxTurnsPerMove = 1;
-    //need to find a way to copy board state (convert from board with pegs to int[][][])
     /* IDEA!!! have move both update game state and game view (via model) */
 
     /**
@@ -48,13 +48,20 @@ public class GameState {
      */
     public GameState() {
         isOver = false;
-        isDraw = false;
+        draw = false;
         winner = -1;
         turn = 0;
-        boardHistory = new int[maxTurns][maxMoves][2];
-        board = new int[4][4][2];
+        gameBoard = new Board();
         lastMove = new int[2];
-        moveCount = 0;
+    }
+
+    /**
+     * gets the current game board
+     * @return returns the current board
+     */
+    public Board getBoard() {
+
+        return gameBoard;
     }
 
     /**
@@ -79,8 +86,12 @@ public class GameState {
      * Sets game status to draw
      * @param isDraw true if game is a draw
      */
-    public void setDraw(boolean isDraw) {
-        this.isDraw = isDraw;
+    public void setDraw(int x) {
+        
+        if (x > maxMoves ) {
+
+            draw = true;
+        }
     }
 
     /**
@@ -89,7 +100,8 @@ public class GameState {
      * false if game is not a draw
      */
     public boolean isDraw() {
-        return isDraw;
+
+        return draw;
     }
 
     /**

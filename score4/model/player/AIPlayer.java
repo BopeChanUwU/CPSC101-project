@@ -36,21 +36,21 @@ public class AIPlayer implements Player {
     }
 
     /**
-     * gets a Move recommended by the AI
+     * updates the model with the AI's move 
      */
     @Override
-    public void move() {
+    public void move(int x) {
         
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        //should update model stuff
     }
 
     /**
      * gets a Move recommended by the AI
      */
     @Override
-    public void getMove() {
+    public int getMove() {
         
-        throw new UnsupportedOperationException("Unimplemented method 'getMove'");
+        return 1;
     }
 
 }

@@ -1,9 +1,7 @@
 package score4.viewtwo;
 
 import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
-
 import score4.viewtwo.gameboy.GameboyPanel;
 
 /**
@@ -34,7 +32,7 @@ public class GameFrame extends JFrame{
      */
     public static void go(){
 
-        GameFrame game = new GameFrame(); 
+        new GameFrame(); 
     }
 
     /**
