@@ -1,10 +1,9 @@
 package score4.viewtwo.gameboy.gamepanel.gamepanelcomponents;
 
-import java.io.IOException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
@@ -25,6 +24,7 @@ public class PegComponent extends JComponent{
     private final int pegSizeY = 96;
 
     private BufferedImage peg;
+    private BufferedImage pegFocused;
 
     /**
      * constructs a peg with default start locations
@@ -34,6 +34,7 @@ public class PegComponent extends JComponent{
         try {
 
             peg = ImageIO.read(getClass().getResource("resources/misc./pegs.png"));
+            pegFocused = ImageIO.read(getClass().getResource("resources/misc./pegFocused.png"));
         } catch (IOException e) {
 
             System.err.println("Peg not found");
@@ -50,6 +51,15 @@ public class PegComponent extends JComponent{
     public BufferedImage getPeg() {
 
         return peg;
+    }
+
+    /**
+     * gets the image of the peg to the focused image
+     * @return BufferedImage pegFocused
+     */
+    public BufferedImage getPegFocused() {
+
+        return pegFocused;
     }
 
     /**
