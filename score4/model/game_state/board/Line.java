@@ -1,7 +1,9 @@
-package score4.model.board;
+package score4.model.game_state.board;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
+import score4.model.player.Bead;
 
 /**
  * This file is part of a Score4 game

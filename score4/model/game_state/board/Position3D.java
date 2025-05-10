@@ -1,4 +1,4 @@
-package score4.model.board;
+package score4.model.game_state.board;
 
 import java.util.Objects;
 import java.util.regex.Matcher;

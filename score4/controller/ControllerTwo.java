@@ -1,11 +1,11 @@
-package score4.viewtwo.controllertwo;
+package score4.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import score4.controller.GameboyController;
-import score4.model.board.Bead;
-import score4.model.board.Board;
-import score4.model.board.Peg;
+
+import score4.model.game_state.board.Board;
+import score4.model.game_state.board.Peg;
+import score4.model.player.Bead;
 import score4.viewtwo.gameboy.gamepanel.GamePanel;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
@@ -631,7 +631,7 @@ public class ControllerTwo implements ActionListener, GameboyController {
                 gamePanel.repaint();
             }
         }
-        if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+        if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
 
             //add win screen
             //find way to check if player1 or player2 won

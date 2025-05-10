@@ -1,4 +1,8 @@
-package score4.model.board;
+package score4.model.game_state.board;
+
+import score4.model.player.Bead;
+import score4.model.player.Colour;
+import score4.model.player.Player;
 
 /**
  * This file is part of a Score4 game
@@ -14,16 +18,12 @@ package score4.model.board;
  */
 public class Peg {
 
-    private final Bead[] pegHeight = new Bead[4];
+    private Bead[] pegHeight = new Bead[4];
 
-    private  int pegX;
-    private  int pegY;
+    //private  int pegX;
+    //private  int pegY;
     private int pegZ = 0;
 
-    public Peg() {
-        
-        
-    }
     /**
      * Peg constructor
      * <p> This constructor initializes the Peg object with a given x and y position.
@@ -31,10 +31,10 @@ public class Peg {
      * <p> The Peg class is used to keep track of the state of the game board
      * and the position of the Beads on the Peg.
      */
-    public Peg(int x, int y) {
+    public Peg() {
 
-        pegX = x;
-        pegY = y;
+        //pegX = x;
+        //pegY = y;
     }
 
     /**
@@ -66,32 +66,18 @@ public class Peg {
      * gets the peg height
      * @return int peg height
      */
-    public int getPegHeight() {
+    public Bead[] getPegHeight() {
+
+        return pegHeight;
+    }
+
+    public int getPegZ() {
 
         return pegZ;
     }
-    
-    /**
-     * sets the bead at a given height
-     * @param player1 boolean player1
-     * @throws IllegalArgumentException if height is out of bounds
-     */
-    public void setBead(boolean player1) {
 
-        if(pegZ < 4) {
+    public void increasePegZ() {
 
-            if (player1 == true) {
-            
-                pegHeight[pegZ] = Bead.createBead(Colour.White, new Position3D(pegX, pegY, pegZ));
-
-            } else {
-
-                pegHeight[pegZ] = Bead.createBead(Colour.Black, new Position3D(pegX, pegY, pegZ));
-            }
-            pegZ++;
-        } else {
-
-            throw new IllegalArgumentException("height is out of bounds");
-        }
+        pegZ++;
     }
 }

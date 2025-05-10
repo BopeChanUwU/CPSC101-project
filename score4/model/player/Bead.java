@@ -1,6 +1,8 @@
-package score4.model.board;
+package score4.model.player;
 
 import java.util.ArrayList;
+
+import score4.model.game_state.board.Position3D;
 
 /**
  * This file is part of a Score4 game
@@ -16,11 +18,6 @@ public class Bead {
     private Position3D position3D;
     private static ArrayList<Bead> theBeads = new ArrayList<>();
 
-    public Bead() {
-
-        //position3D = new Position3D(0, 0, 0);
-    }
-
     /**
      * Constructor for the Bead class
      * @param colour Colour of the bead
@@ -33,12 +30,12 @@ public class Bead {
 
             throw new IllegalArgumentException("colour cannot be null");
         }
-        if(position3D == null) {
+        /* if(position3D == null) {
 
             throw new IllegalArgumentException("position3D cannot be null");
-        }
+        } */
         beadColour = colour;
-        position3D = new Position3D(0, 0, 0);
+        //position3D = new Position3D(0, 0, 0);
     }
 
     /**

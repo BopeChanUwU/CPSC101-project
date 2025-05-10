@@ -1,6 +1,8 @@
-package score4.model.player;
+package score4.model.game_state;
 
-import score4.model.board.Board;
+import score4.model.game_state.board.Board;
+import score4.model.player.AIPlayer;
+import score4.model.player.HumanPlayer;
 
 /**
  * This file is part of a Score4 game
@@ -24,11 +26,11 @@ import score4.model.board.Board;
  */
 public class GameState {
 
-    private boolean isOver; // game is over
-    private boolean draw;
-    private int winner;
-    private int turn; // 0 = white, 1 = black
-    private final Board gameBoard;
+    private boolean isOver = false;
+    private boolean draw = false;
+    private boolean win = false;
+    private int turn = 0;
+    private Board gameBoard;
     private int[] lastMove; // not sure how to store this right now
     private int moveCount = 0;
     private final int maxMoves = 64;
@@ -46,13 +48,16 @@ public class GameState {
      * initializes the move count to 0
      * <p>
      */
-    public GameState() {
-        isOver = false;
-        draw = false;
-        winner = -1;
-        turn = 0;
+    public GameState(HumanPlayer player1, HumanPlayer player2) {
+
         gameBoard = new Board();
-        lastMove = new int[2];
+        lastMove = new int[2]; // ? whats my plan with this ? 
+    }
+
+    public GameState(HumanPlayer player1, AIPlayer player2) {
+
+        gameBoard = new Board();
+        lastMove = new int[2]; // ? whats my plan with this ? 
     }
 
     /**
@@ -86,12 +91,9 @@ public class GameState {
      * Sets game status to draw
      * @param isDraw true if game is a draw
      */
-    public void setDraw(int x) {
+    public void setDraw() {
         
-        if (x > maxMoves ) {
-
-            draw = true;
-        }
+        draw = true; 
     }
 
     /**
@@ -106,28 +108,27 @@ public class GameState {
 
     /**
      * sets the winner of the game
-     * @param winner the winner of the game
-     * 0 = white, 1 = black
+     * @param player HumanPlayer the winner of the game
      */
-    public void setWinner(int winner) {
-        this.winner = winner;
+    public void setWinner(HumanPlayer player) {
+
+        player.setnumWin();
     }
 
     /**
-     * gets the winner of the game
-     * @return the winner of the game
-     * 0 = white, 1 = black
+     * sets the current turn of the game if turns are greater than 
+     * maxMoves sets draw to true
+     * @param turn int the current turn of the game
      */
-    public int getWinner() {
-        return winner;
-    }
+    public void setTurn() {
 
-    /**
-     * sets the current turn of the game
-     * @param turn the current turn of the game
-     */
-    public void setTurn(int turn) {
-        this.turn = turn;
+        if(turn <= maxMoves) {
+
+            turn += 1;
+        } else {
+
+            setDraw();
+        }
     }
 
     /**
@@ -135,6 +136,20 @@ public class GameState {
      * @return the current turn of the game
      */
     public int getTurn() {
+
         return turn;
+    }
+
+    /**
+     * resets the game state to defaults
+     */
+    public void resetGameState(){
+
+        isOver = false;
+        draw = false;
+        win = false; 
+        turn = 0;
+        gameBoard = new Board();
+        moveCount = 0;
     }
 }

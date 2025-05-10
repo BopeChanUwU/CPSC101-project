@@ -1,5 +1,6 @@
-package score4.model.board;
+package score4.model.game_state.board;
 
+import score4.model.player.Bead;
 
 /**
  * This file is part of a Score4 game
@@ -11,9 +12,7 @@ package score4.model.board;
  */
 public class Board {
 
-    //private Line lines;
     private final Peg[][] gameBoard = new Peg[4][4];
-    //private final Peg peg = new Peg();
     private int x;
     private int y;
 
@@ -26,9 +25,9 @@ public class Board {
      */
     public Board() {
 
-        for (int i = 0; i < gameBoard.length; i++) {
-            for (int j = 0; j < gameBoard[i].length; j++) {
-                gameBoard[i][j] = new Peg(i, j);
+        for (Peg[] gameBoard1 : gameBoard) {
+            for (int j = 0; j < gameBoard1.length; j++) {
+                gameBoard1[j] = new Peg();
             }
         }
     }

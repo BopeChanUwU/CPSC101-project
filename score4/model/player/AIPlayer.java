@@ -1,10 +1,13 @@
 package score4.model.player;
 
-import score4.model.board.Colour;
+import score4.model.game_state.GameState;
 
 public class AIPlayer implements Player {
     
     private Colour beadColour;
+    //private Bead bead;
+    private int numWins = 0;
+    private boolean isCurrentPlayer;
 
     /**
      * AIPlayer constructor
@@ -13,19 +16,25 @@ public class AIPlayer implements Player {
      */
     public AIPlayer(int n) {
 
-        if(n<0 || n>2){
+        if(n<=0 || n>2){
 
             throw new IllegalArgumentException("this is a 2 player dumby not a " + n + " player game");
         } else if( n == 1) {
 
             beadColour = Colour.White;
+            isCurrentPlayer = true;
         } else {
 
             beadColour = Colour.Black;
+            isCurrentPlayer = false;
         }
         
     }
 
+    public void setnumWin(){
+
+        numWins += 1;
+    }
     /**
      * gets the bead colour
      * @return Colour beadColour
@@ -39,8 +48,9 @@ public class AIPlayer implements Player {
      * updates the model with the AI's move 
      */
     @Override
-    public void move(int x) {
+    public void move(int x, int y, GameState currentState) {
         
+        isCurrentPlayer = false;
         //should update model stuff
     }
 

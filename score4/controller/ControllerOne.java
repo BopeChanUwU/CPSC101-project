@@ -1,18 +1,17 @@
-package score4.view.gameboy.controller;
+package score4.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import score4.model.board.Bead;
 
-import score4.model.board.Board;
-import score4.model.board.Peg;
 import score4.view.gameboy.GameboyPanel;
 import score4.view.gameboy.gamepanel.GamePanel;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
-import score4.controller.*;
+import score4.model.game_state.board.Board;
+import score4.model.game_state.board.Peg;
+import score4.model.player.Bead;
 
 /**
  * This file is part of a Score4 game
@@ -97,7 +96,7 @@ public class ControllerOne implements ActionListener, GameboyController {
                 gp.update(); // repaint 
                 gameBoyPanel.textField.setText(""); // clear text field
 
-                if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+                if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
 
                     System.out.println("Game Over");
                     gameBoyPanel.textField.setText("White Wins! Game Over");
@@ -141,7 +140,7 @@ public class ControllerOne implements ActionListener, GameboyController {
                 gp.update(); // repaint 
                 gameBoyPanel.textField.setText(""); // clear text field
                 
-                if(score4.model.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+                if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
 
                     System.out.println("Game Over");
                     gameBoyPanel.textField.setText("Black Wins! Game Over");

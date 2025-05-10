@@ -2,13 +2,12 @@ package score4.viewtwo.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.io.IOException;
 import java.awt.image.BufferedImage;
-
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
-import score4.model.board.Position3D;
+import score4.model.game_state.board.Position3D;
 
 /**
  * This file is part of a Score4 game

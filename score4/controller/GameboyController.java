@@ -1,6 +1,6 @@
 package score4.controller;
 
-import score4.model.board.Board;
+import score4.model.game_state.board.Board;
 
 public interface GameboyController {
 

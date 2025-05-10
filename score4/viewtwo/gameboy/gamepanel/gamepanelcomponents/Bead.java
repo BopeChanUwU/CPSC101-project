@@ -1,7 +1,8 @@
 package score4.viewtwo.gameboy.gamepanel.gamepanelcomponents;
 
 import java.awt.image.BufferedImage;
-import score4.model.board.Position3D;
+
+import score4.model.game_state.board.Position3D;
 
 /**
  * This file is part of a Score4 game

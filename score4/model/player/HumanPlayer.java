@@ -1,6 +1,11 @@
 package score4.model.player;
 
-import score4.model.board.Colour;
+//import score4.model.game_state.board.Position3D;
+
+import score4.model.game_state.GameState;
+import score4.model.game_state.board.Peg;
+import score4.model.game_state.board.Position3D;
+
 
 /**
  * This file is part of a Score4 game
@@ -10,9 +15,12 @@ import score4.model.board.Colour;
  * @author Tristen Sandhu
  * @version 1
  */
-public class HumanPlayer implements Player{
+public class HumanPlayer implements Player {
 
     private Colour beadColour;
+    //private Bead bead;
+    private int numWins = 0;
+    private boolean isCurrentPlayer;
     
     /**
      * HumanPlayer constructor
@@ -21,17 +29,23 @@ public class HumanPlayer implements Player{
      */
     public HumanPlayer(int n) {
 
-        if(n<0 || n>2){
+        if(n<=0 || n>2){
 
             throw new IllegalArgumentException("this is a 2 player game dumb dumb not a " + n + " player game");
         } else if( n == 1) {
 
             beadColour = Colour.White;
+            isCurrentPlayer = true;
         } else {
 
             beadColour = Colour.Black;
+            isCurrentPlayer = false;
         }
-        
+    }
+
+    public void setnumWin(){
+
+        numWins += 1;
     }
 
     /**
@@ -47,9 +61,34 @@ public class HumanPlayer implements Player{
      * updates the model with the players selected move
      */
     @Override
-    public void move(int x) {
+    public void move(int x, int y, GameState currentState) {
 
-        //this should update model stuff
+        Peg peg = currentState.getBoard().getPeg(x,y);
+        if(x < 0 || x > 3) {
+
+            throw new IllegalArgumentException("x is out of bounds");
+        }
+        if(y < 0 || y > 3) {
+
+            throw new IllegalArgumentException("y is out of bounds");
+        }
+        if(peg.getPegZ() < 4) {
+            
+            switch (beadColour) {
+                case White -> {
+                        Bead[] pegHeight = peg.getPegHeight();
+                        pegHeight[peg.getPegZ()] = Bead.createBead(Colour.White, new Position3D(x, y, peg.getPegZ()));
+                    }
+                case Black -> {
+                        Bead[] pegHeight = peg.getPegHeight();
+                        pegHeight[peg.getPegZ()] = Bead.createBead(Colour.Black, new Position3D(x, y, peg.getPegZ()));
+                    }
+                default -> throw new IllegalArgumentException("height is out of bounds");
+            }
+            peg.increasePegZ();
+        }
+        isCurrentPlayer = false;
+        //how do i change other players isCurrentPlayer to true?
     }
 
     /**

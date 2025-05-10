@@ -7,7 +7,7 @@ import javax.swing.JButton;
 
 import javax.swing.JPanel;
 
-import score4.viewtwo.controllertwo.ControllerTwo;
+import score4.controller.ControllerTwo;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;

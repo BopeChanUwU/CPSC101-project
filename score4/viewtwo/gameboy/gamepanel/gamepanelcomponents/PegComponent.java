@@ -25,6 +25,7 @@ public class PegComponent extends JComponent{
 
     private BufferedImage peg;
     private BufferedImage pegFocused;
+    private BufferedImage currentImage;
 
     /**
      * constructs a peg with default start locations
@@ -35,6 +36,7 @@ public class PegComponent extends JComponent{
 
             peg = ImageIO.read(getClass().getResource("resources/misc./pegs.png"));
             pegFocused = ImageIO.read(getClass().getResource("resources/misc./pegFocused.png"));
+            currentImage = peg;
         } catch (IOException e) {
 
             System.err.println("Peg not found");
@@ -44,6 +46,17 @@ public class PegComponent extends JComponent{
         locationY = 0;
     }
     
+    public void setCurrentImage(boolean focused) {
+
+        if(focused) {
+
+            currentImage = pegFocused;
+        } else {
+
+            currentImage = peg;
+        }
+
+    }
     /**
      * gets the image of the peg
      * @return BufferedImage peg
@@ -70,7 +83,7 @@ public class PegComponent extends JComponent{
     public void paintComponent(Graphics g) {
 
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(peg,locationX, locationY, pegSizeX, pegSizeY, null);
+        g2.drawImage(currentImage,locationX, locationY, pegSizeX, pegSizeY, null);
     }
 
     /**

@@ -11,11 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import score4.controller.ControllerOne;
 import score4.view.gameboy.borderpanel.BottomPanel;
 import score4.view.gameboy.borderpanel.LeftPanel;
 import score4.view.gameboy.borderpanel.RightPanel;
 import score4.view.gameboy.borderpanel.TitlePanel;
-import score4.view.gameboy.controller.ControllerOne;
 import score4.view.gameboy.gamepanel.*;
 
 /**
