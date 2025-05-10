@@ -4,9 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JButton;
-
 import javax.swing.JPanel;
-
 import score4.viewtwo.controllertwo.ControllerTwo;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
