@@ -1,11 +1,8 @@
 package score4.model.player;
 
-//import score4.model.game_state.board.Position3D;
-
 import score4.model.game_state.GameState;
 import score4.model.game_state.board.Peg;
 import score4.model.game_state.board.Position3D;
-
 
 /**
  * This file is part of a Score4 game

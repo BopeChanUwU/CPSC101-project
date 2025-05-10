@@ -1,8 +1,6 @@
 package score4.model.game_state.board;
 
 import score4.model.player.Bead;
-import score4.model.player.Colour;
-import score4.model.player.Player;
 
 /**
  * This file is part of a Score4 game
@@ -18,7 +16,7 @@ import score4.model.player.Player;
  */
 public class Peg {
 
-    private Bead[] pegHeight = new Bead[4];
+    private final Bead[] pegHeight = new Bead[4];
 
     //private  int pegX;
     //private  int pegY;
