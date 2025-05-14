@@ -4,14 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import score4.model.game_state.board.Board;
+import score4.model.game_state.board.Peg;
+import score4.model.player.Bead;
 import score4.view.gameboy.GameboyPanel;
 import score4.view.gameboy.gamepanel.GamePanel;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
-import score4.model.game_state.board.Board;
-import score4.model.game_state.board.Peg;
-import score4.model.player.Bead;
 
 /**
  * This file is part of a Score4 game
@@ -87,11 +86,11 @@ public class ControllerOne implements ActionListener, GameboyController {
                 System.out.println(input); // gives a parsable play
                 gameBoard.realMove(input); //gets location of peg to play on
                 System.out.println(gameBoard.getX() + " " + gameBoard.getY());
-                peg.setBead(player1); //sets bead at location problem
+                /* peg.setBead(player1); */ //sets bead at location 
 
                 /* set beads location in view */
-                wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                /* wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D()); */
 
                 gp.update(); // repaint 
                 gameBoyPanel.textField.setText(""); // clear text field
@@ -131,11 +130,11 @@ public class ControllerOne implements ActionListener, GameboyController {
                 System.out.println(input); // gives a parsable play
                 
                 System.out.println(gameBoard.getX() + " " + gameBoard.getY());
-                peg.setBead(player1); //sets bead at location
+                /* peg.setBead(player1); */ //sets bead at location
                 
                 /* set beads location in view */
-                bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                /* bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D()); */
             
                 gp.update(); // repaint 
                 gameBoyPanel.textField.setText(""); // clear text field
