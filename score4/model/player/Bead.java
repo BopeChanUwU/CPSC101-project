@@ -1,7 +1,6 @@
 package score4.model.player;
 
 import java.util.ArrayList;
-
 import score4.model.game_state.board.Position3D;
 
 /**
@@ -12,7 +11,7 @@ import score4.model.game_state.board.Position3D;
  * @author Tristen Sandhu
  * @version 1
  */
-public class Bead {
+public class Bead implements Cloneable {
 
     private Colour beadColour;
     private Position3D position3D;
@@ -98,6 +97,9 @@ public class Bead {
         position3D = new Position3D(row, col, height);
     }
 
+    /**
+     * this method adds newly created beads to the beads array list
+     */
     public void registerBead() {
 
         theBeads.add(this);
@@ -141,8 +143,25 @@ public class Bead {
         beadColour = colour;
     }
 
+    /**
+     * checks to see if the coulours of the beads match
+     * @param colour1 Colour the colour to compare to
+     * @param colour2 Colour the colour you want to compare
+     * @return Boolean true if the colours match false if they dont
+     */
     public static boolean coloursMatch(Colour colour1, Colour colour2) {
 
         return colour1 == colour2;
+    }
+
+    /**
+     * clones the Bead object
+     * @return Bead clone
+     * @throws CloneNotSupportedException if the object cannot be cloned
+     */
+    @Override
+    public Bead clone() throws CloneNotSupportedException {
+
+        return (Bead) super.clone();
     }
 }

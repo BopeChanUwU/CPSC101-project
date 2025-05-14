@@ -17,8 +17,5 @@ public interface Player {
      */
     public void move(int x, int y, GameState currentState); //updates the model with the players selected move
 
-    /**
-     * gets a Move recommended by the AI
-     */
-    public int getMove(); //gets a move recommended by the AI
+    
 }

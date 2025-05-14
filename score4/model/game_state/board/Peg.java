@@ -14,10 +14,9 @@ import score4.model.player.Bead;
  * @author Tristen Sandhu
  * @version 1
  */
-public class Peg {
+public class Peg implements Cloneable {
 
     private final Bead[] pegHeight = new Bead[4];
-
     //private  int pegX;
     //private  int pegY;
     private int pegZ = 0;
@@ -77,5 +76,16 @@ public class Peg {
     public void increasePegZ() {
 
         pegZ++;
+    }
+
+    /**
+     * clones the Peg object
+     * @return Peg clone
+     * @throws CloneNotSupportedException if the object cannot be cloned
+     */
+    @Override
+    public Peg clone() throws CloneNotSupportedException {
+
+        return (Peg) super.clone();
     }
 }

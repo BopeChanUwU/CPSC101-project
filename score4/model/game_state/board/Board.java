@@ -10,7 +10,7 @@ import score4.model.player.Bead;
  * @author Tristen Sandhu
  * @version 1
  */
-public class Board {
+public class Board implements Cloneable {
 
     private final Peg[][] gameBoard = new Peg[4][4];
     private int x;
@@ -172,4 +172,15 @@ public class Board {
             }
         }
     }  
+
+    /**
+     * clones the board
+     * @return Board clone
+     * @throws CloneNotSupportedException if the board cannot be cloned
+     */
+    @Override
+    public Board clone() throws CloneNotSupportedException {
+
+        return (Board) super.clone();
+    }
 }

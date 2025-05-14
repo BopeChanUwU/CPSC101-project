@@ -5,7 +5,6 @@ import score4.model.game_state.GameState;
 public class AIPlayer implements Player {
     
     private Colour beadColour;
-    //private Bead bead;
     private int numWins = 0;
     private boolean isCurrentPlayer;
 
@@ -31,9 +30,31 @@ public class AIPlayer implements Player {
         
     }
 
+    /**
+     * sets the number of wins
+     */
     public void setnumWin(){
 
         numWins += 1;
+    }
+
+    /**
+     * gets the number of wins
+     * @return int numWins
+     */
+    public int getnumWin(){
+
+        return numWins;
+    }
+    /**
+     * gets current player
+     * @return boolean isCurrentPlayer
+     * true if player is current player
+     * false if player is not current player
+     */
+    public boolean isCurrentPlayer() {
+
+        return isCurrentPlayer;
     }
     /**
      * gets the bead colour
@@ -50,17 +71,9 @@ public class AIPlayer implements Player {
     @Override
     public void move(int x, int y, GameState currentState) {
         
+        //TODO: implement the AI move
+        //this should call the minimax algo
         isCurrentPlayer = false;
-        //should update model stuff
+        //apply the move to the model
     }
-
-    /**
-     * gets a Move recommended by the AI
-     */
-    @Override
-    public int getMove() {
-        
-        return 1;
-    }
-
 }

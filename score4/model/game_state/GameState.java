@@ -24,7 +24,7 @@ import score4.model.player.HumanPlayer;
 
  * @version 1
  */
-public class GameState {
+public class GameState implements Cloneable{
 
     private boolean isOver = false;
     private boolean draw = false;
@@ -151,5 +151,19 @@ public class GameState {
         turn = 0;
         gameBoard = new Board();
         moveCount = 0;
+    }
+
+    /**
+     * clones the game state
+     * @return a clone of the game state
+     * @throws CloneNotSupportedException if the game state cannot be cloned
+     */
+    @Override
+    public GameState clone() throws CloneNotSupportedException {
+
+        GameState clone = (GameState) super.clone();
+        clone.gameBoard = gameBoard.clone();
+        clone.lastMove = lastMove.clone();
+        return clone;
     }
 }

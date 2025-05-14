@@ -2,7 +2,6 @@ package score4.model.game_state.board;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
 import score4.model.player.Bead;
 
 /**
@@ -192,6 +191,7 @@ public class Line {
                             count++;
                             if(count == 4 && coloursMatch) {
 
+                                // should i pass the colour of the beads in line here?
                                 return true;
                             }
                         }

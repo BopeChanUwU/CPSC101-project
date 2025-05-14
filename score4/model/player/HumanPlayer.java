@@ -15,7 +15,6 @@ import score4.model.game_state.board.Position3D;
 public class HumanPlayer implements Player {
 
     private Colour beadColour;
-    //private Bead bead;
     private int numWins = 0;
     private boolean isCurrentPlayer;
     
@@ -40,11 +39,32 @@ public class HumanPlayer implements Player {
         }
     }
 
+    /**
+     * sets the number of wins
+     */
     public void setnumWin(){
 
         numWins += 1;
     }
 
+    /**
+     * gets the number of wins
+     * @return int numWins
+     */
+    public int getnumWin(){
+
+        return numWins;
+    }
+    /**
+     * gets the current player
+     * @return boolean isCurrentPlayer
+     * true if player is current player
+     * false if player is not current player
+     */
+    public boolean isCurrentPlayer() {
+
+        return isCurrentPlayer;
+    }
     /**
      * gets the bead colour
      * @return Colour beadColour
@@ -85,15 +105,16 @@ public class HumanPlayer implements Player {
             peg.increasePegZ();
         }
         isCurrentPlayer = false;
+        //TODO: apply the move to the model
         //how do i change other players isCurrentPlayer to true?
     }
 
     /**
      * gets a Move recommended by the AI
      */
-    @Override
     public int getMove() {
-        
+       
+        //TODO: implement getMove
         return 1;
     }
 }
