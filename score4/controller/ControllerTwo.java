@@ -2,7 +2,6 @@ package score4.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Peg;
 import score4.model.player.Bead;
@@ -65,11 +64,11 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     Peg peg = gameBoard.getPeg(0, 0);
 
                     /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
+                    /* peg.setBead(player1); */ //sets bead at location problem
 
                     /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    /* wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D()); */
 
                     gamePanel.update(); // repaint 
                     player1 = false;
@@ -80,11 +79,11 @@ public class ControllerTwo implements ActionListener, GameboyController {
                     Peg peg = gameBoard.getPeg(0, 0);
 
                     /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
+                    /* peg.setBead(player1); */ //sets bead at location problem
 
                     /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    /* bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
+                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D()); */
 
                     gamePanel.update(); // repaint 
                     player1 = true;
@@ -93,543 +92,37 @@ public class ControllerTwo implements ActionListener, GameboyController {
                 gamePanel.repaint();
             }
             case "1" -> {
-
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(1, 0);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(1, 0);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "2" -> {
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(2, 0);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint  
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(2, 0);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "3" -> {
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(3, 0);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(3, 0);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "4" -> {
-
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(0, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(0, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "5" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(1, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(1, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "6" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(2, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(2, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "7" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(3, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(3, 1);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "8" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(0, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(0, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "9" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(1, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(1, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "10" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(2, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(2, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "11" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(3, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(3, 2);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "12" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(0, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(0, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "13" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(1, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(1, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "14" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(2, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(2, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
             case "15" -> {
-                
-                if (player1) {
-
-                    //model stuff
-                    WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(3, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = false;
-                } else {
-
-                    //model stuff
-                    BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(3, 3);
-
-                    /* model stuff */
-                    peg.setBead(player1); //sets bead at location problem
-
-                    /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                    System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-
-                    gamePanel.update(); // repaint 
-                    player1 = true;
-                }
-
-                gamePanel.repaint();
             }
+
+
         }
         if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
 
