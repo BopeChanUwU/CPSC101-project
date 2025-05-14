@@ -29,13 +29,10 @@ public class GameState implements Cloneable{
     private boolean isOver = false;
     private boolean draw = false;
     private boolean win = false;
-    private int turn = 0;
+    private int turnNum = 0;
     private Board gameBoard;
     private int[] lastMove; // not sure how to store this right now
-    private int moveCount = 0;
     private final int maxMoves = 64;
-    private final int maxTurns = 32;
-    /* IDEA!!! have move both update game state and game view (via model) */
 
     /**
      * Constructor for the GameState class
@@ -75,7 +72,11 @@ public class GameState implements Cloneable{
      * false if game is not over
      */
     public void setGameOver(boolean isOver) {
-        this.isOver = isOver;
+
+        if(win || draw) {
+
+            isOver = true;
+        }
     }
 
     /**
@@ -84,14 +85,14 @@ public class GameState implements Cloneable{
      * false if game is not over
      */
     public boolean isGameOver() {
+
         return isOver;
     }
 
     /**
      * Sets game status to draw
-     * @param isDraw true if game is a draw
      */
-    public void setDraw() {
+    public void Draw() {
         
         draw = true; 
     }
@@ -112,6 +113,7 @@ public class GameState implements Cloneable{
      */
     public void setWinner(HumanPlayer player) {
 
+        win = true;
         player.setnumWin();
     }
 
@@ -122,12 +124,12 @@ public class GameState implements Cloneable{
      */
     public void setTurn() {
 
-        if(turn <= maxMoves) {
+        if(turnNum <= maxMoves) {
 
-            turn += 1;
+            turnNum += 1;
         } else {
 
-            setDraw();
+            Draw();
         }
     }
 
@@ -137,7 +139,7 @@ public class GameState implements Cloneable{
      */
     public int getTurn() {
 
-        return turn;
+        return turnNum;
     }
 
     /**
@@ -148,9 +150,8 @@ public class GameState implements Cloneable{
         isOver = false;
         draw = false;
         win = false; 
-        turn = 0;
+        turnNum = 0;
         gameBoard = new Board();
-        moveCount = 0;
     }
 
     /**

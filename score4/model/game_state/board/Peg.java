@@ -17,22 +17,7 @@ import score4.model.player.Bead;
 public class Peg implements Cloneable {
 
     private final Bead[] pegHeight = new Bead[4];
-    //private  int pegX;
-    //private  int pegY;
     private int pegZ = 0;
-
-    /**
-     * Peg constructor
-     * <p> This constructor initializes the Peg object with a given x and y position.
-     * <p> The Peg object is used to represent a peg on the game board.
-     * <p> The Peg class is used to keep track of the state of the game board
-     * and the position of the Beads on the Peg.
-     */
-    public Peg() {
-
-        //pegX = x;
-        //pegY = y;
-    }
 
     /**
      * gets the bead at a given height
