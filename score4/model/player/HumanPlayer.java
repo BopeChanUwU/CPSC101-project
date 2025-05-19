@@ -78,7 +78,7 @@ public class HumanPlayer implements Player {
      * updates the model with the players selected move
      */
     @Override
-    public void move(int x, int y, GameState currentState) {
+    public Position3D move(int x, int y, GameState currentState) {
 
         Peg peg = currentState.getBoard().getPeg(x,y);
         if(x < 0 || x > 3) {
@@ -107,14 +107,15 @@ public class HumanPlayer implements Player {
         isCurrentPlayer = false;
         //TODO: apply the move to the model
         //how do i change other players isCurrentPlayer to true?
+        return peg.getPegHeight()[peg.getPegZ()-1].getPosition3D();
     }
 
     /**
      * gets a Move recommended by the AI
      */
-    public int getMove() {
+    public Position3D getMove() {
        
         //TODO: implement getMove
-        return 1;
+        return null;
     }
 }

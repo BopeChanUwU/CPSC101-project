@@ -1,6 +1,8 @@
 package score4.model.game_state;
 
+import java.util.ArrayList;
 import score4.model.game_state.board.Board;
+import score4.model.game_state.board.Position3D;
 import score4.model.player.AIPlayer;
 import score4.model.player.HumanPlayer;
 
@@ -31,8 +33,9 @@ public class GameState implements Cloneable{
     private boolean win = false;
     private int turnNum = 0;
     private Board gameBoard;
-    private int[] lastMove; // not sure how to store this right now
+    private Position3D[] lastMove; // 0 = white, 1 = black
     private final int maxMoves = 64;
+    private ArrayList<Position3D> possibleMoves = new ArrayList<>(); //should i store all 64 at start or just bottom layer and tweak as i go?
 
     /**
      * Constructor for the GameState class
@@ -48,13 +51,13 @@ public class GameState implements Cloneable{
     public GameState(HumanPlayer player1, HumanPlayer player2) {
 
         gameBoard = new Board();
-        lastMove = new int[2]; // ? whats my plan with this ? 
+        lastMove = new Position3D[2]; // ? whats my plan with this ? 
     }
 
     public GameState(HumanPlayer player1, AIPlayer player2) {
 
         gameBoard = new Board();
-        lastMove = new int[2]; // ? whats my plan with this ? 
+        lastMove = new Position3D[2]; // ? whats my plan with this ? 
     }
 
     /**
@@ -152,6 +155,32 @@ public class GameState implements Cloneable{
         win = false; 
         turnNum = 0;
         gameBoard = new Board();
+    }
+
+    public void applyMove(Position3D move) {
+
+        //TODO: add move application logic
+    }
+
+    public void undoMove() {
+    
+        //TODO: add move undo logic
+        //undo the move stored in lastMove
+        //remove the last move from the game board
+    }
+
+    public void updatePossibleMoves() {
+    
+        //TODO: add logic to update possible moves
+    }
+
+    /**
+     * gets an array list of possible moves
+     * @return ArrayList<Position3D> the possible moves
+     */
+    public ArrayList<Position3D> getPossibleMoves() {
+    
+        return possibleMoves;
     }
 
     /**
