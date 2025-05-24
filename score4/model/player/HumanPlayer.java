@@ -1,7 +1,5 @@
 package score4.model.player;
 
-import score4.model.game_state.board.Position3D;
-
 /**
  * This file is part of a Score4 game
  *
@@ -13,27 +11,48 @@ import score4.model.game_state.board.Position3D;
 public class HumanPlayer implements Player {
 
     private Colour beadColour;
-    private int numWins = 0;
-    private boolean isCurrentPlayer;
+    private String name;
+    private int wins = 0;
+    private boolean turn;
     
     /**
      * HumanPlayer constructor
      * @param n int representing the player number
      * @throws IllegalArgumentException if n is not 1 or 2
      */
-    public HumanPlayer(int n) {
+    public HumanPlayer(int playerNumber) {
 
-        if(n<=0 || n>2){
+        if(playerNumber<1 || playerNumber>2){
 
-            throw new IllegalArgumentException("this is a 2 player game dumb dumb not a " + n + " player game");
-        } else if( n == 1) {
+            throw new IllegalArgumentException("this is a 2 player game dumb dumb not a " + playerNumber + " player game");
+        } else if( playerNumber == 1) {
 
             beadColour = Colour.White;
-            isCurrentPlayer = true;
+            turn = true;
+            name = "Player1";
         } else {
 
             beadColour = Colour.Black;
-            isCurrentPlayer = false;
+            turn = false;
+            name = "player2";
+        }
+    }
+
+    public HumanPlayer(int playerNumber, String playerName) {
+
+        if(playerNumber<=0 || playerNumber>2){
+
+            throw new IllegalArgumentException("this is a 2 player game dumb dumb not a " + playerNumber + " player game");
+        } else if( playerNumber == 1) {
+
+            beadColour = Colour.White;
+            turn = true;
+            name = playerName;
+        } else {
+
+            beadColour = Colour.Black;
+            turn = false;
+            name = playerName;
         }
     }
 
@@ -41,9 +60,9 @@ public class HumanPlayer implements Player {
      * sets the number of wins
      */
     @Override
-    public void setnumWin(){
+    public void increaseWins(){
 
-        numWins += 1;
+        wins += 1;
     }
 
     /**
@@ -51,9 +70,9 @@ public class HumanPlayer implements Player {
      * @return int numWins
      */
     @Override
-    public int getnumWin(){
+    public int getWins(){
 
-        return numWins;
+        return wins;
     }
 
     /**
@@ -63,9 +82,9 @@ public class HumanPlayer implements Player {
      * false if player is not current player
      */
     @Override
-    public boolean isCurrentPlayer() {
+    public boolean getTurn() {
 
-        return isCurrentPlayer;
+        return turn;
     }
 
     /**
@@ -79,11 +98,31 @@ public class HumanPlayer implements Player {
     }
 
     /**
-     * gets a Move recommended by the AI
+     * gets the players name
+     * @return String player name
      */
-    public Position3D getMove() {
-       
-        //TODO: implement getMove
-        return null;
+    @Override
+    public String getName() {
+        
+        return name;
+    }
+
+    /**
+     * flips the turn status
+     */
+    @Override
+    public void updateTurn() {
+        
+        turn = !turn;
+    }
+
+    /**
+     * sets the colour of the player to the specified colour
+     * @param colour the colour to change the players beads to
+     */
+    @Override
+    public void setColour(Colour colour) {
+        
+        beadColour = colour;
     }
 }

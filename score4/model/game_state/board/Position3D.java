@@ -1,5 +1,6 @@
 package score4.model.game_state.board;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,8 +21,7 @@ public class Position3D {
     private final int row; 
     private final int col;
     private final int height;
-
-    private static final Position3D[] thePositions = new Position3D[64];
+    private static final ArrayList<Position3D> thePositions = new ArrayList<>();
 
     /**
      * Creates a Position3D with the given row, column, and height. 
@@ -113,14 +113,12 @@ public class Position3D {
      * This method should return an array of all 64 possible positions.
      * @return Position3D[] of all possible positions
      */
-    public static Position3D[] allPositions() {
+    public static ArrayList<Position3D> allPositions() {
         
-        int count = 0;
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 for (int k = 0; k < 4; k++) {
-                    thePositions[count] = new Position3D(i, j, k); 
-                    count++;
+                    thePositions.add(new Position3D(i, j, k)); 
                 }
             }
         }

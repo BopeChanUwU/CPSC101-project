@@ -6,6 +6,7 @@ import score4.model.game_state.board.Position3D;
 import score4.model.player.AIPlayer;
 import score4.model.player.Colour;
 import score4.model.player.HumanPlayer;
+import score4.model.player.Player;
 
 /**
  * This file is part of a Score4 game
@@ -32,46 +33,61 @@ public class GameState implements Cloneable{
     private boolean isOver = false;
     private boolean draw = false;
     private boolean win = false;
-    private int turnNum = 0;
+    private Player turn;
+    private final Player[] thePlayers = new Player[2];
     private Board gameBoard;
-    private Position3D[] lastMove; // 0 = white, 1 = black
     private final int maxMoves = 64;
-    private ArrayList<Position3D> possibleMoves = new ArrayList<>(); //should i store all 64 at start or just bottom layer and tweak as i go?
+    private ArrayList<Position3D> playedMoves = new ArrayList<>();
+    private ArrayList<Position3D> possibleMoves = Position3D.allPositions(); //should i store all 64 at start or just bottom layer and tweak as i go?
 
     /**
-     * Constructor for the GameState class
-     * initializes the game state to default values
-     * sets the game to not over, not a draw, and no winner
-     * sets the turn to 0 (white)
-     * initializes the board history to an empty board
-     * initializes the board to an empty board
-     * initializes the last move to an empty move
-     * initializes the move count to 0
-     * <p>
+     * 
+     * @param player1
+     * @param player2
      */
     public GameState(HumanPlayer player1, HumanPlayer player2) {
 
         gameBoard = new Board();
-        lastMove = new Position3D[2]; // ? whats my plan with this ? 
+        thePlayers[0] = player1;
+        thePlayers[1] = player2;
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2
+     * @param size
+     */
     public GameState(HumanPlayer player1, HumanPlayer player2, int size){
 
         gameBoard = new Board(size);
-        lastMove = new Position3D[2]; // ? whats my plan with this ?  
-
+        thePlayers[0] = player1;
+        thePlayers[1] = player2;
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2
+     */
     public GameState(HumanPlayer player1, AIPlayer player2) {
 
         gameBoard = new Board();
-        lastMove = new Position3D[2]; // ? whats my plan with this ? 
+        thePlayers[0] = player1;
+        thePlayers[1] = player2;
     }
 
+    /**
+     * 
+     * @param player1
+     * @param player2
+     * @param size
+     */
     public GameState(HumanPlayer player1, AIPlayer player2, int size) {
 
         gameBoard = new Board(size);
-        lastMove = new Position3D[2]; // ? whats my plan with this ? 
+        thePlayers[0] = player1;
+        thePlayers[1] = player2;
     }
 
     /**
@@ -81,19 +97,6 @@ public class GameState implements Cloneable{
     public Board getBoard() {
 
         return gameBoard;
-    }
-
-    /**
-     * sets the game state to over
-     * @param isOver true if game is over
-     * false if game is not over
-     */
-    public void setGameOver(boolean isOver) {
-
-        if(win || draw) {
-
-            isOver = true;
-        }
     }
 
     /**
@@ -112,6 +115,7 @@ public class GameState implements Cloneable{
     public void Draw() {
         
         draw = true; 
+        isOver = true;
     }
 
     /**
@@ -128,42 +132,37 @@ public class GameState implements Cloneable{
      * sets the winner of the game
      * @param player HumanPlayer the winner of the game
      */
-    public void setWinner(HumanPlayer player) {
+    public void Win(Player player) {
 
         win = true;
-        player.setnumWin();
-    }
-
-    /**
-     * sets the current turn of the game if turns are greater than 
-     * maxMoves sets draw to true
-     * @param turn int the current turn of the game
-     */
-    public void setTurn() {
-
-        if(turnNum <= maxMoves) {
-
-            turnNum += 1;
-        } else {
-
-            Draw();
-        }
+        isOver = true;
+        player.increaseWins();
     }
 
     /**
      * gets the current turn of the game
      * @return the current turn of the game
      */
-    public int getTurn() {
-
-        return turnNum;
+    public Player getTurn() {
+    
+        if(thePlayers[0].getTurn()) {
+            return thePlayers[0];
+        } else {
+            return thePlayers[1];
+        }
     }
 
+    /**
+     * checks to see if a player has won the game
+     */
     public void winChecker(){
 
         //TODO: implement winchecker here!
+
     }
 
+
+    
     /**
      * resets the game state to defaults
      */
@@ -172,26 +171,71 @@ public class GameState implements Cloneable{
         isOver = false;
         draw = false;
         win = false; 
-        turnNum = 0;
+        getTurn();
         gameBoard = new Board();
     }
 
+    /**
+     * 
+     * @param move
+     * @param colour
+     */
     public void applyMove(Position3D move, Colour colour) {
 
         gameBoard.getPeg(move.getRow(),move.getColumn()).setBead(move.getRow(),move.getColumn(),colour);
+        removePossibleMove(move);
+        addPlayedMove(move);
     }
 
+    /**
+     * undoes a given move and adds it to possibleMoves
+     * @param move Position3D location of the move to undo
+     */
     public void undoMove(Position3D move) {
     
-        gameBoard.getPeg(move.getRow(),move.getColumn()).removeBead(turnNum, turnNum); 
-        //TODO: add move undo logic
-        //undo the move stored in lastMove
-        //remove the last move from the game board
+        gameBoard.getPeg(move.getRow(),move.getColumn()).removeBead(); 
+        addPossibleMove(move);
+        removePlayedMove(move);
     }
 
-    public void updatePossibleMoves() {
-    
-        //TODO: add logic to update possible moves
+    /**
+     * 
+     * @param move
+     */
+    private void addPlayedMove(Position3D move) {
+
+        if(!playedMoves.contains(move))
+            playedMoves.add(move);
+    }
+
+    /**
+     * 
+     * @param move
+     */
+    private void removePlayedMove(Position3D move) {
+
+        if(playedMoves.contains(move))
+            playedMoves.remove(move);
+    }
+
+    /**
+     * adds a given possible move if it doesnt already exist
+     * @param move Position3D location to add to list
+     */
+    private void addPossibleMove(Position3D move) {
+
+        if(!possibleMoves.contains(move))
+            possibleMoves.add(move);
+    }
+
+    /**
+     * 
+     * @param move
+     */
+    private void removePossibleMove(Position3D move) {
+
+        if(possibleMoves.contains(move))
+            possibleMoves.remove(move);
     }
 
     /**
@@ -204,6 +248,15 @@ public class GameState implements Cloneable{
     }
 
     /**
+     * 
+     * @return
+     */
+    public ArrayList<Position3D> getPlayedMoves(){
+
+        return playedMoves;
+    }
+
+    /**
      * clones the game state
      * @return a clone of the game state
      * @throws CloneNotSupportedException if the game state cannot be cloned
@@ -213,7 +266,6 @@ public class GameState implements Cloneable{
 
         GameState clone = (GameState) super.clone();
         clone.gameBoard = gameBoard.clone();
-        clone.lastMove = lastMove.clone();
         return clone;
     }
 }

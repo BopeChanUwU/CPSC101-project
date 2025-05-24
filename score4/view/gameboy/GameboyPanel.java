@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import score4.controller.ControllerOne;
+import score4.model.game_state.GameState;
+import score4.model.player.HumanPlayer;
 import score4.view.gameboy.borderpanel.BottomPanel;
 import score4.view.gameboy.borderpanel.LeftPanel;
 import score4.view.gameboy.borderpanel.RightPanel;
@@ -38,15 +40,16 @@ public class GameboyPanel extends JPanel{
 
     private ImageIcon image2;
 
-    private final ControllerOne controller = new ControllerOne(this);
+    private final ControllerOne controller;
     public TextField textField = new TextField();
 
     /**
      * constructs a GameboyPanel
      */
-    public GameboyPanel(){
+    public GameboyPanel(Player player1, Player player2) {
 
         super();
+        controller = new ControllerOne(gp, new GameState(player1,player2));
         setLayout(new BorderLayout());
         initialize();
     }

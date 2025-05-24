@@ -18,7 +18,7 @@ import score4.model.player.Colour;
 public class Peg implements Cloneable {
 
     private final Bead[] pegHeight;
-    private final int size;
+    private final int maxHeight;
     private int beadCount = 0;
     private boolean full = false;
 
@@ -27,10 +27,10 @@ public class Peg implements Cloneable {
      * with the specified height and bead count set to 0
      * @param height int the specified height of the peg as an integer
      */
-    public Peg(int height){
+    public Peg(int height) {
 
-        size = height;
-        pegHeight = new Bead[size];
+        maxHeight = height;
+        pegHeight = new Bead[maxHeight];
     }
 
     /**
@@ -39,8 +39,8 @@ public class Peg implements Cloneable {
      */
     public Peg(){
 
-        size = 4;
-        pegHeight = new Bead[size];
+        maxHeight = 4;
+        pegHeight = new Bead[maxHeight];
     }
 
     /**
@@ -49,11 +49,11 @@ public class Peg implements Cloneable {
      * @return Bead bead
      * @throws IllegalArgumentException if height is out of bounds
      */
-    public Bead getBead(int height) throws IllegalArgumentException{
+    public Bead getBead(int height) throws IllegalArgumentException {
 
         if (checkInBounds(height))
             return pegHeight[height];
-        throw new IllegalArgumentException ("height(" + height + ") is out of bounds (between 0 - " + size + ")");
+        throw new IllegalArgumentException ("height(" + height + ") is out of bounds (between 0 - " + maxHeight + ")");
     }
 
     /**
@@ -62,7 +62,7 @@ public class Peg implements Cloneable {
      */
     public int getMaxHeight() { 
 
-        return size;
+        return maxHeight;
     }
 
     /**
@@ -74,19 +74,32 @@ public class Peg implements Cloneable {
         return beadCount;
     }
 
+    /**
+     * this method sets a bead at the lowest legal point on the peg
+     * @param row int the row the peg is located at on the board
+     * @param col int the column the peg is located at on the board
+     * @param colour Colour of the bead you would like to set
+     */
     public void setBead(int row,int col, Colour colour) {
 
-        if (beadCount <= size) {
+        if (beadCount < maxHeight) {
             pegHeight[beadCount] = Bead.createBead(colour, new Position3D(row, col, beadCount));
             increaseBeadCount();
         }
     }
 
-    public void removeBead(int row, int col) {
+    /**
+     * this method removes the highest bead attached to the peg
+     * @throws IllegalArgumentException if peg is empty
+     */
+    public void removeBead() {
 
         if (beadCount > 0) {
-            pegHeight[beadCount] = null;
+            pegHeight[beadCount-1] = null;
+            Bead.removeBead();
             decreaseBeadCount();
+        } else {
+            throw new IllegalArgumentException("Peg is empty!");
         }
     }
 
@@ -94,20 +107,25 @@ public class Peg implements Cloneable {
      * increases the bead count of the peg by 1 if current count
      * is less than height else it sets the bead to full
      */
-    public void increaseBeadCount() {
+    private void increaseBeadCount() {
 
-        if(beadCount<size) {
+        if(beadCount<maxHeight) {
             beadCount++;
         } else if (!full) {
             full = true;
         }
     }
 
-    public void decreaseBeadCount() {
+    /**
+     * decreases the bead count of the peg by 1 and sets full to false
+     * if count is greater than 0 if beadcount is 0 or less it does nothing
+     */
+    private void decreaseBeadCount() {
 
         if (beadCount > 0) {
             beadCount--;
         }
+        full = false;
     }
 
     /**
@@ -117,7 +135,7 @@ public class Peg implements Cloneable {
      */
     public boolean checkInBounds(int possibleHeight) {
 
-        return (possibleHeight>=0) && (possibleHeight<=size);
+        return (possibleHeight>=0) && (possibleHeight<maxHeight);
     }
 
     /**

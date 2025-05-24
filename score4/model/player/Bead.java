@@ -13,9 +13,9 @@ import score4.model.game_state.board.Position3D;
  */
 public class Bead implements Cloneable {
 
-    private Colour beadColour;
-    private Position3D position3D;
-    private static ArrayList<Bead> theBeads = new ArrayList<>();
+    private final Colour beadColour;
+    private final Position3D position3D;
+    private static final ArrayList<Bead> theBeads = new ArrayList<>();
 
     /**
      * Constructor for the Bead class
@@ -37,51 +37,37 @@ public class Bead implements Cloneable {
         this.position3D = position3D;
     }
 
+    /**
+     * creates a new bead with specified colour and position3d objects
+     * it then adds this bead to the 
+     * @param colour an enum either black or white
+     * @param position3D the locatiton in 3d space you wish to create the 
+     * bead at from 0-63
+     * @return Bead a bead object with the specified colour and location 
+     */
     public static Bead createBead(Colour colour, Position3D position3D) {
             
         Bead bead = new Bead(colour, position3D);
         theBeads.add(bead);
         return bead;
     }
+
     /**
      * Gets the position of the bead in 3D space
      * @return Position3D position3D
      */
     public Position3D getPosition3D() {
 
-        return this.position3D;
+        return position3D;
     }
 
     /**
-     * Sets the position of the bead in 3D space
-     * @param row int row
-     * @param col int column
-     * @param height int height
-     * @throws IllegalArgumentException if row, col, or height are out of bounds
+     * removes the last bead from theBeads arraylist
      */
-    public void setPosition3D(int row, int col, int height) {
+    public static void removeBead(){
 
-        if(row < 0 || row > 3) {
-
-            throw new IllegalArgumentException("row is out of bounds");
-        }
-        if(col < 0 || col > 3) {
-
-            throw new IllegalArgumentException("col is out of bounds");
-        }
-        if(height < 0 || height > 3) {
-
-            throw new IllegalArgumentException("height is out of bounds");
-        }
-        position3D = new Position3D(row, col, height);
-    }
-
-    /**
-     * this method adds newly created beads to the beads array list
-     */
-    public void registerBead() {
-
-        theBeads.add(this);
+        if(theBeads != null)
+            theBeads.removeLast();
     }
 
     /**
@@ -96,30 +82,10 @@ public class Bead implements Cloneable {
     /**
      * gets the bead colour
      * @return Colour beadColour
-     * @throws IllegalArgumentException if beadColour is null
      */
     public Colour getColour() {
 
-        if(beadColour == null) {
-
-            throw new IllegalArgumentException("beadColour cannot be null");
-        }
-
         return beadColour;
-    }
-
-    /**
-     * sets the bead colour
-     * @param colour Colour of the bead
-     * @throws IllegalArgumentException if colour is null
-     */
-    public void setColour(Colour colour){
-
-        if(colour == null) {
-
-            throw new IllegalArgumentException("colour cannot be null");
-        }
-        beadColour = colour;
     }
 
     /**

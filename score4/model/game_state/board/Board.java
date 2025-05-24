@@ -58,7 +58,7 @@ public class Board implements Cloneable {
      * @return Peg the peg you wish to get
      * @throws IllegalArgumentException if row or column is out of bounds
      */
-    public Peg getPeg(int row, int col) throws IllegalArgumentException {
+    public Peg getPeg(int row, int col) {
 
         if(!checkInBounds(row, col)){
             throw new IllegalArgumentException("peg is out of bound (" 
@@ -93,7 +93,7 @@ public class Board implements Cloneable {
      * @return Bead bead
      * @throws IllegalArgumentException if row, column, or height is out of bounds
      */
-    public Bead getColourAt(int row, int col, int hieght) {
+    public Bead getBeadAt(int row, int col, int hieght) {
 
         if(checkInBounds(row, col) && getPeg(row, col).checkInBounds(hieght)) 
             return getPeg(row, col).getBead(hieght);
@@ -188,14 +188,14 @@ public class Board implements Cloneable {
      * @param row int the row index
      * @param col int the column index
      */
-    public void realMove(int row, int col) throws IllegalArgumentException {
+    public void realMove(int row, int col) {
 
         if(checkInBounds(row, col)) {
 
             this.row = row;
             this.col = col;
         } else {
-            
+
             throw new IllegalArgumentException("Oi! what made you think this input was okay? " + row + " x " + col);
         }
     }

@@ -3,8 +3,9 @@ package score4.model.player;
 public class AIPlayer implements Player {
     
     private Colour beadColour;
-    private int numWins = 0;
-    private boolean isCurrentPlayer;
+    private int wins = 0;
+    private final String name;
+    private boolean turn;
 
     /**
      * AIPlayer constructor
@@ -13,38 +14,40 @@ public class AIPlayer implements Player {
      */
     public AIPlayer(int n) {
 
-        if(n<=0 || n>2){
+        if(n<1 || n>2){
 
             throw new IllegalArgumentException("this is a 2 player dumby not a " + n + " player game");
         } else if( n == 1) {
 
             beadColour = Colour.White;
-            isCurrentPlayer = true;
+            turn = true;
+            name = "QWERTY";
         } else {
 
             beadColour = Colour.Black;
-            isCurrentPlayer = false;
+            turn = false;
+            name = "HURTY";
         }
         
     }
 
     /**
-     * sets the number of wins
+     * increases the number of wins by 1
      */
     @Override
-    public void setnumWin(){
+    public void increaseWins(){
 
-        numWins += 1;
+        wins += 1;
     }
 
     /**
-     * gets the number of wins
-     * @return int numWins
+     * gets the players current number of wins
+     * @return int the total number of wins the player currently has
      */
     @Override
-    public int getnumWin(){
+    public int getWins(){
 
-        return numWins;
+        return wins;
     }
     /**
      * gets current player
@@ -53,10 +56,11 @@ public class AIPlayer implements Player {
      * false if player is not current player
      */
     @Override
-    public boolean isCurrentPlayer() {
+    public boolean getTurn() {
 
-        return isCurrentPlayer;
+        return turn;
     }
+
     /**
      * gets the bead colour
      * @return Colour beadColour
@@ -65,5 +69,33 @@ public class AIPlayer implements Player {
     public Colour getColour(){
 
         return beadColour;
+    }
+
+    /**
+     * gets the players name
+     * @return String players name
+     */
+    @Override
+    public String getName() {
+        
+        return name;
+    }
+
+    /**
+     * updates turn flag
+     */
+    @Override
+    public void updateTurn() {
+       
+        turn = !turn;
+    }
+
+    /**
+     * sets the players bead colour to the specified colour
+     */
+    @Override
+    public void setColour(Colour colour) {
+        
+        beadColour = colour;
     }
 }
