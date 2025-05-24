@@ -1,8 +1,5 @@
 package score4.model.player;
 
-import score4.model.game_state.GameState;
-import score4.model.game_state.board.Position3D;
-
 /**
  * This file is part of a Score4 game
  *
@@ -14,7 +11,26 @@ import score4.model.game_state.board.Position3D;
 public interface Player {
 
     /**
-     * 
+     * gets the current player
+     * @return boolean isCurrentPlayer
      */
-    public Position3D move(int x, int y, GameState currentState); //updates the model with the players selected move
+    boolean isCurrentPlayer();
+
+    /**
+     * sets the number of wins
+     */
+    void setnumWin();
+
+    /**
+     * gets the number of wins
+     * @return int numWins
+     */
+    int getnumWin();
+
+    /**
+     * gets the colour of the player
+     * @return Colour black or white
+     */
+    Colour getColour();
+
 }

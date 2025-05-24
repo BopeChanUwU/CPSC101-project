@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Position3D;
 import score4.model.player.AIPlayer;
+import score4.model.player.Colour;
 import score4.model.player.HumanPlayer;
 
 /**
@@ -54,9 +55,22 @@ public class GameState implements Cloneable{
         lastMove = new Position3D[2]; // ? whats my plan with this ? 
     }
 
+    public GameState(HumanPlayer player1, HumanPlayer player2, int size){
+
+        gameBoard = new Board(size);
+        lastMove = new Position3D[2]; // ? whats my plan with this ?  
+
+    }
+
     public GameState(HumanPlayer player1, AIPlayer player2) {
 
         gameBoard = new Board();
+        lastMove = new Position3D[2]; // ? whats my plan with this ? 
+    }
+
+    public GameState(HumanPlayer player1, AIPlayer player2, int size) {
+
+        gameBoard = new Board(size);
         lastMove = new Position3D[2]; // ? whats my plan with this ? 
     }
 
@@ -145,6 +159,11 @@ public class GameState implements Cloneable{
         return turnNum;
     }
 
+    public void winChecker(){
+
+        //TODO: implement winchecker here!
+    }
+
     /**
      * resets the game state to defaults
      */
@@ -157,13 +176,14 @@ public class GameState implements Cloneable{
         gameBoard = new Board();
     }
 
-    public void applyMove(Position3D move) {
+    public void applyMove(Position3D move, Colour colour) {
 
-        //TODO: add move application logic
+        gameBoard.getPeg(move.getRow(),move.getColumn()).setBead(move.getRow(),move.getColumn(),colour);
     }
 
-    public void undoMove() {
+    public void undoMove(Position3D move) {
     
+        gameBoard.getPeg(move.getRow(),move.getColumn()).removeBead(turnNum, turnNum); 
         //TODO: add move undo logic
         //undo the move stored in lastMove
         //remove the last move from the game board

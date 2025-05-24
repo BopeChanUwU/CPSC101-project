@@ -12,9 +12,10 @@ import score4.model.player.Bead;
  */
 public class Board implements Cloneable {
 
-    private final Peg[][] gameBoard = new Peg[4][4];
-    private int x;
-    private int y;
+    private final int size;
+    private final Peg[][] gameBoard;
+    private int row;
+    private int col;
 
     /**
      * Board constructor
@@ -25,6 +26,8 @@ public class Board implements Cloneable {
      */
     public Board() {
 
+        size = 4;
+        gameBoard = new Peg[size][size];
         for (Peg[] gameBoard1 : gameBoard) {
             for (int j = 0; j < gameBoard1.length; j++) {
                 gameBoard1[j] = new Peg();
@@ -33,21 +36,33 @@ public class Board implements Cloneable {
     }
 
     /**
+     * single parameter constructor that takes in a specified size as and 
+     * integer and creates a square board (size x size)
+     * @param size int the desired board size
+     */
+    public Board(int size) {
+
+        this.size = size;
+        gameBoard = new Peg[size][size];
+        for (Peg[] gameBoard1 : gameBoard) {
+            for (int j = 0; j < gameBoard1.length; j++) {
+                gameBoard1[j] = new Peg(size);
+            }
+        }
+    }
+
+    /**
      * gets the peg at a given location
      * @param row int row
      * @param col int column
-     * @return Peg peg
+     * @return Peg the peg you wish to get
      * @throws IllegalArgumentException if row or column is out of bounds
      */
-    public Peg getPeg(int row, int col) {
+    public Peg getPeg(int row, int col) throws IllegalArgumentException {
 
-        if (row < 0 || row > 3) {
-
-            throw new IllegalArgumentException("row is out of bounds");
-        }
-        if (col < 0 || col > 3) {
-
-            throw new IllegalArgumentException("column is out of bounds");
+        if(!checkInBounds(row, col)){
+            throw new IllegalArgumentException("peg is out of bound (" 
+                + row + " x " + col + " is not within " + size + " x " + size +" )");
         }
         return gameBoard[row][col];
     }
@@ -56,42 +71,34 @@ public class Board implements Cloneable {
      * gets pegs x location on the board
      * @return int peg location in the x 
      */
-    public int getX() {
+    public int getRow() {
 
-        return x;
+        return row;
     }
 
     /**
      * gets pegs y location on the board
      * @return int peg location in the y
      */
-    public int getY() {
+    public int getColumn() {
 
-        return y;
+        return col;
     }
 
     /**
-     * gets the colour of the bead at a given location
+     * gets the bead at a given location
      * @param row int row
      * @param col int column
      * @param hieght int height
      * @return Bead bead
      * @throws IllegalArgumentException if row, column, or height is out of bounds
-     * @throws NullPointerException if the peg is null
-     * @throws ArrayIndexOutOfBoundsException if the height is out of bounds
      */
     public Bead getColourAt(int row, int col, int hieght) {
 
-        return getPeg(row, col).getBead(hieght);
-    }
-
-    /**
-     * checks if the game is over
-     * @return boolean true if the game is over, false otherwise
-     */
-    public boolean checkWinner() {
-
-        return false;
+        if(checkInBounds(row, col) && getPeg(row, col).checkInBounds(hieght)) 
+            return getPeg(row, col).getBead(hieght);
+        throw new IllegalArgumentException("peg is out of bound ("
+            + row + " x " + col + "x" + hieght + " is not within " + size + " x " + size + " x " + size + " )");
     }
 
     /**
@@ -103,68 +110,68 @@ public class Board implements Cloneable {
 
         switch(input){
             case "A1" -> {
-                x = 0;
-                y = 0;
+                row = 0;
+                col = 0;
             }
             case "A2" -> {
-                x = 0;
-                y = 1;
+                row = 0;
+                col = 1;
             }
             case "A3" -> {
-                x = 0;
-                y = 2;
+                row = 0;
+                col = 2;
             }
             case "A4" -> {
-                x = 0;
-                y = 3;
+                row = 0;
+                col = 3;
             }
             case "B1" -> {
-                x = 1;
-                y = 0;
+                row = 1;
+                col = 0;
             }
             case "B2" -> {
-                x = 1;
-                y = 1;
+                row = 1;
+                col = 1;
             }
             case "B3" -> {
-                x = 1;
-                y = 2;
+                row = 1;
+                col = 2;
             }
             case "B4" -> {
-                x = 1;
-                y = 3;
+                row = 1;
+                col = 3;
             }
             case "C1" -> {
-                x = 2;
-                y = 0;
+                row = 2;
+                col = 0;
             }
             case "C2" -> {
-                x = 2;
-                y = 1;
+                row = 2;
+                col = 1;
             }
             case "C3" -> {
-                x = 2;
-                y = 2;
+                row = 2;
+                col = 2;
             }
             case "C4" -> {
-                x = 2;
-                y = 3;
+                row = 2;
+                col = 3;
             }
             case "D1" -> {
-                x = 3;
-                y = 0;
+                row = 3;
+                col = 0;
             }
             case "D2" -> {
-                x = 3;
-                y = 1;
+                row = 3;
+                col = 1;
             }
             case "D3" -> {
-                x = 3;
-                y = 2;
+                row = 3;
+                col = 2;
             }
             case "D4" -> {
-                x = 3;
-                y = 3;
+                row = 3;
+                col = 3;
             }
             default -> {
                 
@@ -172,6 +179,37 @@ public class Board implements Cloneable {
             }
         }
     }  
+
+    /**
+     * checks to see if a specified row and column is inbounds.
+     * if it is inbounds it sets the row and column to the specified
+     * row and column respectively.
+     * @throws IllegalArgumentException if out of bounds
+     * @param row int the row index
+     * @param col int the column index
+     */
+    public void realMove(int row, int col) throws IllegalArgumentException {
+
+        if(checkInBounds(row, col)) {
+
+            this.row = row;
+            this.col = col;
+        } else {
+            
+            throw new IllegalArgumentException("Oi! what made you think this input was okay? " + row + " x " + col);
+        }
+    }
+
+    /**
+     * checks to see if a specified row and column is inbounds.
+     * @param row int the row index 
+     * @param col int the column index 
+     * @return Boolean true if inbounds false otherwise
+     */
+    private boolean checkInBounds(int row, int col) {
+        
+        return (row>=0 && row<=size-1) && (col>=0 && col<=size-1);
+    }
 
     /**
      * clones the board

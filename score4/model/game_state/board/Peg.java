@@ -1,6 +1,7 @@
 package score4.model.game_state.board;
 
 import score4.model.player.Bead;
+import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -16,51 +17,107 @@ import score4.model.player.Bead;
  */
 public class Peg implements Cloneable {
 
-    private final Bead[] pegHeight = new Bead[4];
-    private int pegZ = 0;
+    private final Bead[] pegHeight;
+    private final int size;
+    private int beadCount = 0;
+    private boolean full = false;
+
+    /**
+     * this constructor takes in a desired height and creates a peg
+     * with the specified height and bead count set to 0
+     * @param height int the specified height of the peg as an integer
+     */
+    public Peg(int height){
+
+        size = height;
+        pegHeight = new Bead[size];
+    }
+
+    /**
+     * default no argument constructor where the pegHeight is set to 4
+     * and beadcount is set to 0
+     */
+    public Peg(){
+
+        size = 4;
+        pegHeight = new Bead[size];
+    }
 
     /**
      * gets the bead at a given height
-     * @param hieght int height
+     * @param height int height
      * @return Bead bead
      * @throws IllegalArgumentException if height is out of bounds
      */
-    public Bead getBead(int height) {
+    public Bead getBead(int height) throws IllegalArgumentException{
 
-        if (height < 0 || height > 3) {
-
-            throw new IllegalArgumentException("height (" + height + ") is out of bounds");
-        }
-
-        return pegHeight[height];
+        if (checkInBounds(height))
+            return pegHeight[height];
+        throw new IllegalArgumentException ("height(" + height + ") is out of bounds (between 0 - " + size + ")");
     }
 
     /**
-     * gets the bead at a given height
-     * @return Bead bead
-     */
-/*     public Bead getBead() {
-
-        return bead;
-    } */
-
-    /**
-     * gets the peg height
+     * gets the max height of the peg (the height it was create)
      * @return int peg height
      */
-    public Bead[] getPegHeight() {
+    public int getMaxHeight() { 
 
-        return pegHeight;
+        return size;
     }
 
-    public int getPegZ() {
+    /**
+     * gets the current number of beads on the peg
+     * @return int the currnet number of beads on the peg
+     */
+    public int getBeadCount() {
 
-        return pegZ;
+        return beadCount;
     }
 
-    public void increasePegZ() {
+    public void setBead(int row,int col, Colour colour) {
 
-        pegZ++;
+        if (beadCount <= size) {
+            pegHeight[beadCount] = Bead.createBead(colour, new Position3D(row, col, beadCount));
+            increaseBeadCount();
+        }
+    }
+
+    public void removeBead(int row, int col) {
+
+        if (beadCount > 0) {
+            pegHeight[beadCount] = null;
+            decreaseBeadCount();
+        }
+    }
+
+    /**
+     * increases the bead count of the peg by 1 if current count
+     * is less than height else it sets the bead to full
+     */
+    public void increaseBeadCount() {
+
+        if(beadCount<size) {
+            beadCount++;
+        } else if (!full) {
+            full = true;
+        }
+    }
+
+    public void decreaseBeadCount() {
+
+        if (beadCount > 0) {
+            beadCount--;
+        }
+    }
+
+    /**
+     * Checks to see if a specified height is inbounds.
+     * @param possibleHeight int the input height to check
+     * @return boolean true if inbounds false if out of bounds
+     */
+    public boolean checkInBounds(int possibleHeight) {
+
+        return (possibleHeight>=0) && (possibleHeight<=size);
     }
 
     /**

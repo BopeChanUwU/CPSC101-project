@@ -1,7 +1,5 @@
 package score4.model.player;
 
-import score4.model.game_state.GameState;
-import score4.model.game_state.board.Peg;
 import score4.model.game_state.board.Position3D;
 
 /**
@@ -42,6 +40,7 @@ public class HumanPlayer implements Player {
     /**
      * sets the number of wins
      */
+    @Override
     public void setnumWin(){
 
         numWins += 1;
@@ -51,63 +50,32 @@ public class HumanPlayer implements Player {
      * gets the number of wins
      * @return int numWins
      */
+    @Override
     public int getnumWin(){
 
         return numWins;
     }
+
     /**
      * gets the current player
      * @return boolean isCurrentPlayer
      * true if player is current player
      * false if player is not current player
      */
+    @Override
     public boolean isCurrentPlayer() {
 
         return isCurrentPlayer;
     }
+
     /**
      * gets the bead colour
      * @return Colour beadColour
      */
+    @Override
     public Colour getColour(){
 
         return beadColour;
-    }
-
-    /**
-     * updates the model with the players selected move
-     */
-    @Override
-    public Position3D move(int x, int y, GameState currentState) {
-
-        Peg peg = currentState.getBoard().getPeg(x,y);
-        if(x < 0 || x > 3) {
-
-            throw new IllegalArgumentException("x is out of bounds");
-        }
-        if(y < 0 || y > 3) {
-
-            throw new IllegalArgumentException("y is out of bounds");
-        }
-        if(peg.getPegZ() < 4) {
-            
-            switch (beadColour) {
-                case White -> {
-                        Bead[] pegHeight = peg.getPegHeight();
-                        pegHeight[peg.getPegZ()] = Bead.createBead(Colour.White, new Position3D(x, y, peg.getPegZ()));
-                    }
-                case Black -> {
-                        Bead[] pegHeight = peg.getPegHeight();
-                        pegHeight[peg.getPegZ()] = Bead.createBead(Colour.Black, new Position3D(x, y, peg.getPegZ()));
-                    }
-                default -> throw new IllegalArgumentException("height is out of bounds");
-            }
-            peg.increasePegZ();
-        }
-        isCurrentPlayer = false;
-        //TODO: apply the move to the model
-        //how do i change other players isCurrentPlayer to true?
-        return peg.getPegHeight()[peg.getPegZ()-1].getPosition3D();
     }
 
     /**

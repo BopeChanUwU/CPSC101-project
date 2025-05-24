@@ -2,7 +2,7 @@ package score4.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import score4.model.game_state.board.Board;
+import score4.model.game_state.GameState;
 import score4.model.game_state.board.Peg;
 import score4.model.player.Bead;
 import score4.viewtwo.gameboy.gamepanel.GamePanel;
@@ -22,7 +22,7 @@ import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
  */
 public class ControllerTwo implements ActionListener, GameboyController {
 
-    private final Board gameBoard;
+    private final GameState gameState;
 
     private final GamePanel gamePanel;
 
@@ -31,12 +31,13 @@ public class ControllerTwo implements ActionListener, GameboyController {
     /**
      * a one parameter constructor that makes a controller for 
      * a given GamePanel
-     * @param gbp GamePanel 
+     * @param gp GamePanel 
      */
-    public ControllerTwo(GamePanel gp) {
+    public ControllerTwo(GamePanel gp, GameState gs) {
 
         gamePanel = gp;
-        gameBoard = new Board();
+        //need to get gamestate in here
+        gameState = gs;
         player1 = true;
     }
 
@@ -45,9 +46,9 @@ public class ControllerTwo implements ActionListener, GameboyController {
      * @return Board the game board
      */
     @Override
-    public Board getGameBoard() {
+    public GameState getGameState() {
 
-        return gameBoard;
+        return gameState;
     }
 
     @Override
@@ -61,7 +62,7 @@ public class ControllerTwo implements ActionListener, GameboyController {
 
                     //model stuff
                     WhiteBeadComponent wBead = gamePanel.getWhiteBead(gamePanel.getCountWhite());
-                    Peg peg = gameBoard.getPeg(0, 0);
+                    Peg peg = gameState.getBoard().getPeg(0, 0);
 
                     /* model stuff */
                     /* peg.setBead(player1); */ //sets bead at location problem
@@ -76,7 +77,7 @@ public class ControllerTwo implements ActionListener, GameboyController {
 
                     //model stuff
                     BlackBeadComponent bBead = gamePanel.getBlackBead(gamePanel.getCountBlack());
-                    Peg peg = gameBoard.getPeg(0, 0);
+                    Peg peg = gameState.getBoard().getPeg(0, 0);
 
                     /* model stuff */
                     /* peg.setBead(player1); */ //sets bead at location problem

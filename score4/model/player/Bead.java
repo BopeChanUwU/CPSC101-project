@@ -23,26 +23,6 @@ public class Bead implements Cloneable {
      * @param position3D Position3D of the bead
      * @throws IllegalArgumentException if colour is null or position3D is null
      */
-    public Bead(Colour colour) {
-
-        if(beadColour == null) {
-
-            throw new IllegalArgumentException("colour cannot be null");
-        }
-        /* if(position3D == null) {
-
-            throw new IllegalArgumentException("position3D cannot be null");
-        } */
-        beadColour = colour;
-        //position3D = new Position3D(0, 0, 0);
-    }
-
-    /**
-     * Constructor for the Bead class
-     * @param colour Colour of the bead
-     * @param position3D Position3D of the bead
-     * @throws IllegalArgumentException if colour is null or position3D is null
-     */
     public Bead(Colour colour, Position3D position3D) {
 
         if(colour == null) {
@@ -55,7 +35,6 @@ public class Bead implements Cloneable {
         }
         beadColour = colour;
         this.position3D = position3D;
-        //theBeads.add(this);
     }
 
     public static Bead createBead(Colour colour, Position3D position3D) {

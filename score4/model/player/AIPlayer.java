@@ -1,8 +1,5 @@
 package score4.model.player;
 
-import score4.model.game_state.GameState;
-import score4.model.game_state.board.Position3D;
-
 public class AIPlayer implements Player {
     
     private Colour beadColour;
@@ -34,6 +31,7 @@ public class AIPlayer implements Player {
     /**
      * sets the number of wins
      */
+    @Override
     public void setnumWin(){
 
         numWins += 1;
@@ -43,6 +41,7 @@ public class AIPlayer implements Player {
      * gets the number of wins
      * @return int numWins
      */
+    @Override
     public int getnumWin(){
 
         return numWins;
@@ -53,6 +52,7 @@ public class AIPlayer implements Player {
      * true if player is current player
      * false if player is not current player
      */
+    @Override
     public boolean isCurrentPlayer() {
 
         return isCurrentPlayer;
@@ -61,21 +61,9 @@ public class AIPlayer implements Player {
      * gets the bead colour
      * @return Colour beadColour
      */
+    @Override
     public Colour getColour(){
 
         return beadColour;
-    }
-
-    /**
-     * updates the model with the AI's move 
-     */
-    @Override
-    public Position3D move(int x, int y, GameState currentState) {
-        
-        //TODO: implement the AI move
-        //this should call the minimax algo
-        isCurrentPlayer = false;
-        //apply the move to the model
-        return null;
     }
 }

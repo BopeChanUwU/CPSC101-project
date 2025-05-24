@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import score4.model.game_state.GameState;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Peg;
 import score4.model.player.Bead;
@@ -26,7 +27,7 @@ import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 //Controller exposes data and commands needed by the view (acts as bridge from V -> M)///////////////////////////////////////////
 public class ControllerOne implements ActionListener, GameboyController {
 
-    private final Board gameBoard;
+    private final GameState gameState;
 
     private final GameboyPanel gameBoyPanel;
 
@@ -37,10 +38,10 @@ public class ControllerOne implements ActionListener, GameboyController {
      * a given GamePanel
      * @param gbp GamePanel 
      */
-    public ControllerOne(GameboyPanel gbp) {
+    public ControllerOne(GameboyPanel gbp, GameState gs) {
 
         gameBoyPanel = gbp;
-        gameBoard = new Board();
+        gameState = gs;
         player1 = true;
     }
 
@@ -49,9 +50,9 @@ public class ControllerOne implements ActionListener, GameboyController {
      * @return Board the game board
      */
     @Override
-    public Board getGameBoard() {
+    public GameState getGameState() {
 
-        return gameBoard;
+        return gameState;
     }
 
     @Override
@@ -59,95 +60,7 @@ public class ControllerOne implements ActionListener, GameboyController {
 
         if(!gameBoyPanel.textField.getText().equals("")){
 
-            if(player1 == true){    // white player
-
-                String input = gameBoyPanel.textField.getText();
-                Pattern pattern = Pattern.compile("[ABCD][1234]");
-                Matcher matcher = pattern.matcher(input);
-                int matches = 0;
-                while (matcher.find()) {
-
-                    matches++;
-                }
-
-                if(matches != 1) {
-
-                    System.out.println("Invalid input");
-                    gameBoyPanel.textField.setText("");
-                    return;
-                }
-
-                GamePanel gp = gameBoyPanel.getGamePanel();
-                WhiteBeadComponent wBead = gp.getWhiteBead(gp.getCountWhite());
-                gameBoard.realMove(input); //gets location of peg to play on
-                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
-
-                /* model stuff */
-                System.out.println(input); // gives a parsable play
-                gameBoard.realMove(input); //gets location of peg to play on
-                System.out.println(gameBoard.getX() + " " + gameBoard.getY());
-                /* peg.setBead(player1); */ //sets bead at location 
-
-                /* set beads location in view */
-                /* wBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D()); */
-
-                gp.update(); // repaint 
-                gameBoyPanel.textField.setText(""); // clear text field
-
-                if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                    System.out.println("Game Over");
-                    gameBoyPanel.textField.setText("White Wins! Game Over");
-                    gameBoyPanel.textField.setEditable(false);
-                    return;
-                } 
-                player1 = false;
-            } else {    // black player
-
-                String input = gameBoyPanel.textField.getText();
-                Pattern pattern = Pattern.compile("[ABCD][1234]");
-                Matcher matcher = pattern.matcher(input);
-                int matches = 0;
-                while (matcher.find()) {
-
-                    matches++;
-                }
-
-                if(matches != 1) {
-
-                    System.out.println("Invalid input");
-                    gameBoyPanel.textField.setText("");
-                    return;
-                }
-                
-                GamePanel gp = gameBoyPanel.getGamePanel();
-                BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
-                gameBoard.realMove(input);
-                Peg peg = gameBoard.getPeg(gameBoard.getX(),gameBoard.getY());
-
-                /* model stuff */
-                System.out.println(input); // gives a parsable play
-                
-                System.out.println(gameBoard.getX() + " " + gameBoard.getY());
-                /* peg.setBead(player1); */ //sets bead at location
-                
-                /* set beads location in view */
-                /* bBead.setBead(peg.getBead(peg.getPegHeight()-1).getPosition3D());
-                System.out.println(peg.getBead(peg.getPegHeight()-1).getPosition3D()); */
-            
-                gp.update(); // repaint 
-                gameBoyPanel.textField.setText(""); // clear text field
-                
-                if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
-
-                    System.out.println("Game Over");
-                    gameBoyPanel.textField.setText("Black Wins! Game Over");
-                    gameBoyPanel.textField.setEditable(false);
-                    return;
-                } 
-                player1 = true;
-            }
+            // TODO; rewrite this once all model changes are done
         }
     }
 
