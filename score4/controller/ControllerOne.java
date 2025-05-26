@@ -2,16 +2,8 @@ package score4.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import score4.model.game_state.GameState;
-import score4.model.game_state.board.Board;
-import score4.model.game_state.board.Peg;
-import score4.model.player.Bead;
 import score4.view.gameboy.GameboyPanel;
-import score4.view.gameboy.gamepanel.GamePanel;
-import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
-import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
 
 /**
  * This file is part of a Score4 game

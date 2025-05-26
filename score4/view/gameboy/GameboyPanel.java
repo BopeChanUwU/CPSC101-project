@@ -4,16 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.TextField;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
 import score4.controller.ControllerOne;
 import score4.model.game_state.GameState;
-import score4.model.player.HumanPlayer;
+import score4.model.player.Player;
 import score4.view.gameboy.borderpanel.BottomPanel;
 import score4.view.gameboy.borderpanel.LeftPanel;
 import score4.view.gameboy.borderpanel.RightPanel;
@@ -46,10 +44,9 @@ public class GameboyPanel extends JPanel{
     /**
      * constructs a GameboyPanel
      */
-    public GameboyPanel(Player player1, Player player2) {
+    public GameboyPanel(Player player1, Player player2){
 
-        super();
-        controller = new ControllerOne(gp, new GameState(player1,player2));
+        controller = new ControllerOne(this, new GameState(player1,player2));
         setLayout(new BorderLayout());
         initialize();
     }

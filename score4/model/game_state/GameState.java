@@ -3,9 +3,7 @@ package score4.model.game_state;
 import java.util.ArrayList;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Position3D;
-import score4.model.player.AIPlayer;
 import score4.model.player.Colour;
-import score4.model.player.HumanPlayer;
 import score4.model.player.Player;
 
 /**
@@ -45,7 +43,7 @@ public class GameState implements Cloneable{
      * @param player1
      * @param player2
      */
-    public GameState(HumanPlayer player1, HumanPlayer player2) {
+    public GameState(Player player1, Player player2) {
 
         gameBoard = new Board();
         thePlayers[0] = player1;
@@ -58,32 +56,7 @@ public class GameState implements Cloneable{
      * @param player2
      * @param size
      */
-    public GameState(HumanPlayer player1, HumanPlayer player2, int size){
-
-        gameBoard = new Board(size);
-        thePlayers[0] = player1;
-        thePlayers[1] = player2;
-    }
-
-    /**
-     * 
-     * @param player1
-     * @param player2
-     */
-    public GameState(HumanPlayer player1, AIPlayer player2) {
-
-        gameBoard = new Board();
-        thePlayers[0] = player1;
-        thePlayers[1] = player2;
-    }
-
-    /**
-     * 
-     * @param player1
-     * @param player2
-     * @param size
-     */
-    public GameState(HumanPlayer player1, AIPlayer player2, int size) {
+    public GameState(Player player1, Player player2, int size){
 
         gameBoard = new Board(size);
         thePlayers[0] = player1;
