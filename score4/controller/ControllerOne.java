@@ -23,8 +23,6 @@ public class ControllerOne implements ActionListener, GameboyController {
 
     private final GameboyPanel gameBoyPanel;
 
-    private boolean player1;
-
     /**
      * a one parameter constructor that makes a controller for 
      * a given GamePanel
@@ -34,7 +32,6 @@ public class ControllerOne implements ActionListener, GameboyController {
 
         gameBoyPanel = gbp;
         gameState = gs;
-        player1 = true;
     }
 
     /**
@@ -50,10 +47,7 @@ public class ControllerOne implements ActionListener, GameboyController {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if(!gameBoyPanel.textField.getText().equals("")){
-
-            // TODO; rewrite this once all model changes are done
-        }
+        // TODO; rewrite this once all model changes are done
     }
 
     

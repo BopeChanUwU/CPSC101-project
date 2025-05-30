@@ -39,7 +39,7 @@ public class GameboyPanel extends JPanel{
     private ImageIcon image2;
 
     private final ControllerOne controller;
-    public TextField textField = new TextField();
+    private final TextField textField = new TextField();
 
     /**
      * constructs a GameboyPanel
@@ -53,7 +53,6 @@ public class GameboyPanel extends JPanel{
 
     /**
      * creates all the stuff inside the panel
-     * @param gp GamePanel game view
      */
     public final void initialize(){
 
@@ -72,6 +71,7 @@ public class GameboyPanel extends JPanel{
         // create game screen 
         add(gp, BorderLayout.CENTER);
 
+        // create text field
         bp.add(textField);
         textField.setBackground(new Color(159,146,189));
         textField.setFont(new java.awt.Font(TOOL_TIP_TEXT_KEY, ABORT, 
@@ -102,6 +102,15 @@ public class GameboyPanel extends JPanel{
      */
     public GamePanel getGamePanel(){
 
-        return this.gp;
+        return gp;
+    }
+
+    /**
+     * this method gets the textfield
+     * @return TextField textfield
+     */
+    public TextField getTextField(){
+
+        return textField;
     }
 }

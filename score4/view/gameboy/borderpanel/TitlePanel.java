@@ -1,18 +1,17 @@
 package score4.view.gameboy.borderpanel;
 
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 /**
  * This file is part of a Score4 game
@@ -90,7 +89,7 @@ public class TitlePanel extends JPanel {
     public void paintComponent(Graphics g){
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g; //casts g from graphics to graphics 2D
+        Graphics2D g2 = (Graphics2D) g; 
 
         try {
 

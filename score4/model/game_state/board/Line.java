@@ -199,7 +199,8 @@ public class Line {
                 } 
             }
         }
-        
+        //player classes have references to colour could i check to see whos colour matches the lines colour? or once its a players turn 
+        //just check for win 
         return false;
     }
 

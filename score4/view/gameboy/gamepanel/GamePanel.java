@@ -3,9 +3,7 @@ package score4.view.gameboy.gamepanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
-
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
@@ -114,9 +112,9 @@ public class GamePanel extends JPanel {
     protected  void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;//casts g from graphics to graphics 2D
-        compManager.draw(g2);//tile comes before beads
-        paintChildren(g); //paints buttons and stuff back 
+        Graphics2D g2 = (Graphics2D) g;
+        compManager.draw(g2);
+        paintChildren(g);
     }
 
     /**

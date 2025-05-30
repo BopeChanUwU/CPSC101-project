@@ -3,6 +3,7 @@ package score4.view;
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import score4.view.gameboy.GameboyPanel;
+import score4.view.gameboy.MenuPanel;
 
 /**
  * This file is part of a Score4 game
@@ -16,7 +17,8 @@ import score4.view.gameboy.GameboyPanel;
  */
 public class GameFrame extends JFrame{
 
-    private final GameboyPanel gP = new GameboyPanel();
+    private GameboyPanel gP;
+    private MenuPanel menu = new MenuPanel();
 
     /**
      * constructs GameFrame 
@@ -24,7 +26,7 @@ public class GameFrame extends JFrame{
     public GameFrame(){
 
         super();
-        this.initialize(gP);
+        this.initialize();
     }
 
     /**
@@ -37,13 +39,12 @@ public class GameFrame extends JFrame{
 
     /**
      * sets the contents of the GameFrame
-     * @param gP GameboyPanel holds the game screen
      */
-    public final void initialize(GameboyPanel gP){
+    public final void initialize(){
 
         setSize(500,1000);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add(gP ,BorderLayout.CENTER);
+        add(menu, BorderLayout.CENTER);
         pack();
         setVisible(true);
     }
