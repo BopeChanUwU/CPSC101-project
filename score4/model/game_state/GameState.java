@@ -235,8 +235,8 @@ public class GameState implements Cloneable{
     */
     public int minimax(GameState state, int depth, boolean maximizingPlayer, Colour aiColour) {
         
-        //checks the value of state
-        if (state.getIsOver()) {
+        //checks the value of state or ends if depth is 0
+        if (state.getIsOver() || depth == 0) {
             if (state.getDrawStatus()) {
                 return 0; // Draw
             } else if (state.getWinStatus()) {
