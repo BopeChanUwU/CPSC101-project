@@ -24,7 +24,7 @@ public class GamePanel extends JPanel {
     private final int MaxScreenCol = 11;
     private final int MaxScreenRow = 6;
     private final int screenWidth = tileSize*MaxScreenCol;
-    private final int screenHeight = tileSize*MaxScreenRow+1;
+    private final int screenHeight = tileSize*MaxScreenRow;
     private int countBlack = 0;
     private int countWhite = 0;
 
@@ -61,7 +61,7 @@ public class GamePanel extends JPanel {
             wBead[i].setSize(32, 32);
             wBead[i].setPreferredSize(new Dimension(32, 32));
             wBead[i].setMinimumSize(new Dimension(32, 32));
-            setVisible(true);
+            wBead[i].setVisible(true);
         }
 
         setVisible(true);

@@ -1,14 +1,13 @@
 package score4.view.gameboy;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * This file is part of a Score4 game
@@ -29,11 +28,9 @@ public class MenuPanel extends JPanel{
     private final int screenWidth = tileSize*MaxScreenCol;
     private final int screenHeight = tileSize*MaxScreenRow+1;
 
-    private  JComboBox player1 = new JComboBox<>();
-    private  JComboBox player2 = new JComboBox<>();
-    private  final JButton enter = new JButton();
-    private final JTextField p1Name = new JTextField();
-    private final JTextField p2Name = new JTextField();
+    private  final JButton onePlayer = new JButton("Single Player");
+    private final JButton twoPlayer = new JButton("multi-Player");
+    private final JButton about = new JButton("About");
     /* idea use input from this panel to initialize the gamepanel  */
 
     /**
@@ -42,7 +39,7 @@ public class MenuPanel extends JPanel{
     public MenuPanel(){
     
         setPreferredSize(new Dimension(screenWidth, screenHeight));
-        setLayout(new BorderLayout());
+        setLayout(new GridLayout(9,1));
         initialize();
     }
     
@@ -50,23 +47,25 @@ public class MenuPanel extends JPanel{
      * creates all the stuff inside the panel
      */
     public final void initialize(){
-    
-        //player select box 1
-        add(player1);
+        
+        //might need to add blank jlabels to fill space and push things down into location
+        for (int i = 0; i < 5; i++) {
+            add(new JLabel());
+        }
 
-        //player select box 2
-        add(player2);
+        // 1 Player button
+        add(onePlayer);
+        onePlayer.addActionListener(onePlayer -> {System.out.println("hello 1");});
 
-        // enter button
-        add(enter);
+        //Multi Player button
+        add(twoPlayer);
+        twoPlayer.addActionListener(twoPlayer -> {System.out.println("hello 2");});
 
-        //player 1 name textfield
-        add(p1Name);
+        //About button
+        add(about);
+        about.addActionListener(about -> {System.out.println("hello 3");});
 
-        //player 2 name textfield
-        add(p2Name);
-
-        setBackground(new Color(73,71,134));
+        setBackground(new Color(73,71,134)); // currently purple
         setVisible(true); 
     }
 
@@ -77,7 +76,7 @@ public class MenuPanel extends JPanel{
      */
     public void draw(Graphics2D g2) throws Exception {
 
-        
+        //this is for what gets painted on screen
     }
 
     /**
@@ -100,5 +99,10 @@ public class MenuPanel extends JPanel{
         }
 
         paintChildren(g2);
+    }
+
+    public void update() {
+
+        repaint();
     }
 }

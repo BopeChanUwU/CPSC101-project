@@ -1,6 +1,7 @@
 package score4.model.game_state.board;
 
 import score4.model.player.Bead;
+import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -209,6 +210,12 @@ public class Board implements Cloneable {
     private boolean checkInBounds(int row, int col) {
         
         return (row>=0 && row<=size-1) && (col>=0 && col<=size-1);
+    }
+
+    public boolean isWinningState(Colour colour) {
+
+        //TODO: implement this method
+        return false;
     }
 
     /**

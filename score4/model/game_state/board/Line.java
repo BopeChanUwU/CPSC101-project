@@ -3,6 +3,7 @@ package score4.model.game_state.board;
 import java.util.ArrayList;
 import java.util.Objects;
 import score4.model.player.Bead;
+import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -171,7 +172,7 @@ public class Line {
             ||p.equals(line[3]);
     }
 
-    public static boolean  containsLine(ArrayList<Bead> beads) {
+    public static Colour containsLine(ArrayList<Bead> beads) {
 
         boolean coloursMatch;
         int count;
@@ -192,16 +193,19 @@ public class Line {
                             if(count == 4 && coloursMatch) {
 
                                 // should i pass the colour of the beads in line here?
-                                return true;
+                                return bead.getColour();
                             }
                         }
                     }
                 } 
             }
         }
-        //player classes have references to colour could i check to see whos colour matches the lines colour? or once its a players turn 
-        //just check for win 
-        return false;
+        return null;
+    }
+
+    public static void numInLines() {
+
+        
     }
 
     @Override
