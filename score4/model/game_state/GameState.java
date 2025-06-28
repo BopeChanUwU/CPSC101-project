@@ -155,6 +155,8 @@ public class GameState implements Cloneable{
             int value = minimax(state, depth - 1, isOver, colour, alpha, beta);
             undoMove();
 
+            System.out.println("Evaluating move: " + move + " with score: " + value);
+
             if(value > bestValue) {
 
                 bestValue = value;
@@ -348,5 +350,33 @@ public class GameState implements Cloneable{
         GameState clone = (GameState) super.clone();
         clone.gameBoard = gameBoard.clone();
         return clone;
+    }
+
+    /**
+     * Gets the best move for the AI using the minimax algorithm.
+     * This method iterates through all possible moves, applies each move to the game state,
+     * and evaluates the resulting game state using the minimax algorithm.
+     * It returns the move that maximizes the AI's score.
+     * @param state the current game state
+     * @param depth the depth to search in the minimax algorithm
+     * @param aiColour the colour of the AI player
+     * @return Position3D the best move for the AI player
+     */
+    public Position3D getBestMove(GameState state, int depth, Colour aiColour) {
+        int bestValue = Integer.MIN_VALUE;
+        Position3D bestMove = null;
+
+        for (Position3D move : state.getPossibleMoves()) {
+            state.applyMove(move, aiColour); // Apply move
+            int moveValue = minimax(state, depth - 1, false, aiColour, Integer.MIN_VALUE, Integer.MAX_VALUE);
+            state.undoMove(); // Undo move
+
+            if (moveValue > bestValue) {
+                bestValue = moveValue;
+                bestMove = move;
+            }
+        }
+
+        return bestMove;
     }
 }
