@@ -126,6 +126,20 @@ public class Position3D {
     }
 
     /**
+     * checks to see if the passed positionn is beside the calling position
+     * @param p Position3D the point you wish to compare
+     * @return Boolean true if beside
+     */
+    public boolean isBeside(Position3D p) {
+        
+        // Check if the positions are adjacent in 3D space
+        return (Math.abs(this.row - p.row) <= 1 && 
+                Math.abs(this.col - p.col) <= 1 && 
+                Math.abs(this.height - p.height) <= 1) &&
+               !(this.equals(p)); // Ensure they are not the same position
+    }
+
+    /**
      * Gets the row
      * @return int row (between 0-3)
      */
@@ -199,6 +213,26 @@ public class Position3D {
             }
         }
         return alphaRow + strColumn + "(" + strHeight + ")";
+    }
+
+    /**
+     * Checks if this position is collinear with two other positions in 3D space.
+     * This method uses the cross product to determine if the points are collinear.
+     * This method treats the calling Position3D as the first point,
+     * @param p2 The second position to check
+     * @param p3 The third position to check
+     * @return true if the points are collinear, false otherwise
+     */
+    public boolean areCollinear(Position3D p2, Position3D p3) {
+        
+        // Check if the points are collinear in 3D space
+        return (p2.getRow() - this.row) * (p3.getColumn() - this.col) == 
+               (p2.getColumn() - this.col) * (p3.getRow() - this.row) &&
+               (p2.getRow() - this.row) * (p3.getHeight() - this.height) == 
+               (p2.getHeight() - this.height) * (p3.getRow() - this.row) &&
+               (p2.getColumn() - this.col) * (p3.getHeight() - this.height) == 
+               (p2.getHeight() - this.height) * (p3.getColumn() - this.col);
+        
     }
 
     /**

@@ -3,7 +3,6 @@ package score4.model.game_state.board;
 import java.util.ArrayList;
 import java.util.Objects;
 import score4.model.player.Bead;
-import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -76,56 +75,28 @@ public class Line {
      */
     public static ArrayList<Line> allLines() {
         
-        // skew 1
-        // X
-        for (int i = 0; i < 4; i++) { 
-            for (int j = 0; j < 4; j++) {
-                
-            theLines.add(new Line(new Position3D(0, i, j), new Position3D(3, i, j)));
-            }
-        }
-        // Y
-        for (int i = 0; i < 4; i++) { 
-            for (int j = 0; j < 4; j++) {
-                
-                theLines.add(new Line(new Position3D(i, 0, j), new Position3D(i, 3, j)));
-            }
-        }
-        // Z
-        for (int i = 0; i < 4; i++) { 
-            for (int j = 0; j < 4; j++) {
+        ArrayList<Bead> beads = Bead.getTheBeads();
 
-                theLines.add(new Line(new Position3D(i, j, 0), new Position3D(i, j, 3)));
+        if(theLines.isEmpty()) {
+
+            
+            for (int i = 0; i < beads.size(); i++) {
+                for (int j = i + 1; j < beads.size(); j++) {
+
+                    if(isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D())) {
+
+                        Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
+                        if(!theLines.contains(line)) {
+
+                            theLines.add(line);
+                        }
+                    }
+                }
             }
         }
-        //skew 2
-        // XY
-        for (int i = 0; i < 4; i++) { 
-
-            theLines.add(new Line(new Position3D(0, 0, i), new Position3D(3, 3, i)));
-            theLines.add(new Line(new Position3D(0, 3, i), new Position3D(3, 0, i)));
-        }
-        // XZ
-        for (int i = 0; i < 4; i++) { 
-            
-            theLines.add(new Line(new Position3D(0, i, 0), new Position3D(3, i, 3)));
-            theLines.add(new Line(new Position3D(0, i, 3), new Position3D(3, i, 0)));
-        }
-        // YZ
-        for (int i = 0; i < 4; i++) { 
-            
-            theLines.add(new Line(new Position3D(i, 0, 0), new Position3D(i, 3, 3)));
-            theLines.add(new Line(new Position3D(i, 0, 3), new Position3D(i, 3, 0)));
-        }
-        //skew 3
-        // XYZ
-        theLines.add(new Line(new Position3D(0, 0, 0), new Position3D(3, 3, 3)));
-        theLines.add(new Line(new Position3D(0, 0, 3), new Position3D(3, 3, 0)));
-        theLines.add(new Line(new Position3D(3, 0, 0), new Position3D(0, 3, 3)));
-        theLines.add(new Line(new Position3D(3, 0, 3), new Position3D(0, 3, 0)));
-        
         return theLines;
     }
+
 
 
     /**
@@ -172,7 +143,7 @@ public class Line {
             ||p.equals(line[3]);
     }
 
-    public static Colour containsLine(ArrayList<Bead> beads) {
+    public static boolean containsLine(ArrayList<Bead> beads) {
 
         boolean coloursMatch;
         int count;
@@ -192,20 +163,14 @@ public class Line {
                             count++;
                             if(count == 4 && coloursMatch) {
 
-                                // should i pass the colour of the beads in line here?
-                                return bead.getColour();
+                                return true;
                             }
                         }
                     }
                 } 
             }
         }
-        return null;
-    }
-
-    public static void numInLines() {
-
-        
+        return false;
     }
 
     @Override

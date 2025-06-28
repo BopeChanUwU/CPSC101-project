@@ -2,8 +2,8 @@ package score4.model.game_state;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import score4.model.game_state.board.Board;
+import score4.model.game_state.board.Line;
 import score4.model.game_state.board.Position3D;
 import score4.model.player.Bead;
 import score4.model.player.Colour;
@@ -43,6 +43,7 @@ public class GameState implements Cloneable{
             new Position3D(1, 0, 0), new Position3D(1, 1, 0), new Position3D(1, 2, 0), new Position3D(1, 3, 0),
             new Position3D(2, 0, 0), new Position3D(2, 1, 0), new Position3D(2, 2, 0), new Position3D(2, 3, 0),
             new Position3D(3, 0, 0), new Position3D(3, 1, 0), new Position3D(3, 2, 0), new Position3D(3, 3, 0)));
+    private ArrayList<Bead> playedMoves = new ArrayList<>();
 
     /**
      * 
@@ -109,21 +110,11 @@ public class GameState implements Cloneable{
         return draw;
     }
 
-    /** 
-     * returns whether the game is won
-     * @return true if game is won
-     * false if game is not won
-     */
-    public boolean getWinStatus(){
-
-        return win;
-    }
-
     /**
      * sets the winner of the game
      * @param player HumanPlayer the winner of the game
      */
-    public void Win(Player player) {
+    public void setWinner(Player player) {
 
         win = true;
         isOver = true;
@@ -151,6 +142,31 @@ public class GameState implements Cloneable{
         gameBoard = new Board();
     }
 
+    public Position3D findBestMove(GameState state, int depth, Colour colour) {
+
+        int bestValue = Integer.MIN_VALUE;
+        Position3D bestMove = null;
+        int alpha = Integer.MIN_VALUE;
+        int beta = Integer.MAX_VALUE;
+
+        for(Position3D move : possibleMoves) {
+
+            applyMove(move, colour);
+            int value = minimax(state, depth - 1, isOver, colour, alpha, beta);
+            undoMove();
+
+            if(value > bestValue) {
+
+                bestValue = value;
+                bestMove = move;
+            }
+
+            alpha = Math.max(alpha,bestValue);
+        }
+
+        return bestMove;
+    }
+
     /**
      * applies a move to the game board and removes it from possibleMoves
      * @param move
@@ -158,30 +174,36 @@ public class GameState implements Cloneable{
      */
     public void applyMove(Position3D move, Colour colour) {
 
+        // apply the move to the game board
         gameBoard.getPeg(move.getRow(),move.getColumn()).setBead(move.getRow(),move.getColumn(),colour);
+        // remove the move from possible moves
         removePossibleMove(move);
-        addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight() + 1));
+        if(move.getHeight() < 4) 
+            addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight() + 1));
+        // adds move to playedMove
+        playedMoves.add(new Bead(colour, move));
+        if(Line.containsLine(playedMoves))
+            setWinner(thePlayers[turn%2]);
+        turn++;
+        if(turn > 64)
+            setDraw();
     }
 
     /**
-     * undoes a given move and adds it to possibleMoves
-     * @param move Position3D location of the move to undo
+     * undoes the last move made in the game
      */
-    public void undoMove(Bead move) {
+    public void undoMove() {
     
+        if (playedMoves.isEmpty()) 
+            return; // No moves to undo
+        // Remove the last move from the played moves
+        Bead move = playedMoves.removeLast();
+        // Remove the bead from the game board
         gameBoard.getPeg(move.getPosition3D().getRow(),move.getPosition3D().getColumn()).removeBead(); 
+        // add the position back to possible moves
         addPossibleMove(move.getPosition3D());
-        removePlayedMove(move);
-    }
-
-    /**
-     * 
-     * @param move
-     */
-    private void removePlayedMove(Bead move) {
-
-        if(Bead.getTheBeads().contains(move))
-            Bead.getTheBeads().remove(move);
+        removePossibleMove(new Position3D(move.getPosition3D().getRow(), move.getPosition3D().getColumn(), move.getPosition3D().getHeight() + 1));
+        turn--;
     }
 
     /**
@@ -190,8 +212,10 @@ public class GameState implements Cloneable{
      */
     private void addPossibleMove(Position3D move) {
 
-        if(!possibleMoves.contains(move))
+        if(!possibleMoves.contains(move)) {
+            /* possibleMoves.removeLast(); */
             possibleMoves.add(move);
+        }
     }
 
     /**
@@ -202,6 +226,7 @@ public class GameState implements Cloneable{
 
         if(possibleMoves.contains(move))
             possibleMoves.remove(move);
+
     }
 
     /**
@@ -214,67 +239,99 @@ public class GameState implements Cloneable{
     }
 
     /**
-     * evaluates the game state for the AI
-     * @param aiColour Colour of the AI player
-     * @return int score of the game state for the AI
+     * evaluates the game state for a given colour
+     * @param colour Colour of the player
+     * @return int score of the game state 
      */
-    public int evaluate(Colour aiColour) {
+    public int evaluate(Colour colour) {
 
-        //checks the game board to see if ai is winning, losing, or neutral
-        //TODO: implement evaluation function here
-        return 0;
+        //checks the game board to see the value of the current game state
+        //search through the beads and check for lines spanning 1-3 if 1 give 10 if 2 give 100 if 3 give 1000
+        int totalsingles = 0;
+        int totalDoubles = 0;
+        int totalTriples = 0;
+        ArrayList<Bead> beads = playedMoves;
+        
+        if (win) {
+            return Integer.MAX_VALUE; // AI wins
+        } else if (draw) {
+            return 0; // draw max moves reached
+        }
+
+        for (int i = 0; i < beads.size(); i++) {
+            Bead firstBead = beads.get(i);
+            if (firstBead.getColour() == colour) { // skips if not correct colour
+                int count = 1;
+                // Check for lines in all directions
+                for (int j = i + 1; j < beads.size(); j++) {
+                    Bead secondBead = beads.get(j);
+                    if (secondBead.getColour() == colour && secondBead.getPosition3D().isBeside(firstBead.getPosition3D())) {
+                        count++;
+                        for(int k = j + 1; k < beads.size(); k++) {
+                            Bead thirdBead = beads.get(k);
+                            if (thirdBead.getColour() == colour && thirdBead.getPosition3D().areCollinear(firstBead.getPosition3D(), secondBead.getPosition3D())) {
+                                count++;
+                                break; // No need to check further for triples
+                            }
+                        }
+                    } else {
+                        break;  // break if not matching colour or adjacent
+                    }
+                    switch (count) {
+                        case 1 -> totalsingles++;
+                        case 2 -> totalDoubles++;
+                        case 3 -> totalTriples++;
+                    }
+                }
+            }
+        }
+        return (totalsingles * 10) + (totalDoubles * 100) + (totalTriples * 1000);
     }
 
     /** 
      * minimax algo  this takes in the game state and then checks 
+     * to find the best possible move
      * @param GameState
      * @param int depth of search 
      * @param boolean the maximizing player
      * @param Colour computer players colour
+     * @param int alpha
+     * @param int beta
      * @return int the value of the end state
     */
-    public int minimax(GameState state, int depth, boolean maximizingPlayer, Colour aiColour) {
+    public int minimax(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta) {
         
-        //checks the value of state or ends if depth is 0
+        //checks the value of state when depth reaches 0 or the game is over
         if (state.getIsOver() || depth == 0) {
-            if (state.getDrawStatus()) {
-                return 0; // Draw
-            } else if (state.getWinStatus()) {
-                return 1; // AI wins
-            } else {
-                return -1; // Opponent wins
-            }
+            return state.evaluate(colour) - state.evaluate(colour == Colour.White ? Colour.Black:Colour.White);
         }
 
         // if maximizing set max eval equal to mall int clone state 
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
             for (Position3D move : state.getPossibleMoves()) {
-                GameState newState;
-                try {
-                    newState = state.clone();
-                    newState.applyMove(move, aiColour);
-                    int eval = minimax(newState, depth - 1, false, aiColour);
-                    maxEval = Math.max(maxEval, eval);
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
+                
+                applyMove(move, colour);    //apply the move to the game board
+                int eval = minimax(this, depth - 1, false, colour, alpha, beta);
+                undoMove();   // undo the move
+                maxEval = Math.max(maxEval, eval);
+                alpha = Math.max(alpha,maxEval);
+                if(alpha >= beta)
+                    break;    //prune
             }
             return maxEval;
         } else {
             //this is minimizing player
             int minEval = Integer.MAX_VALUE;
             for (Position3D move : state.getPossibleMoves()) {
-                GameState newState;
-                try {
-                    newState = state.clone();
-                    newState.applyMove(move, aiColour == Colour.White ? Colour.Black : Colour.White);
-                    int eval = minimax(newState, depth - 1, true, aiColour);
-                    minEval = Math.min(minEval, eval);
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
                 
+                applyMove(move, colour == Colour.White ? Colour.Black : Colour.White);  //apply the move to the game board
+                int eval = minimax(this, depth - 1, true, colour, alpha, beta);
+                undoMove();   // undo the move
+                minEval = Math.min(minEval, eval);
+                beta = Math.min(beta,minEval);
+                if(beta <= alpha)
+                    break;  //prune
             }
             return minEval;
         }

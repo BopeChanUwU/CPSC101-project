@@ -1,7 +1,7 @@
 package score4.model.game_state.board;
 
+import java.util.ArrayList;
 import score4.model.player.Bead;
-import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -212,10 +212,15 @@ public class Board implements Cloneable {
         return (row>=0 && row<=size-1) && (col>=0 && col<=size-1);
     }
 
-    public boolean isWinningState(Colour colour) {
+    /**
+     * checks through an arraylist of beads (played moves) to see if 4 
+     *  beads of the same colour are in a row
+     * @param beads array list of beads to check
+     * @return Boolean true if winning state
+     */
+    public boolean isWinningState(ArrayList<Bead> beads) {
 
-        //TODO: implement this method
-        return false;
+        return Line.containsLine(beads);
     }
 
     /**
