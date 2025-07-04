@@ -41,7 +41,7 @@ public class GameState implements Cloneable{
     private final Player[] thePlayers = new Player[2];
     private Board gameBoard;
     private final int maxMoves = 64;
-    // Possible moves start at 4x4x0
+    // Possible moves start at 4x4x0 (this is the bottom layer of the board)
     private ArrayList<Position3D> possibleMoves = new ArrayList<>(Arrays.asList( new Position3D(0, 0, 0), new Position3D(0, 1, 0), new Position3D(0, 2, 0), new Position3D(0, 3, 0),
             new Position3D(1, 0, 0), new Position3D(1, 1, 0), new Position3D(1, 2, 0), new Position3D(1, 3, 0),
             new Position3D(2, 0, 0), new Position3D(2, 1, 0), new Position3D(2, 2, 0), new Position3D(2, 3, 0),
@@ -133,6 +133,10 @@ public class GameState implements Cloneable{
         return thePlayers[turn % 2];
     }
     
+    /**
+     * 
+     * @return
+     */
     public boolean isAI() {
 
         return thePlayers[turn % 2] instanceof AIPlayer;
@@ -150,14 +154,26 @@ public class GameState implements Cloneable{
         gameBoard = new Board();
     }
 
+    /**
+     * 
+     * @param state
+     * @param depth
+     * @param colour
+     * @return
+     */
     public Position3D findBestMove(GameState state, int depth, Colour colour) {
         int bestValue = Integer.MIN_VALUE;
         Position3D bestMove = null;
         int alpha = Integer.MIN_VALUE;
         int beta = Integer.MAX_VALUE;
 
-        // Create a copy of possibleMoves to iterate safely
-        List<Position3D> moves = new ArrayList<>(possibleMoves);
+        // Filter possibleMoves to ensure all positions have valid heights
+        List<Position3D> moves = new ArrayList<>();
+        for (Position3D move : possibleMoves) {
+            if (move.getHeight() < 4) {
+                moves.add(move);
+            }
+        }
 
         for (Position3D move : moves) {
             applyMove(move, colour);
@@ -166,7 +182,10 @@ public class GameState implements Cloneable{
 
             System.out.println("Evaluating move: " + move + " with score: " + value);
 
-            if (value > bestValue) {
+            if (value > bestValue && possibleMoves.contains(move)) {
+
+                // If the move is better than the best found so far, update bestValue and bestMove
+                System.out.println("New best move found: " + move + " with score: " + value);
                 bestValue = value;
                 bestMove = move;
             }
@@ -177,6 +196,12 @@ public class GameState implements Cloneable{
         return bestMove;
     }
 
+    /**
+     * gets the player at a given index
+     * @param index int the index of the player
+     * @return Player the player at the given index
+     */
+    // Note: Index 0 is Player 1, Index 1 is Player 2
     public Player getPlayer(int index) {
 
         if(index < 0 || index >= thePlayers.length) {
@@ -190,13 +215,20 @@ public class GameState implements Cloneable{
      * @param move
      * @param colour
      */
-    public void applyMove(Position3D move, Colour colour) {
+    public synchronized void applyMove(Position3D move, Colour colour) {
+        
+        if (move.getHeight() >= 4) {
+            throw new IllegalArgumentException("Height is out of bounds: " + move.getHeight());
+        }
+
         gameBoard.getPeg(move.getRow(), move.getColumn()).setBead(move.getRow(), move.getColumn(), colour);
         playedMoves.add(new Bead(colour, move));
-        // Do not modify possibleMoves during iteration
-        if (move.getHeight() < 4) {
+        removePossibleMove(move);
+
+        if (move.getHeight() < 3) {
             addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight() + 1));
         }
+
         turn++;
         if (Line.containsLine(playedMoves)) {
             setWinner(thePlayers[turn % 2]);
@@ -213,10 +245,14 @@ public class GameState implements Cloneable{
         if (playedMoves.isEmpty()) {
             return; // No moves to undo
         }
+
         Bead move = playedMoves.remove(playedMoves.size() - 1);
         gameBoard.getPeg(move.getPosition3D().getRow(), move.getPosition3D().getColumn()).removeBead();
-        // Do not modify possibleMoves during iteration
-        addPossibleMove(move.getPosition3D());
+
+        if (move.getPosition3D().getHeight() < 4) {
+            addPossibleMove(move.getPosition3D());
+        }
+
         turn--;
     }
 
@@ -225,16 +261,18 @@ public class GameState implements Cloneable{
      * @param move Position3D location to add to list
      */
     private void addPossibleMove(Position3D move) {
-
-        if(!possibleMoves.contains(move)) {
-            /* possibleMoves.removeLast(); */
+        
+        if (move.getHeight() < 4 && !possibleMoves.contains(move)) {
             possibleMoves.add(move);
         }
     }
 
     /**
-     * 
-     * @param move
+     * removes a given possible move from the list of possible moves
+     * This method uses an iterator to safely remove the move from the list.
+     * This is necessary because modifying a list while iterating over it can cause
+     * a ConcurrentModificationException.
+     * @param move Position3D location to remove from list
      */
     private void removePossibleMove(Position3D move) {
         Iterator<Position3D> iterator = possibleMoves.iterator();
@@ -252,6 +290,11 @@ public class GameState implements Cloneable{
      */
     public ArrayList<Position3D> getPossibleMoves() {
     
+        //TO-DO: this is temporary, for testing purposes
+        /* for (Position3D possibleMove : possibleMoves) {
+            
+            System.out.println("Possible Move: " + possibleMove);
+        } */
         return possibleMoves;
     }
 
@@ -264,7 +307,7 @@ public class GameState implements Cloneable{
 
         //checks the game board to see the value of the current game state
         //search through the beads and check for lines spanning 1-3 if 1 give 10 if 2 give 100 if 3 give 1000
-        int totalsingles = 0;
+        /* int totalsingles = 0;
         int totalDoubles = 0;
         int totalTriples = 0;
         ArrayList<Bead> beads = playedMoves;
@@ -302,7 +345,28 @@ public class GameState implements Cloneable{
                 }
             }
         }
-        return (totalsingles * 10) + (totalDoubles * 100) + (totalTriples * 1000);
+        return (totalsingles * 10) + (totalDoubles * 100) + (totalTriples * 1000); */
+
+        int score = 0;
+
+        if (Line.containsLine(playedMoves, colour)) {
+            score += 10000; // Winning State
+            System.out.println("Winning State Detected for Colour: " + colour);
+        }
+        if (Line.containsLine(playedMoves, colour == Colour.White ? Colour.Black : Colour.White)) {
+            score -= 10000; // Opponent Winning State
+            System.out.println("Opponent Winning State Detected for Colour: " + (colour == Colour.White ? Colour.Black : Colour.White));
+        }
+
+        int aiPotentialLines = Line.countPotentialLines(playedMoves, colour);
+        int opponentPotentialLines = Line.countPotentialLines(playedMoves, colour == Colour.White ? Colour.Black : Colour.White);
+        score += aiPotentialLines * 10; // AI potential lines
+        score -= opponentPotentialLines * 10; // Opponent potential lines
+
+        System.out.println("AI Potential Lines: " + aiPotentialLines + ", Opponent Potential Lines: " + opponentPotentialLines);
+        System.out.println("Final Score : " + score);
+
+        return score;
     }
 
     /** 

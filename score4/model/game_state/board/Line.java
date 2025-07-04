@@ -3,6 +3,7 @@ package score4.model.game_state.board;
 import java.util.ArrayList;
 import java.util.Objects;
 import score4.model.player.Bead;
+import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -143,8 +144,14 @@ public class Line {
             ||p.equals(line[3]);
     }
 
-    public static boolean containsLine(ArrayList<Bead> beads) {
-
+    /**
+     * 
+     * @param beads
+     * @param colour
+     * @return
+     */
+    public static boolean containsLine(ArrayList<Bead> beads, Colour colour) {
+        //TODO: refactor this method to take in a colour 
         boolean coloursMatch;
         int count;
         for (int i = 0 ; i < beads.size(); i++) {
@@ -171,6 +178,38 @@ public class Line {
             }
         }
         return false;
+    }
+
+    /**
+     * 
+     * @param beads
+     * @param colour
+     * @return
+     */
+    public static int countPotentialLines(ArrayList<Bead> beads, Colour colour) {
+        int count = 0;
+        for (int i = 0 ; i < beads.size(); i++) {
+            for (int j = i + 1; j < beads.size(); j++) {
+
+                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D()) 
+                    && Bead.coloursMatch(beads.get(i).getColour(), beads.get(j).getColour())) {
+
+                    Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
+                    if(line.hasPosition3D(beads.get(i).getPosition3D()) 
+                        && line.hasPosition3D(beads.get(j).getPosition3D())) {
+
+                        count++;
+                    }
+                } 
+            }
+        }
+        return count;
+    }
+
+    public static int countPotentialLines(ArrayList<Bead> beads, Colour colour) {
+
+        int lineCount = 0;
+        return lineCount;
     }
 
     @Override

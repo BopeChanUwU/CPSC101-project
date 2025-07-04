@@ -181,8 +181,8 @@ public class ControllerOne implements ActionListener, GameboyController {
                 gp.update(); // repaint 
 
                 /* model stuff */
-                Position3D bestMove = gameState.findBestMove(gameState, 2, Colour.Black);
-                System.out.println("AI move: " + bestMove);
+                Position3D bestMove = gameState.findBestMove(gameState, 7, Colour.Black);
+                System.err.println("AI move: " + bestMove);
                 gameState.applyMove(bestMove, Colour.Black);
 
                 System.err.println("AI played on " + bestMove);
