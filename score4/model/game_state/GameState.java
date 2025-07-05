@@ -230,7 +230,7 @@ public class GameState implements Cloneable{
         }
 
         turn++;
-        if (Line.containsLine(playedMoves)) {
+        if (Line.containsLine(playedMoves, colour)) {
             setWinner(thePlayers[turn % 2]);
         }
         if (turn > maxMoves) {
@@ -242,6 +242,7 @@ public class GameState implements Cloneable{
      * undoes the last move made in the game
      */
     public void undoMove() {
+        
         if (playedMoves.isEmpty()) {
             return; // No moves to undo
         }
@@ -290,11 +291,6 @@ public class GameState implements Cloneable{
      */
     public ArrayList<Position3D> getPossibleMoves() {
     
-        //TO-DO: this is temporary, for testing purposes
-        /* for (Position3D possibleMove : possibleMoves) {
-            
-            System.out.println("Possible Move: " + possibleMove);
-        } */
         return possibleMoves;
     }
 

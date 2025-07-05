@@ -96,7 +96,7 @@ public class ControllerOne implements ActionListener, GameboyController {
                     gp.update(); // repaint 
                     gameBoyPanel.getTextField().setText(""); // clear text field
 
-                    if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+                    if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.White)) { // check if game is over
 
                         System.out.println("Game Over");
                         gameBoyPanel.getTextField().setText("White Wins! Game Over");
@@ -136,7 +136,7 @@ public class ControllerOne implements ActionListener, GameboyController {
                     gp.update(); // repaint 
                     gameBoyPanel.getTextField().setText(""); // clear text field
                 
-                    if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+                    if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.Black)) { // check if game is over
 
                         System.out.println("Game Over");
                         gameBoyPanel.getTextField().setText("Black Wins! Game Over");

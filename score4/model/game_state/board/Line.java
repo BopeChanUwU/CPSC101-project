@@ -151,30 +151,28 @@ public class Line {
      * @return
      */
     public static boolean containsLine(ArrayList<Bead> beads, Colour colour) {
-        //TODO: refactor this method to take in a colour 
+
         boolean coloursMatch;
         int count;
-        for (int i = 0 ; i < beads.size(); i++) {
+        for (int i = 0; i < beads.size(); i++) {
             for (int j = i + 1; j < beads.size(); j++) {
 
-                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D()) 
-                    && Bead.coloursMatch(beads.get(i).getColour(), beads.get(j).getColour())) {
+                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D())) {
 
                     Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
+                    coloursMatch = Bead.coloursMatch(beads.get(i).getColour(), beads.get(j).getColour());
                     count = 0;
-                    for (Bead bead : Bead.getTheBeads()) {
 
-                        if(Bead.coloursMatch(bead.getColour(), beads.get(i).getColour()) && line.hasPosition3D(bead.getPosition3D())) {
-
-                            coloursMatch = true;
+                    for (Bead bead : beads) {
+                        if(line.hasPosition3D(bead.getPosition3D()) && bead.getColour() == colour) {
                             count++;
-                            if(count == 4 && coloursMatch) {
-
-                                return true;
-                            }
                         }
                     }
-                } 
+
+                    if(coloursMatch && count >= 4) {
+                        return true;
+                    }
+                }
             }
         }
         return false;
@@ -204,12 +202,6 @@ public class Line {
             }
         }
         return count;
-    }
-
-    public static int countPotentialLines(ArrayList<Bead> beads, Colour colour) {
-
-        int lineCount = 0;
-        return lineCount;
     }
 
     @Override
