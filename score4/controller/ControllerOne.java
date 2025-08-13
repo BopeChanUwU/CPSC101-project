@@ -179,9 +179,18 @@ public class ControllerOne implements ActionListener, GameboyController {
                 /* set beads location in view */
                 wBead.setBead(peg.getBead(peg.getBeadCount()-1).getPosition3D());
                 gp.update(); // repaint 
+                gameBoyPanel.getTextField().setText(""); // clear text field
+                
+                if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.White)) { // check if game is over
 
+                    System.out.println("Game Over");
+                    gameBoyPanel.getTextField().setText("White Wins! Game Over");
+                    gameBoyPanel.getTextField().setEditable(false);
+                } 
+
+                //AI's turn
                 /* model stuff */
-                Position3D bestMove = gameState.findBestMove(gameState, 7, Colour.Black);
+                Position3D bestMove = gameState.findBestMove(gameState, 1, Colour.Black);
                 System.err.println("AI move: " + bestMove);
                 gameState.applyMove(bestMove, Colour.Black);
 
@@ -190,6 +199,12 @@ public class ControllerOne implements ActionListener, GameboyController {
                 bBead.setBead(gameBoard.getPeg(bestMove.getRow(),bestMove.getColumn()).getBead(peg.getBeadCount()-1).getPosition3D());
                 gp.update(); // repaint 
                 gameBoyPanel.getTextField().setText(""); // clear text field
+                if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.Black)) { // check if game is over
+
+                    System.out.println("Game Over");
+                    gameBoyPanel.getTextField().setText("Black Wins! Game Over");
+                    gameBoyPanel.getTextField().setEditable(false);
+                } 
             }
         }
     }

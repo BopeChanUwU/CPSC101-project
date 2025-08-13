@@ -145,10 +145,11 @@ public class Line {
     }
 
     /**
-     * 
-     * @param beads
-     * @param colour
-     * @return
+     * Checks to see if there is a line of 4 beads of the same colour
+     * in the arraylist of beads passed in.
+     * @param beads ArrayList of Beads to check
+     * @param colour Colour to check for
+     * @return A boolean whether or not there is a line of 4 beads of the same colour
      */
     public static boolean containsLine(ArrayList<Bead> beads, Colour colour) {
 
@@ -169,7 +170,7 @@ public class Line {
                         }
                     }
 
-                    if(coloursMatch && count >= 4) {
+                    if(coloursMatch && count == 4) {
                         return true;
                     }
                 }
@@ -179,29 +180,52 @@ public class Line {
     }
 
     /**
-     * 
-     * @param beads
-     * @param colour
-     * @return
+     *  Counts the number of potential lines of 4 beads of the same colour
+     *  in the arraylist of beads passed in.
+     *  A potential line is a line that does not contain an opposite colour bead
+     * @param beads ArrayList of Beads to check
+     * @param colour Colour to check for
+     * @return An int representing the number of potential lines of 4 beads of the same colour
      */
     public static int countPotentialLines(ArrayList<Bead> beads, Colour colour) {
+
         int count = 0;
+        int inArow = 0;
+        int totalLines = 0;
         for (int i = 0 ; i < beads.size(); i++) {
             for (int j = i + 1; j < beads.size(); j++) {
 
-                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D()) 
-                    && Bead.coloursMatch(beads.get(i).getColour(), beads.get(j).getColour())) {
+                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D())) {
 
                     Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
-                    if(line.hasPosition3D(beads.get(i).getPosition3D()) 
-                        && line.hasPosition3D(beads.get(j).getPosition3D())) {
+                    
+                    for( Bead bead : beads) {
 
-                        count++;
+                        if(line.hasPosition3D(bead.getPosition3D()) && bead.getColour() != colour.opposite()) {
+                            
+                            if(bead.getColour() == colour)
+                                inArow++;
+                            count++;
+                        }
+                        if(count == 4) {
+                            
+                            switch (inArow) {
+                                case 1 -> totalLines += 1;
+                                case 2 -> totalLines += 10;
+                                case 3 -> totalLines += 50;
+                                case 4 -> totalLines += 1000;
+                                default -> totalLines += 0;
+                            }
+                            //totalLines++;
+                            count = 0;
+                            break; // No need to check further beads for this line
+                        }
                     }
+                    // Check if the beads at the ends of the line are of the same colour
                 } 
             }
         }
-        return count;
+        return totalLines;
     }
 
     @Override

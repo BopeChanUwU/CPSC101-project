@@ -54,7 +54,7 @@ public class Board implements Cloneable {
     }
 
     /**
-     * gets the peg at a given location
+     * gets the peg at a given location 0-3
      * @param row int row
      * @param col int column
      * @return Peg the peg you wish to get

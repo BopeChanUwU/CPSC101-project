@@ -31,6 +31,9 @@ public class Peg implements Cloneable {
 
         maxHeight = height;
         pegHeight = new Bead[maxHeight];
+        for(int i = 0; i < maxHeight; i++) {
+            pegHeight[i] = Bead.createBead(); // Initialize the pegHeight array with null Beads
+        }
     }
 
     /**
@@ -41,6 +44,9 @@ public class Peg implements Cloneable {
 
         maxHeight = 4;
         pegHeight = new Bead[maxHeight];
+        for(int i = 0; i < maxHeight; i++) {
+            pegHeight[i] = Bead.createBead(); // Initialize the pegHeight array with null Beads
+        }
     }
 
     /**
@@ -79,13 +85,27 @@ public class Peg implements Cloneable {
      * @param row int the row the peg is located at on the board
      * @param col int the column the peg is located at on the board
      * @param colour Colour of the bead you would like to set
+     * @throws IllegalArgumentException if peg is full
      */
     public void setBead(int row,int col, Colour colour) {
 
-        if (beadCount < maxHeight) {
-            pegHeight[beadCount] = Bead.createBead(colour, new Position3D(row, col, beadCount));
+        if (!full) {
+            pegHeight[beadCount].setPosition3D(new Position3D(row, col, beadCount));
+            pegHeight[beadCount].setColour(colour);
             increaseBeadCount();
+        } else {
+
+            throw new IllegalArgumentException("Peg is full!");
         }
+    }
+
+    /**
+     * this method checks if the peg is full
+     * @return boolean true if full, false otherwise
+     */
+    public boolean isFull() {
+
+        return full;
     }
 
     /**
@@ -94,11 +114,18 @@ public class Peg implements Cloneable {
      */
     public void removeBead() {
 
-        if (beadCount > 0) {
-            pegHeight[beadCount-1] = null;
-            Bead.removeBead();
+        if (full) {
+
             decreaseBeadCount();
+            pegHeight[beadCount].setColour(Colour.Null);
+            pegHeight[beadCount].setPosition3D(new Position3D(0, 0, 0));
+        } else if (beadCount > 0) {
+
+            decreaseBeadCount();
+            pegHeight[beadCount].setColour(Colour.Null);
+            pegHeight[beadCount].setPosition3D(new Position3D(0, 0, 0));
         } else {
+
             throw new IllegalArgumentException("Peg is empty!");
         }
     }
@@ -110,8 +137,11 @@ public class Peg implements Cloneable {
     private void increaseBeadCount() {
 
         if(beadCount<maxHeight) {
+
             beadCount++;
         } else if (!full) {
+
+            beadCount++;
             full = true;
         }
     }
@@ -123,6 +153,7 @@ public class Peg implements Cloneable {
     private void decreaseBeadCount() {
 
         if (beadCount > 0) {
+
             beadCount--;
         }
         full = false;

@@ -13,8 +13,8 @@ import score4.model.game_state.board.Position3D;
  */
 public class Bead implements Cloneable {
 
-    private final Colour beadColour;
-    private final Position3D position3D;
+    private Colour beadColour;
+    private Position3D position3D;
     private static final ArrayList<Bead> theBeads = new ArrayList<>();
 
     /**
@@ -23,7 +23,7 @@ public class Bead implements Cloneable {
      * @param position3D Position3D of the bead
      * @throws IllegalArgumentException if colour is null or position3D is null
      */
-    public Bead(Colour colour, Position3D position3D) {
+    /* public Bead(Colour colour, Position3D position3D) {
 
         if(colour == null) {
 
@@ -35,6 +35,44 @@ public class Bead implements Cloneable {
         }
         beadColour = colour;
         this.position3D = position3D;
+    } */
+
+    /**
+     * Default constructor for the Bead class
+     * Initializes the beadColour to Null and position3D to (0, 0, 0)
+     */
+    public Bead() {
+
+        beadColour = Colour.Null;
+        position3D = new Position3D(0, 0, 0);
+    }
+
+    /**
+     * sets the position3D of the bead
+     * @param position3D Position3D the position you want to set the bead to
+     * @throws IllegalArgumentException if position3D is null
+     */
+    public void setPosition3D(Position3D position3D) {
+
+        if(position3D == null) {
+
+            throw new IllegalArgumentException("position3D cannot be null");
+        }
+        this.position3D = position3D;
+    }
+
+    /**
+     * sets the colour of the bead
+     * @param colour Colour the colour you want to set the bead to
+     * @throws IllegalArgumentException if colour is null
+     */
+    public void setColour(Colour colour) {
+
+        if(colour == null) {
+
+            throw new IllegalArgumentException("colour cannot be null must be Null, Black, or White");
+        }
+        this.beadColour = colour;
     }
 
     /**
@@ -45,9 +83,21 @@ public class Bead implements Cloneable {
      * bead at from 0-63
      * @return Bead a bead object with the specified colour and location 
      */
-    public static Bead createBead(Colour colour, Position3D position3D) {
+    /* public static Bead createBead(Colour colour, Position3D position3D) {
             
         Bead bead = new Bead(colour, position3D);
+        theBeads.add(bead);
+        return bead;
+    } */
+
+    /**
+     * creates a new bead with default colour and position3d objects
+     * it then adds this bead to theBeads arraylist
+     * @return Bead a bead object with the default colour and location 
+     */
+    public static Bead createBead() {
+
+        Bead bead = new Bead();
         theBeads.add(bead);
         return bead;
     }
