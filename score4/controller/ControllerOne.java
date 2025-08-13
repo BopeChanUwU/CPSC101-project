@@ -190,7 +190,7 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 //AI's turn
                 /* model stuff */
-                Position3D bestMove = gameState.findBestMove(gameState, 1, Colour.Black);
+                Position3D bestMove = gameState.findBestMove(gameState, 4, Colour.Black);
                 System.err.println("AI move: " + bestMove);
                 gameState.applyMove(bestMove, Colour.Black);
 
@@ -198,6 +198,7 @@ public class ControllerOne implements ActionListener, GameboyController {
                 /* set beads location in view */
                 bBead.setBead(gameBoard.getPeg(bestMove.getRow(),bestMove.getColumn()).getBead(peg.getBeadCount()-1).getPosition3D());
                 gp.update(); // repaint 
+                System.err.println("Possible Moves;" + gameState.getPossibleMoves());
                 gameBoyPanel.getTextField().setText(""); // clear text field
                 if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.Black)) { // check if game is over
 

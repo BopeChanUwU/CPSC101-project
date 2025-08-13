@@ -1,11 +1,11 @@
 package score4.model.game_state;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Line;
+import score4.model.game_state.board.Peg;
 import score4.model.game_state.board.Position3D;
 import score4.model.player.AIPlayer;
 import score4.model.player.Bead;
@@ -42,10 +42,7 @@ public class GameState implements Cloneable{
     private Board gameBoard;
     private final int maxMoves = 64;
     // Possible moves start at 4x4x0 (this is the bottom layer of the board)
-    private final ArrayList<Position3D> possibleMoves = new ArrayList<>(Arrays.asList( new Position3D(0, 0, 0), new Position3D(0, 1, 0), new Position3D(0, 2, 0), new Position3D(0, 3, 0),
-            new Position3D(1, 0, 0), new Position3D(1, 1, 0), new Position3D(1, 2, 0), new Position3D(1, 3, 0),
-            new Position3D(2, 0, 0), new Position3D(2, 1, 0), new Position3D(2, 2, 0), new Position3D(2, 3, 0),
-            new Position3D(3, 0, 0), new Position3D(3, 1, 0), new Position3D(3, 2, 0), new Position3D(3, 3, 0)));
+    private ArrayList<Position3D> possibleMoves;
 
     /**
      * a 2 arg constructor 
@@ -74,6 +71,23 @@ public class GameState implements Cloneable{
         turn = 0; // Player 1 starts
     }
 
+
+    public ArrayList<Position3D> getPossibleMoves() {
+
+        //TODO: generate a list of possible moves
+        possibleMoves = new ArrayList<>();
+
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
+
+                if(gameBoard.getPeg(i, j).getBeadCount() < 4)
+                    possibleMoves.add(new Position3D(i, j, gameBoard.getPeg(i, j).getBeadCount()) );
+            }
+
+            
+        }
+        return possibleMoves;
+    }
     /**
      * gets the current game board
      * @return returns the current board
@@ -175,38 +189,11 @@ public class GameState implements Cloneable{
      * @return Position3D the best move
      */
     public Position3D findBestMove(GameState state, int depth, Colour colour) {
-        int bestValue = Integer.MIN_VALUE;
-        Position3D bestMove = null;
-        int alpha = Integer.MIN_VALUE;
-        int beta = Integer.MAX_VALUE;
-
-        // Filter possibleMoves to ensure all positions have valid heights
-        List<Position3D> moves = new ArrayList<>();
-        for (Position3D move : possibleMoves) {
-            if (move.getHeight() < 4) {
-                moves.add(move);
-            }
+        MoveResult result = minimaxWithMove(state, depth, true, colour, Integer.MIN_VALUE, Integer.MAX_VALUE);
+        if (!state.getPossibleMoves().contains(result.bestMove)) {
+            throw new IllegalStateException("findBestMove selected an invalid move: " + result.bestMove);
         }
-
-        for (Position3D move : moves) {
-            applyMove(move, colour);
-            int value = minimax(state, depth - 1, false, colour, alpha, beta);
-            undoMove(move, colour);
-
-            System.out.println("Evaluating move: " + move + " with score: " + value);
-
-            if (value > bestValue && possibleMoves.contains(move)) {
-
-                // If the move is better than the best found so far, update bestValue and bestMove
-                System.out.println("New best move found: " + move + " with score: " + value);
-                bestValue = value;
-                bestMove = move;
-            }
-
-            alpha = Math.max(alpha, bestValue);
-        }
-
-        return bestMove;
+        return result.bestMove;
     }
 
     /**
@@ -228,21 +215,22 @@ public class GameState implements Cloneable{
      * @param colour the colour of the player
      */
     public synchronized void applyMove(Position3D move, Colour colour) {
-        
         if (move.getHeight() >= 4) {
             throw new IllegalArgumentException("Height is out of bounds: " + move.getHeight());
         }
 
-        gameBoard.getPeg(move.getRow(), move.getColumn()).setBead(move.getRow(), move.getColumn(), colour);
-        removePossibleMove(move);
+        Peg peg = gameBoard.getPeg(move.getRow(), move.getColumn());
+        peg.setBead(move.getRow(), move.getColumn(), colour); // Place the bead on the board
+        //removePossibleMove(move); // Remove the move from possibleMoves
 
-        if (move.getHeight() < 3) {
-            addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight() + 1));
+        // Add the next valid position on the same peg to possibleMoves
+        if (move.getHeight() <= 3) {
+            //addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight() + 1));
         }
 
         turn++;
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
-            setWinner(thePlayers[turn % 2]);
+            setWinner(getPlayer(turn % 2));
         }
         if (turn > maxMoves) {
             setDraw();
@@ -259,10 +247,10 @@ public class GameState implements Cloneable{
         }
 
         gameBoard.getPeg(move.getRow(), move.getColumn()).removeBead();
-        removePossibleMove(move); // need to fix this
+        //removePossibleMove(move); // need to fix this
 
         if (move.getHeight() < 3) {
-            addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight()));
+            //addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight()));
         }
 
         turn--;
@@ -281,6 +269,7 @@ public class GameState implements Cloneable{
     private void addPossibleMove(Position3D move) {
         
         if (move.getHeight() <= 4 && !possibleMoves.contains(move)) {
+
             possibleMoves.add(move);
         }
     }
@@ -293,22 +282,17 @@ public class GameState implements Cloneable{
      * @param move Position3D location to remove from list
      */
     private void removePossibleMove(Position3D move) {
+
         Iterator<Position3D> iterator = possibleMoves.iterator();
+
         while (iterator.hasNext()) {
+
             Position3D possibleMove = iterator.next();
             if (possibleMove.equals(move)) {
+
                 iterator.remove(); // Safe removal
             }
         }
-    }
-
-    /**
-     * gets an array list of possible moves
-     * @return ArrayList<Position3D> the possible moves
-     */
-    public ArrayList<Position3D> getPossibleMoves() {
-    
-        return possibleMoves;
     }
 
     /**
@@ -387,6 +371,75 @@ public class GameState implements Cloneable{
                 }
             }
             return minEval;
+        }
+    }
+
+    public MoveResult minimaxWithMove(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta) {
+        // Base case: return the evaluation score if the game is over or depth is 0
+        if (state.getIsOver() || depth == 0) {
+            int score = state.evaluate(colour);
+            return new MoveResult(null, score); // No move at this level
+        }
+
+        List<Position3D> moves = new ArrayList<>(state.getPossibleMoves());
+        Position3D bestMove = null;
+
+        if (maximizingPlayer) {
+            int maxEval = Integer.MIN_VALUE;
+
+            for (Position3D move : moves) {
+                state.applyMove(move, colour); // Apply the move
+                MoveResult result = minimaxWithMove(state, depth - 1, false, colour, alpha, beta);
+                state.undoMove(move, colour); // Undo the move
+
+                System.out.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
+
+                if (result.score > maxEval) {
+                    maxEval = result.score;
+                    bestMove = move; // Update the best move
+                }
+
+                alpha = Math.max(alpha, maxEval);
+                if (alpha >= beta) {
+                    break; // Alpha-beta pruning
+                }
+            }
+
+            System.out.println("Best Move at Depth " + depth + ": " + bestMove + ", Best Score: " + maxEval);
+
+            if (!possibleMoves.contains(bestMove)) {
+                throw new IllegalStateException("AI selected an invalid move: " + bestMove);
+            }
+
+            return new MoveResult(bestMove, maxEval);
+        } else {
+            int minEval = Integer.MAX_VALUE;
+
+            for (Position3D move : moves) {
+                state.applyMove(move, colour == Colour.White ? Colour.Black : Colour.White); // Apply the move
+                MoveResult result = minimaxWithMove(state, depth - 1, true, colour, alpha, beta);
+                state.undoMove(move, colour); // Undo the move
+
+                System.out.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
+
+                if (result.score < minEval) {
+                    minEval = result.score;
+                    bestMove = move; // Update the best move
+                }
+
+                beta = Math.min(beta, minEval);
+                if (beta <= alpha) {
+                    break; // Alpha-beta pruning
+                }
+            }
+
+            System.out.println("Best Move at Depth " + depth + ": " + bestMove + ", Best Score: " + minEval);
+
+            if (!possibleMoves.contains(bestMove)) {
+                throw new IllegalStateException("AI selected an invalid move: " + bestMove);
+            }
+
+            return new MoveResult(bestMove, minEval);
         }
     }
 
