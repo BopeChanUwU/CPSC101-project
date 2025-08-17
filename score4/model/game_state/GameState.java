@@ -1,7 +1,6 @@
 package score4.model.game_state;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Line;
@@ -41,7 +40,6 @@ public class GameState implements Cloneable{
     private final Player[] thePlayers = new Player[2];
     private Board gameBoard;
     private final int maxMoves = 64;
-    // Possible moves start at 4x4x0 (this is the bottom layer of the board)
     private ArrayList<Position3D> possibleMoves;
 
     /**
@@ -71,16 +69,18 @@ public class GameState implements Cloneable{
         turn = 0; // Player 1 starts
     }
 
-
+    /**
+     * gets the possible moves for the current game state
+     * @return ArrayList<Position3D> the list of possible moves
+     */
     public ArrayList<Position3D> getPossibleMoves() {
 
-        //TODO: generate a list of possible moves
         possibleMoves = new ArrayList<>();
 
-        for(int i = 0; i < 4; i++) {
-            for(int j = 0; j < 4; j++) {
+        for(int i = 0; i < gameBoard.getSize(); i++) {
+            for(int j = 0; j < gameBoard.getSize(); j++) {
 
-                if(gameBoard.getPeg(i, j).getBeadCount() < 4)
+                if(gameBoard.getPeg(i, j).getBeadCount() < gameBoard.getSize()) 
                     possibleMoves.add(new Position3D(i, j, gameBoard.getPeg(i, j).getBeadCount()) );
             }
 
@@ -88,6 +88,7 @@ public class GameState implements Cloneable{
         }
         return possibleMoves;
     }
+
     /**
      * gets the current game board
      * @return returns the current board
@@ -221,13 +222,7 @@ public class GameState implements Cloneable{
 
         Peg peg = gameBoard.getPeg(move.getRow(), move.getColumn());
         peg.setBead(move.getRow(), move.getColumn(), colour); // Place the bead on the board
-        //removePossibleMove(move); // Remove the move from possibleMoves
-
-        // Add the next valid position on the same peg to possibleMoves
-        if (move.getHeight() <= 3) {
-            //addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight() + 1));
-        }
-
+        
         turn++;
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
             setWinner(getPlayer(turn % 2));
@@ -247,11 +242,8 @@ public class GameState implements Cloneable{
         }
 
         gameBoard.getPeg(move.getRow(), move.getColumn()).removeBead();
-        //removePossibleMove(move); // need to fix this
-
-        if (move.getHeight() < 3) {
-            //addPossibleMove(new Position3D(move.getRow(), move.getColumn(), move.getHeight()));
-        }
+        //TODO: fix possibleMoves
+        //removePossibleMove(move);
 
         turn--;
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
@@ -259,39 +251,6 @@ public class GameState implements Cloneable{
         }
         if (turn > maxMoves) {
             setDraw();
-        }
-    }
-
-    /**
-     * adds a given possible move if it doesnt already exist
-     * @param move Position3D location to add to list
-     */
-    private void addPossibleMove(Position3D move) {
-        
-        if (move.getHeight() <= 4 && !possibleMoves.contains(move)) {
-
-            possibleMoves.add(move);
-        }
-    }
-
-    /**
-     * removes a given possible move from the list of possible moves
-     * This method uses an iterator to safely remove the move from the list.
-     * This is necessary because modifying a list while iterating over it can cause
-     * a ConcurrentModificationException.
-     * @param move Position3D location to remove from list
-     */
-    private void removePossibleMove(Position3D move) {
-
-        Iterator<Position3D> iterator = possibleMoves.iterator();
-
-        while (iterator.hasNext()) {
-
-            Position3D possibleMove = iterator.next();
-            if (possibleMove.equals(move)) {
-
-                iterator.remove(); // Safe removal
-            }
         }
     }
 

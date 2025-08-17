@@ -72,6 +72,10 @@ public class Board implements Cloneable {
     public Peg[][] getGameBoard() {
         return gameBoard;
     }
+
+    public int getSize() {
+        return size;
+    }
     /**
      * gets pegs x location on the board
      * @return int peg location in the x 
