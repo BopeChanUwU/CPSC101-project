@@ -60,7 +60,7 @@ public class ControllerOne implements ActionListener, GameboyController {
         if(!gameBoyPanel.getTextField().getText().equals("")){
 
             //check if its Human vs Human or Human vs AI
-            if(gameState.isAI()){ // Human vs Human
+            if(!gameState.isAI()){ // Human vs Human
 
                 if(gameState.getTurn() == gameState.getPlayer(0)){    // white player
 
@@ -88,11 +88,11 @@ public class ControllerOne implements ActionListener, GameboyController {
                     Peg peg = gameBoard.getPeg(gameBoard.getRow(),gameBoard.getColumn());
 
                     /* model stuff */
-                    gameState.applyMove(new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getBeadCount()), Colour.White);
+                    gameState.applyMove(new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getNextHeight()), Colour.White);
 
                     System.out.println("human v human");
                     /* set beads location in view */
-                    wBead.setBead(peg.getBead(peg.getBeadCount()-1).getPosition3D());
+                    wBead.setBead(peg.getBead(peg.getNextHeight()-1).getPosition3D());
                     gp.update(); // repaint 
                     gameBoyPanel.getTextField().setText(""); // clear text field
 
@@ -129,10 +129,10 @@ public class ControllerOne implements ActionListener, GameboyController {
                     Peg peg = gameBoard.getPeg(gameBoard.getRow(),gameBoard.getColumn());
 
                     /* model stuff */
-                    gameState.applyMove(new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getBeadCount()), Colour.Black);
+                    gameState.applyMove(new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getNextHeight()), Colour.Black);
                 
                     /* set beads location in view */
-                    bBead.setBead(peg.getBead(peg.getBeadCount()-1).getPosition3D());
+                    bBead.setBead(peg.getBead(peg.getNextHeight()-1).getPosition3D());
                     gp.update(); // repaint 
                     gameBoyPanel.getTextField().setText(""); // clear text field
                 
@@ -145,7 +145,7 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 }
         
-            } else {
+            } else if (gameState.isAI()) {
 
                 // Human vs AI
                 String input = gameBoyPanel.getTextField().getText();
@@ -172,12 +172,12 @@ public class ControllerOne implements ActionListener, GameboyController {
                 Peg peg = gameBoard.getPeg(gameBoard.getRow(),gameBoard.getColumn());
 
                 /* model stuff */
-                gameState.applyMove(new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getBeadCount()), Colour.White);
+                gameState.applyMove(new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getNextHeight()), Colour.White);
 
                 System.err.println("White played on " + input);
 
                 /* set beads location in view */
-                wBead.setBead(peg.getBead(peg.getBeadCount()-1).getPosition3D());
+                wBead.setBead(peg.getBead(peg.getNextHeight()-1).getPosition3D());
                 gp.update(); // repaint 
                 gameBoyPanel.getTextField().setText(""); // clear text field
                 
@@ -190,13 +190,28 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 //AI's turn
                 /* model stuff */
-                Position3D bestMove = gameState.findBestMove(gameState, 4, Colour.Black);
+                Position3D bestMove = gameState.findBestMove(gameState, 2, Colour.Black);
                 System.err.println("AI move: " + bestMove);
+                
                 gameState.applyMove(bestMove, Colour.Black);
+
+                //apply a wait here so user can see the AI thinking
+                try {
+                    Thread.sleep(500); // Sleep for 500 milliseconds (0.5 seconds)
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt(); // Restore the interrupted status
+                }
 
                 System.err.println("AI played on " + bestMove);
                 /* set beads location in view */
-                bBead.setBead(gameBoard.getPeg(bestMove.getRow(),bestMove.getColumn()).getBead(peg.getBeadCount()-1).getPosition3D());
+                bBead.setBead(gameBoard.getPeg(bestMove.getRow(),bestMove.getColumn()).getBead(peg.getNextHeight() -1).getPosition3D());
+
+                try {
+                    Thread.sleep(500); // Sleep for 500 milliseconds (0.5 seconds)
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt(); // Restore the interrupted status
+                }
+
                 gp.update(); // repaint 
                 System.err.println("Possible Moves;" + gameState.getPossibleMoves());
                 gameBoyPanel.getTextField().setText(""); // clear text field

@@ -68,7 +68,8 @@ public class MenuPanel extends JPanel{
             MenuPanel.this.add(gbp1, BorderLayout.CENTER);
             MenuPanel.this.revalidate();
             MenuPanel.this.repaint();
-            System.out.println("hello 1");});
+            System.out.println("hello 1");
+        });
 
         //Multi Player button
         add(twoPlayer);

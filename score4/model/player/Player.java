@@ -29,10 +29,14 @@ public interface Player {
     boolean getTurn();
 
     /**
-     * sets the number of wins
+     * increases the number of wins
      */
     void increaseWins();
 
+    /**
+     * decreaseed the number of wins
+     */
+    void decreaseWins();
     /**
      * gets the number of wins
      * @return int numWins

@@ -62,7 +62,7 @@ public class HumanPlayer implements Player {
     @Override
     public void increaseWins(){
 
-        wins += 1;
+        wins++;
     }
 
     /**
@@ -124,5 +124,14 @@ public class HumanPlayer implements Player {
     public void setColour(Colour colour) {
         
         beadColour = colour;
+    }
+
+    /**
+     * decreases the number of wins 
+     */
+    @Override
+    public void decreaseWins() {
+        
+        wins--;
     }
 }

@@ -33,9 +33,9 @@ import score4.model.player.Player;
  */
 public class GameState implements Cloneable{
 
-    private boolean isOver = false;
-    private boolean draw = false;
-    private Player winner = null;
+    private boolean isOver; //calculate dynamically
+    private boolean draw; //calculate dynamicaly
+    private Player winner;
     private int turn;
     private final Player[] thePlayers = new Player[2];
     private Board gameBoard;
@@ -80,8 +80,8 @@ public class GameState implements Cloneable{
         for(int i = 0; i < gameBoard.getSize(); i++) {
             for(int j = 0; j < gameBoard.getSize(); j++) {
 
-                if(gameBoard.getPeg(i, j).getBeadCount() < gameBoard.getSize()) 
-                    possibleMoves.add(new Position3D(i, j, gameBoard.getPeg(i, j).getBeadCount()) );
+                if(gameBoard.getPeg(i, j).getNextHeight() < gameBoard.getSize()) 
+                    possibleMoves.add(new Position3D(i, j, gameBoard.getPeg(i, j).getNextHeight()) );
             }
 
             
@@ -105,7 +105,7 @@ public class GameState implements Cloneable{
      */
     public boolean getIsOver() {
 
-        return isOver;
+        return (winner != null) || getDrawStatus();
     }
 
     /**
@@ -122,16 +122,6 @@ public class GameState implements Cloneable{
         return winner;
     }
 
-
-    /**
-     * Sets game status to draw
-     */
-    public void setDraw() {
-        
-        draw = true; 
-        isOver = true;
-    }
-
     /**
      * checks if game is a draw
      * @return true if game is a draw
@@ -139,7 +129,7 @@ public class GameState implements Cloneable{
      */
     public boolean getDrawStatus() {
 
-        return draw;
+        return turn >= maxMoves;
     }
 
     /**
@@ -149,8 +139,13 @@ public class GameState implements Cloneable{
     public void setWinner(Player player) {
 
         winner = player;
-        isOver = true;
         player.increaseWins();
+    }
+
+    public void removeWinner(){
+
+        winner.decreaseWins();
+        winner = null;
     }
 
     /**
@@ -168,17 +163,14 @@ public class GameState implements Cloneable{
      */
     public boolean isAI() {
 
-        return thePlayers[turn % 1] instanceof AIPlayer;
+        return thePlayers[1] instanceof AIPlayer;
     }
 
     /**
      * resets the game state to defaults
      */
     public void resetGameState(){
-
-        isOver = false;
-        draw = false;
-        winner = null; 
+ 
         gameBoard = new Board();
     }
 
@@ -216,6 +208,11 @@ public class GameState implements Cloneable{
      * @param colour the colour of the player
      */
     public synchronized void applyMove(Position3D move, Colour colour) {
+
+        if(getIsOver()) {
+            return;
+        }
+
         if (move.getHeight() >= 4) {
             throw new IllegalArgumentException("Height is out of bounds: " + move.getHeight());
         }
@@ -227,30 +224,24 @@ public class GameState implements Cloneable{
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
             setWinner(getPlayer(turn % 2));
         }
-        if (turn > maxMoves) {
-            setDraw();
-        }
+        
     }
 
     /**
      * undoes the last move made in the game
      */
-    public void undoMove(Position3D move, Colour colour) {
+    public synchronized void undoMove(Position3D move, Colour colour) {
 
         if (move.getHeight() < 0) {
             throw new IllegalArgumentException("Height is out of bounds: " + move.getHeight());
         }
 
-        gameBoard.getPeg(move.getRow(), move.getColumn()).removeBead();
-        //TODO: fix possibleMoves
-        //removePossibleMove(move);
+        Peg peg = gameBoard.getPeg(move.getRow(), move.getColumn());
+        peg.removeBead();
 
         turn--;
-        if (Line.containsLine(Bead.getTheBeads(), colour)) {
-            setWinner(thePlayers[turn % 2]);
-        }
-        if (turn > maxMoves) {
-            setDraw();
+        if (winner != null) {
+            removeWinner();
         }
     }
 
@@ -285,54 +276,17 @@ public class GameState implements Cloneable{
         return score;
     }
 
-    /** 
-     * minimax algo  this takes in the game state and then checks 
-     * to find the best possible move
-     * @param GameState
-     * @param int depth of search 
-     * @param boolean the maximizing player
-     * @param Colour computer players colour
-     * @param int alpha
-     * @param int beta
-     * @return int the value of the end state
-    */
-    public int minimax(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta) {
-        // Create a copy of possibleMoves to iterate safely
-        List<Position3D> moves = new ArrayList<>(state.getPossibleMoves());
-
-        if (state.getIsOver() || depth == 0) {
-            return state.evaluate(colour) - state.evaluate(colour == Colour.White ? Colour.Black : Colour.White);
-        }
-
-        if (maximizingPlayer) {
-            int maxEval = Integer.MIN_VALUE;
-            for (Position3D move : moves) {
-                applyMove(move, colour); // Apply the move to the game board
-                int eval = minimax(this, depth - 1, false, colour, alpha, beta);
-                undoMove(move, colour); // Undo the move
-                maxEval = Math.max(maxEval, eval);
-                alpha = Math.max(alpha, maxEval);
-                if (alpha >= beta) {
-                    break; // Prune
-                }
-            }
-            return maxEval;
-        } else {
-            int minEval = Integer.MAX_VALUE;
-            for (Position3D move : moves) {
-                applyMove(move, colour == Colour.White ? Colour.Black : Colour.White); // Apply the move to the game board
-                int eval = minimax(this, depth - 1, true, colour, alpha, beta);
-                undoMove(move, colour); // Undo the move
-                minEval = Math.min(minEval, eval);
-                beta = Math.min(beta, minEval);
-                if (beta <= alpha) {
-                    break; // Prune
-                }
-            }
-            return minEval;
-        }
-    }
-
+    /**
+     * Minimax algorithm with alpha-beta pruning
+     * @param state GameState the current game state
+     * @param depth int the depth of the search
+     * @param maximizingPlayer boolean true if maximizing player, false otherwise
+     * @param colour Colour the colour of the player to evaluate
+     * @param alpha int the alpha value for pruning
+     * @param beta int the beta value for pruning
+     * @return MoveResult containing the best move and its score
+     * @throws IllegalStateException if the AI selects an invalid move
+     */
     public MoveResult minimaxWithMove(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta) {
         // Base case: return the evaluation score if the game is over or depth is 0
         if (state.getIsOver() || depth == 0) {
@@ -366,7 +320,7 @@ public class GameState implements Cloneable{
 
             System.out.println("Best Move at Depth " + depth + ": " + bestMove + ", Best Score: " + maxEval);
 
-            if (!possibleMoves.contains(bestMove)) {
+            if (!getPossibleMoves().contains(bestMove)) {
                 throw new IllegalStateException("AI selected an invalid move: " + bestMove);
             }
 

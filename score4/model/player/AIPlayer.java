@@ -98,4 +98,13 @@ public class AIPlayer implements Player {
         
         beadColour = colour;
     }
+
+    /**
+     * decreases the players wins
+     */
+    @Override
+    public void decreaseWins() {
+        
+        wins--;
+    }
 }

@@ -212,11 +212,11 @@ public class Line {
                             switch (inArow) {
                                 case 1 -> totalLines += 1;
                                 case 2 -> totalLines += 10;
-                                case 3 -> totalLines += 50;
+                                case 3 -> totalLines += 100;
                                 case 4 -> totalLines += 1000;
                                 default -> totalLines += 0;
                             }
-                            //totalLines++;
+                            
                             count = 0;
                             break; // No need to check further beads for this line
                         }
