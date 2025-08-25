@@ -212,14 +212,11 @@ public class GameState implements Cloneable{
         if(getIsOver()) {
             return;
         }
-
         if (move.getHeight() >= 4) {
             throw new IllegalArgumentException("Height is out of bounds: " + move.getHeight());
         }
-
         Peg peg = gameBoard.getPeg(move.getRow(), move.getColumn());
-        peg.setBead(move.getRow(), move.getColumn(), colour); // Place the bead on the board
-        
+        peg.setBead(move.getRow(), move.getColumn(), colour); 
         turn++;
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
             setWinner(getPlayer(turn % 2));
@@ -235,10 +232,8 @@ public class GameState implements Cloneable{
         if (move.getHeight() < 0) {
             throw new IllegalArgumentException("Height is out of bounds: " + move.getHeight());
         }
-
         Peg peg = gameBoard.getPeg(move.getRow(), move.getColumn());
         peg.removeBead();
-
         turn--;
         if (winner != null) {
             removeWinner();
@@ -254,15 +249,17 @@ public class GameState implements Cloneable{
 
         int score = 0;
 
+        // Check for winning or losing state
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
-            score += 10000; // Winning State
+            score = Integer.MAX_VALUE; // Winning State
             System.out.println("Winning State Detected for Colour: " + colour);
         }
         if (Line.containsLine(Bead.getTheBeads(), colour == Colour.White ? Colour.Black : Colour.White)) {
-            score -= 10000; // Opponent Winning State
+            score = Integer.MIN_VALUE; // Opponent Winning State
             System.out.println("Opponent Winning State Detected for Colour: " + (colour == Colour.White ? Colour.Black : Colour.White));
         }
 
+        // Count potential lines for both players
         int aiPotentialLines = Line.countPotentialLines(Bead.getTheBeads(), colour);
         int opponentPotentialLines = Line.countPotentialLines(Bead.getTheBeads(), colour == Colour.White ? Colour.Black : Colour.White);
         score += aiPotentialLines * 10; // AI potential lines
@@ -270,8 +267,6 @@ public class GameState implements Cloneable{
 
         System.out.println("AI Potential Lines: " + aiPotentialLines + ", Opponent Potential Lines: " + opponentPotentialLines);
         System.out.println("Total Potential Lines Score : " + score);
-
-        
 
         return score;
     }
@@ -289,21 +284,21 @@ public class GameState implements Cloneable{
      */
     public MoveResult minimaxWithMove(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta) {
         // Base case: return the evaluation score if the game is over or depth is 0
-        if (state.getIsOver() || depth == 0) {
-            int score = state.evaluate(colour);
+        if (getIsOver() || depth == 0) {
+            int score = evaluate(colour);
             return new MoveResult(null, score); // No move at this level
         }
 
-        List<Position3D> moves = new ArrayList<>(state.getPossibleMoves());
+        List<Position3D> moves = new ArrayList<>(getPossibleMoves());
         Position3D bestMove = null;
 
         if (maximizingPlayer) {
             int maxEval = Integer.MIN_VALUE;
 
             for (Position3D move : moves) {
-                state.applyMove(move, colour); // Apply the move
+                applyMove(move, colour); // Apply the move
                 MoveResult result = minimaxWithMove(state, depth - 1, false, colour, alpha, beta);
-                state.undoMove(move, colour); // Undo the move
+                undoMove(move, colour); // Undo the move
 
                 System.out.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
 
@@ -329,9 +324,9 @@ public class GameState implements Cloneable{
             int minEval = Integer.MAX_VALUE;
 
             for (Position3D move : moves) {
-                state.applyMove(move, colour == Colour.White ? Colour.Black : Colour.White); // Apply the move
+                applyMove(move, colour == Colour.White ? Colour.Black : Colour.White); // Apply the move
                 MoveResult result = minimaxWithMove(state, depth - 1, true, colour, alpha, beta);
-                state.undoMove(move, colour); // Undo the move
+                undoMove(move, colour); // Undo the move
 
                 System.out.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
 
