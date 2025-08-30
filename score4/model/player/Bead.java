@@ -114,17 +114,17 @@ public class Bead implements Cloneable {
     /**
      * removes the last bead from theBeads arraylist
      */
-    public static void removeBead(){
+    /* public static void removeBead(){
 
         if(theBeads != null)
             theBeads.removeLast();
-    }
+    } */
 
     /**
      * gets the positions arraylist
      * @return ArrayList<Position3D> thePositions
      */
-    public static ArrayList<Bead> getTheBeads() {
+    public static synchronized ArrayList<Bead> getTheBeads() {
 
         return theBeads;
     }

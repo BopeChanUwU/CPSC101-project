@@ -27,6 +27,7 @@ public class GamePanel extends JPanel {
     private final int screenHeight = tileSize*MaxScreenRow;
     private int countBlack = 0;
     private int countWhite = 0;
+    private boolean aiGame;
 
     private final WhiteBeadComponent[] wBead = new WhiteBeadComponent[32];
     private final BlackBeadComponent[] bBead = new BlackBeadComponent[32];

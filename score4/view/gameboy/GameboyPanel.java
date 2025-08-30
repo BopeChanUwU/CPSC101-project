@@ -36,6 +36,8 @@ public class GameboyPanel extends JPanel{
     private final RightPanel rp = new RightPanel();
     private final GamePanel gp = new GamePanel();   /* game screen  */
 
+    private boolean aiGame;
+
     private ImageIcon image2;
 
     private final ControllerOne controller;

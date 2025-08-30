@@ -201,9 +201,9 @@ public class Line {
                     
                     for( Bead bead : beads) {
 
-                        if(line.hasPosition3D(bead.getPosition3D()) && bead.getColour() != colour.opposite()) {
+                        if(line.hasPosition3D(bead.getPosition3D()) && (!bead.getColour().equals(colour.opposite()))) {
                             
-                            if(bead.getColour() == colour)
+                            if(bead.getColour().equals(colour))
                                 inArow++;
                             count++;
                         }
