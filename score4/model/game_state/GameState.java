@@ -1,6 +1,7 @@
 package score4.model.game_state;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Line;
@@ -73,19 +74,22 @@ public class GameState implements Cloneable{
      * gets the possible moves for the current game state
      * @return ArrayList<Position3D> the list of possible moves
      */
-    public ArrayList<Position3D> getPossibleMoves() {
+    public ArrayList<Position3D> getPossibleMoves(Colour colour) {
+        ArrayList<Position3D> possibleMoves = new ArrayList<>();
 
-        possibleMoves = new ArrayList<>();
-
-        for(int i = 0; i < gameBoard.getSize(); i++) {
-            for(int j = 0; j < gameBoard.getSize(); j++) {
-
-                if(gameBoard.getPeg(i, j).getNextHeight() < gameBoard.getSize()) 
-                    possibleMoves.add(new Position3D(i, j, gameBoard.getPeg(i, j).getNextHeight()) );
+        // Generate possible moves dynamically
+        for (int i = 0; i < gameBoard.getSize(); i++) {
+            for (int j = 0; j < gameBoard.getSize(); j++) {
+                Peg peg = gameBoard.getPeg(i, j);
+                if (peg.getNextHeight() < gameBoard.getSize()) {
+                    possibleMoves.add(new Position3D(i, j, peg.getNextHeight()));
+                }
             }
-
-            
         }
+
+        // Sort the moves based on the heuristic
+        possibleMoves.sort(moveComparator(colour));
+
         return possibleMoves;
     }
 
@@ -142,6 +146,9 @@ public class GameState implements Cloneable{
         player.increaseWins();
     }
 
+    /**
+     * removes the winner of the game
+     */
     public void removeWinner(){
 
         winner.decreaseWins();
@@ -166,6 +173,10 @@ public class GameState implements Cloneable{
         return thePlayers[1] instanceof AIPlayer;
     }
 
+    /**
+     * this method checks to see if both players are computer players
+     * @return Boolean whether or not both players are computer players
+     */
     public boolean bothAI() {
 
         return thePlayers[0] instanceof AIPlayer && thePlayers[1] instanceof AIPlayer;
@@ -180,24 +191,13 @@ public class GameState implements Cloneable{
     }
 
     /**
-     *  this method finds the best possible move given the current game state
+     * this method finds the best possible move given the current game state using iterative deepening
      * @param state GameState the current gamestate
-     * @param depth int the depth of search
+     * @param maxDepth int the maximum depth of search
      * @param colour Colour to find best move for
+     * @param lastMove Position3D the last move made
      * @return Position3D the best move
      */
-    /* public Position3D findBestMove(GameState state, int depth, Colour colour) {
-        System.out.println("Possible Moves Before Minimax: " + state.getPossibleMoves());
-        MoveResult result = minimaxWithMove(state, depth, true, colour, Integer.MIN_VALUE, Integer.MAX_VALUE);
-        System.out.println("Best Move Selected: " + result.bestMove);
-        System.out.println("Possible Moves After Minimax: " + state.getPossibleMoves());
-
-        if (!state.getPossibleMoves().contains(result.bestMove)) {
-            throw new IllegalStateException("findBestMove selected an invalid move: " + result.bestMove);
-        }
-        return result.bestMove;
-    } */
-
     public Position3D findBestMove(GameState state, int maxDepth, Colour colour, Position3D lastMove) {
 
         Position3D bestMove = null;
@@ -341,7 +341,7 @@ public class GameState implements Cloneable{
             return new MoveResult(lastMove, score); // Return the last move that led to this state
         }
 
-        List<Position3D> moves = new ArrayList<>(getPossibleMoves());
+        List<Position3D> moves = new ArrayList<Position3D>(getPossibleMoves(colour));
         Position3D bestMove = null;
 
         if (maximizingPlayer) {
@@ -369,7 +369,7 @@ public class GameState implements Cloneable{
             System.err.println("Best Move at Depth " + depth + ": " + bestMove + ", Best Score: " + maxEval);
             System.err.println("=========================================");
 
-            if (!getPossibleMoves().contains(bestMove)) {
+            if (!getPossibleMoves(colour).contains(bestMove)) {
                 throw new IllegalStateException("AI selected an invalid move: " + bestMove);
             }
 
@@ -398,14 +398,35 @@ public class GameState implements Cloneable{
 
             System.err.println("Best Move at Depth " + depth + ": " + bestMove + ", Best Score: " + minEval);
             System.err.println("=========================================");
-            System.err.println("Possible Moves at Depth " + depth + ": " + getPossibleMoves());
+            System.err.println("Possible Moves at Depth " + depth + ": " + getPossibleMoves(colour));
 
-            if (!possibleMoves.contains(bestMove)) {
+            if (!getPossibleMoves(colour).contains(bestMove)) {
                 throw new IllegalStateException("AI selected an invalid move: " + bestMove);
             }
 
             return new MoveResult(bestMove, minEval);
         }
+    }
+
+    /**
+     * Comparator to sort moves based on their heuristic evaluation (eval method)
+     * @param colour Colour the colour of the player
+     * @return Comparator<Position3D> the comparator to sort moves
+     */
+    private Comparator<Position3D> moveComparator(Colour colour) {
+        return (move1, move2) -> {
+            // Apply the move temporarily
+            applyMove(move1, colour);
+            int score1 = evaluate(colour);
+            undoMove(move1, colour);
+
+            applyMove(move2, colour);
+            int score2 = evaluate(colour);
+            undoMove(move2, colour);
+
+            // Sort in descending order (higher score first)
+            return Integer.compare(score2, score1);
+        };
     }
 
     /**

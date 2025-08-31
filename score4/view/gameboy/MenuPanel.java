@@ -53,8 +53,10 @@ public class MenuPanel extends JPanel{
      */
     public final void initialize(){
         
+        add (new JLabel("<html><Title>My Web Page</Title></html>"
+                        )); //title label
         //might need to add blank jlabels to fill space and push things down into location
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             add(new JLabel());
         }
 

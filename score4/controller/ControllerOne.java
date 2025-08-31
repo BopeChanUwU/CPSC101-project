@@ -213,7 +213,7 @@ public class ControllerOne implements ActionListener, GameboyController {
                 } */
 
                 gp.update(); // repaint 
-                System.err.println("Possible Moves;" + gameState.getPossibleMoves());
+                System.err.println("Possible Moves;" + gameState.getPossibleMoves(Colour.Black));
                 gameBoyPanel.getTextField().setText(""); // clear text field
                 if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.Black)) { // check if game is over
 
