@@ -181,7 +181,7 @@ public class GameState implements Cloneable{
      * @param colour Colour to find best move for
      * @return Position3D the best move
      */
-    public Position3D findBestMove(GameState state, int depth, Colour colour) {
+    /* public Position3D findBestMove(GameState state, int depth, Colour colour) {
         System.out.println("Possible Moves Before Minimax: " + state.getPossibleMoves());
         MoveResult result = minimaxWithMove(state, depth, true, colour, Integer.MIN_VALUE, Integer.MAX_VALUE);
         System.out.println("Best Move Selected: " + result.bestMove);
@@ -191,6 +191,25 @@ public class GameState implements Cloneable{
             throw new IllegalStateException("findBestMove selected an invalid move: " + result.bestMove);
         }
         return result.bestMove;
+    } */
+
+    public Position3D findBestMove(GameState state, int maxDepth, Colour colour, Position3D lastMove) {
+
+        Position3D bestMove = null;
+
+        // Perform iterative deepening
+        for (int depth = 1; depth <= maxDepth; depth++) {
+            System.out.println("Searching at depth: " + depth);
+            MoveResult result = minimaxWithMove(state, depth, true, colour, Integer.MIN_VALUE, Integer.MAX_VALUE, lastMove);
+
+            // Update the best move found so far
+            if (result.bestMove != null)
+                bestMove = result.bestMove;
+
+            System.out.println("Best Move at Depth " + depth + ": " + bestMove + ", Score: " + result.score);
+        }
+
+        return bestMove;
     }
 
     /**
@@ -270,13 +289,20 @@ public class GameState implements Cloneable{
 
         // Check for winning or losing state
         if (Line.containsLine(Bead.getTheBeads(), colour)) {
-            score = Integer.MAX_VALUE; // Winning State
+            score = 100000; // Winning State
             System.out.println("Winning State Detected for Colour: " + colour);
             return score;
         }
+
         if (Line.containsLine(Bead.getTheBeads(), colour == Colour.White ? Colour.Black : Colour.White)) {
-            score = Integer.MIN_VALUE; // Opponent Winning State
+            score = -100000; // Opponent Winning State
             System.out.println("Opponent Winning State Detected for Colour: " + (colour == Colour.White ? Colour.Black : Colour.White));
+            return score;
+        }
+
+        if (getDrawStatus()) {
+            score = 0; // Draw State
+            System.out.println("Draw State Detected");
             return score;
         }
 
@@ -303,11 +329,11 @@ public class GameState implements Cloneable{
      * @return MoveResult containing the best move and its score
      * @throws IllegalStateException if the AI selects an invalid move
      */
-    public MoveResult minimaxWithMove(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta) {
+    public MoveResult minimaxWithMove(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta, Position3D lastMove) {
         // Base case: return the evaluation score if the game is over or depth is 0
         if (getIsOver() || depth == 0) {
             int score = evaluate(colour);
-            return new MoveResult(null, score); // No move at this level
+            return new MoveResult(lastMove, score); // Return the last move that led to this state
         }
 
         List<Position3D> moves = new ArrayList<>(getPossibleMoves());
@@ -318,7 +344,7 @@ public class GameState implements Cloneable{
 
             for (Position3D move : moves) {
                 applyMove(move, colour); // Apply the move
-                MoveResult result = minimaxWithMove(state, depth - 1, false, colour, alpha, beta);
+                MoveResult result = minimaxWithMove(state, depth - 1, false, colour, alpha, beta, move);
                 undoMove(move, colour); // Undo the move
 
                 System.err.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
@@ -348,7 +374,7 @@ public class GameState implements Cloneable{
 
             for (Position3D move : moves) {
                 applyMove(move, colour == Colour.White ? Colour.Black : Colour.White); // Apply the move
-                MoveResult result = minimaxWithMove(state, depth - 1, true, colour, alpha, beta);
+                MoveResult result = minimaxWithMove(state, depth - 1, true, colour, alpha, beta, move);
                 undoMove(move, colour); // Undo the move
 
                 System.err.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);

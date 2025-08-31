@@ -4,10 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-
 import score4.model.game_state.board.Position3D;
 
 /**
@@ -73,6 +71,8 @@ public class BlackBeadComponent extends JComponent implements Bead{
     @Override
     public void setBead(Position3D position) {
 
+        //TODO: find and fix bug related to setting bead position
+        System.out.println("Setting black bead to " + position);
         switch (position.getRow()) {
             case 0 -> xIndex = 8 + 40*position.getColumn();
             case 1 -> xIndex = 128 + 40*position.getColumn();
@@ -90,6 +90,7 @@ public class BlackBeadComponent extends JComponent implements Bead{
         }
 
         setBounds(xIndex, yIndex, beadSize, beadSize);
+        System.out.println("Black bead set to x: " + xIndex + " y: " + yIndex);
         setVisible(true);
         repaint();
     }

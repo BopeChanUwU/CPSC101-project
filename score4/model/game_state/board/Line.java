@@ -24,6 +24,8 @@ public class Line {
     private final Position3D[] line = new Position3D[4];
 
     private static final ArrayList<Line> theLines = new ArrayList<>();
+    private static final ArrayList<Position3D> highValuePositions = new ArrayList<>();
+    
 
     /**
      * This method returns a boolean by checking that your start does not equal to your end as 
@@ -68,6 +70,30 @@ public class Line {
             throw new IllegalArgumentException("Illegal Line: " + start + " and " 
                 + end + "must be 4 points away from eachother");
         }
+    }
+
+    public static ArrayList<Position3D> getHighValuePositions(){
+
+        if(highValuePositions.isEmpty()){
+            highValuePositions.add(new Position3D(0, 0, 0));
+            highValuePositions.add(new Position3D(3, 0, 0));
+            highValuePositions.add(new Position3D(0, 3, 0));
+            highValuePositions.add(new Position3D(3, 3, 0));
+            highValuePositions.add(new Position3D(1, 1, 1));
+            highValuePositions.add(new Position3D(1, 2, 1));
+            highValuePositions.add(new Position3D(2, 1, 1));
+            highValuePositions.add(new Position3D(2, 2, 1));
+            highValuePositions.add(new Position3D(1, 1, 2));
+            highValuePositions.add(new Position3D(1, 2, 2));
+            highValuePositions.add(new Position3D(2, 1, 2));
+            highValuePositions.add(new Position3D(2, 2, 2));
+            highValuePositions.add(new Position3D(0, 0, 3));
+            highValuePositions.add(new Position3D(3, 0, 3));
+            highValuePositions.add(new Position3D(0, 3, 3));
+            highValuePositions.add(new Position3D(3, 3, 3));
+        }
+
+        return highValuePositions;
     }
 
     /**
@@ -192,6 +218,7 @@ public class Line {
         int count = 0;
         int inArow = 0;
         int totalLines = 0;
+
         for (int i = 0 ; i < beads.size(); i++) {
             for (int j = i + 1; j < beads.size(); j++) {
 
@@ -201,6 +228,9 @@ public class Line {
                     
                     for( Bead bead : beads) {
 
+                        if(getHighValuePositions().contains(bead.getPosition3D())) {
+                            totalLines += 5;
+                        }
                         if(line.hasPosition3D(bead.getPosition3D()) && (!bead.getColour().equals(colour.opposite()))) {
                             
                             if(bead.getColour().equals(colour))
@@ -211,9 +241,9 @@ public class Line {
                             
                             switch (inArow) {
                                 case 1 -> totalLines += 1;
-                                case 2 -> totalLines += 10;
-                                case 3 -> totalLines += 100;
-                                case 4 -> totalLines += 1000;
+                                case 2 -> totalLines += 25;
+                                case 3 -> totalLines += 150;
+                                case 4 -> totalLines += 10000;
                                 default -> totalLines += 0;
                             }
                             

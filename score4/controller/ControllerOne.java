@@ -190,7 +190,7 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 //AI's turn
                 /* model stuff */
-                Position3D bestMove = gameState.findBestMove(gameState, 3, Colour.Black);
+                Position3D bestMove = gameState.findBestMove(gameState, 4, Colour.Black, new Position3D(gameBoard.getRow(), gameBoard.getColumn(), peg.getNextHeight()-1));
                 System.err.println("AI move: " + bestMove);
                 
                 gameState.applyMove(bestMove, Colour.Black);
@@ -204,7 +204,7 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 System.err.println("AI played on " + bestMove);
                 /* set beads location in view */
-                bBead.setBead(gameBoard.getPeg(bestMove.getRow(),bestMove.getColumn()).getBead(peg.getNextHeight() -1).getPosition3D());
+                bBead.setBead(bestMove);
 
                 /* try {
                     Thread.sleep(500); // Sleep for 500 milliseconds (0.5 seconds)
