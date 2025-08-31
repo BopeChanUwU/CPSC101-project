@@ -34,6 +34,7 @@ public class MenuPanel extends JPanel{
 
     private  final JButton onePlayer = new JButton("Single Player");
     private final JButton twoPlayer = new JButton("multi-Player");
+    private final JButton testingMinimax = new JButton("Minimax Test");
     private final JButton about = new JButton("About");
     /* idea use input from this panel to initialize the gamepanel  */
 
@@ -85,6 +86,20 @@ public class MenuPanel extends JPanel{
             System.out.println("hello 2");
         });
 
+        //Multi Player button
+        add(testingMinimax);
+        twoPlayer.addActionListener((ActionEvent e) -> {
+
+           if(e.getSource() != testingMinimax) return;
+           GameboyPanel gbp3 = new GameboyPanel(new AIPlayer(1), new AIPlayer(2));
+           MenuPanel.this.removeAll();
+           MenuPanel.this.setLayout(new BorderLayout());
+           MenuPanel.this.add(gbp3, BorderLayout.CENTER);
+           MenuPanel.this.revalidate();
+           MenuPanel.this.repaint();
+           System.out.println("hello 3");
+        }); 
+
         //About button
         add(about);
         about.addActionListener((ActionEvent e) -> {
@@ -96,7 +111,7 @@ public class MenuPanel extends JPanel{
             MenuPanel.this.add(aboutLabel, BorderLayout.CENTER);
             MenuPanel.this.revalidate();
             MenuPanel.this.repaint();
-            System.out.println("hello 3");});
+            System.out.println("hello 4");});
 
         setBackground(new Color(73,71,134)); // currently purple
         setVisible(true); 

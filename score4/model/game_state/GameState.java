@@ -166,6 +166,11 @@ public class GameState implements Cloneable{
         return thePlayers[1] instanceof AIPlayer;
     }
 
+    public boolean bothAI() {
+
+        return thePlayers[0] instanceof AIPlayer && thePlayers[1] instanceof AIPlayer;
+    }
+    
     /**
      * resets the game state to defaults
      */

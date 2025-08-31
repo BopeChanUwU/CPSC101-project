@@ -145,7 +145,7 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 }
         
-            } else if (gameState.isAI()) {
+            } else {
 
                 // Human vs AI
                 String input = gameBoyPanel.getTextField().getText();
@@ -222,6 +222,55 @@ public class ControllerOne implements ActionListener, GameboyController {
                     gameBoyPanel.getTextField().setEditable(false);
                 } 
             }
+        }
+        if(gameState.bothAI()) {
+
+            // AI vs AI
+            Board gameBoard = gameState.getBoard();
+            GamePanel gp = gameBoyPanel.getGamePanel();
+            WhiteBeadComponent wBead = gp.getWhiteBead(gp.getCountWhite());
+            BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
+
+            // White AI's turn
+            /* model stuff */
+            Position3D bestMoveWhite = gameState.findBestMove(gameState, 4, Colour.White, new Position3D(gameBoard.getRow(), gameBoard.getColumn(), 0));
+            System.err.println("White AI move: " + bestMoveWhite);
+            
+            gameState.applyMove(bestMoveWhite, Colour.White);
+
+            System.err.println("White AI played on " + bestMoveWhite);
+
+            /* set beads location in view */
+            wBead.setBead(bestMoveWhite);
+            gp.update(); // repaint 
+            
+            if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.White)) { // check if game is over
+
+                System.out.println("Game Over");
+                gameBoyPanel.getTextField().setText("White Wins! Game Over");
+                gameBoyPanel.getTextField().setEditable(false);
+                return;
+            } 
+
+            //Black AI's turn
+            /* model stuff */
+            Position3D bestMoveBlack = gameState.findBestMove(gameState, 4, Colour.Black, bestMoveWhite);
+            System.err.println("Black AI move: " + bestMoveBlack);
+            
+            gameState.applyMove(bestMoveBlack, Colour.Black);
+
+            System.err.println("Black AI played on " + bestMoveBlack);
+
+            /* set beads location in view */
+            bBead.setBead(bestMoveBlack);
+            gp.update(); // repaint 
+            
+            if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads(), Colour.Black)) { // check if game is over
+
+                System.out.println("Game Over");
+                gameBoyPanel.getTextField().setText("Black Wins! Game Over");
+                gameBoyPanel.getTextField().setEditable(false);
+            } 
         }
     }
 }
