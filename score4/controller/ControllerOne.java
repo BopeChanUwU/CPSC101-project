@@ -224,7 +224,7 @@ public class ControllerOne implements ActionListener, GameboyController {
             }
         }
         if(gameState.bothAI()) {
-
+                
             // AI vs AI
             Board gameBoard = gameState.getBoard();
             GamePanel gp = gameBoyPanel.getGamePanel();

@@ -86,9 +86,9 @@ public class MenuPanel extends JPanel{
             System.out.println("hello 2");
         });
 
-        //Multi Player button
+        //Minimax test button
         add(testingMinimax);
-        twoPlayer.addActionListener((ActionEvent e) -> {
+        testingMinimax.addActionListener((ActionEvent e) -> {
 
            if(e.getSource() != testingMinimax) return;
            GameboyPanel gbp3 = new GameboyPanel(new AIPlayer(1), new AIPlayer(2));
