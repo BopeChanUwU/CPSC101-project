@@ -87,9 +87,7 @@ public class GameState implements Cloneable{
             }
         }
 
-        // Sort the moves based on the heuristic
-        possibleMoves.sort(moveComparator(colour));
-
+        System.out.println("Generated Possible Moves: " + possibleMoves);
         return possibleMoves;
     }
 
@@ -201,17 +199,24 @@ public class GameState implements Cloneable{
     public Position3D findBestMove(GameState state, int maxDepth, Colour colour, Position3D lastMove) {
 
         Position3D bestMove = null;
+        int bestScore = Integer.MIN_VALUE;
+        ArrayList<Position3D> currentMoves = getPossibleMoves(colour);
 
-        // Perform iterative deepening
-        for (int depth = 1; depth <= maxDepth; depth++) {
-            System.out.println("Searching at depth: " + depth);
-            MoveResult result = minimaxWithMove(state, depth, true, colour, Integer.MIN_VALUE, Integer.MAX_VALUE, lastMove);
+        for (Position3D move : currentMoves) {
+            applyMove(move, colour);
+        
+            // Perform iterative deepening
+            for (int depth = 1; depth <= maxDepth; depth++) {
+                            
+                int score = minimax(state, depth, true, colour, Integer.MIN_VALUE, Integer.MAX_VALUE, lastMove);
 
-            // Update the best move found so far
-            if (result.bestMove != null)
-                bestMove = result.bestMove;
+                if(score > bestScore) {
+                    bestScore = score;
+                    bestMove = move; // Update best move
+                }
 
-            System.out.println("Best Move at Depth " + depth + ": " + bestMove + ", Score: " + result.score);
+            }
+            undoMove(move, colour);
         }
 
         return bestMove;
@@ -275,7 +280,7 @@ public class GameState implements Cloneable{
         peg.removeBead();
         turn--;
 
-        System.out.println("Possible Moves After Undo: " + possibleMoves);
+        System.out.println("Possible Moves After Undo: " + getPossibleMoves(colour));
         System.out.println("..................................");
 
         if (winner != null) {
@@ -331,14 +336,14 @@ public class GameState implements Cloneable{
      * @param colour Colour the colour of the player to evaluate
      * @param alpha int the alpha value for pruning
      * @param beta int the beta value for pruning
-     * @return MoveResult containing the best move and its score
+     * @return int score
      * @throws IllegalStateException if the AI selects an invalid move
      */
-    public MoveResult minimaxWithMove(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta, Position3D lastMove) {
+    public int minimax(GameState state, int depth, boolean maximizingPlayer, Colour colour, int alpha, int beta, Position3D lastMove) {
         // Base case: return the evaluation score if the game is over or depth is 0
         if (getIsOver() || depth == 0) {
             int score = evaluate(colour);
-            return new MoveResult(lastMove, score); // Return the last move that led to this state
+            return score - depth; // Return the last move that led to this state
         }
 
         List<Position3D> moves = new ArrayList<Position3D>(getPossibleMoves(colour));
@@ -349,48 +354,44 @@ public class GameState implements Cloneable{
 
             for (Position3D move : moves) {
                 applyMove(move, colour); // Apply the move
-                MoveResult result = minimaxWithMove(state, depth - 1, false, colour, alpha, beta, move);
+                int score = minimax(state, depth - 1, false, colour, alpha, beta, move);
                 undoMove(move, colour); // Undo the move
 
-                System.err.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
+                System.err.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + score);
                 System.err.println("-----------------------------------------");
 
-                if (result.score > maxEval) {
-                    maxEval = result.score;
-                    bestMove = move; // Update the best move
+                if (score > maxEval) {
+                    maxEval = score;
                 }
 
                 alpha = Math.max(alpha, maxEval);
+
                 if (alpha >= beta) {
                     break; // Alpha-beta pruning
                 }
             }
 
-            System.err.println("Best Move at Depth " + depth + ": " + bestMove + ", Best Score: " + maxEval);
+            System.err.println("Best Move at Depth " + depth + ", Best Score: " + maxEval);
             System.err.println("=========================================");
 
-            if (!getPossibleMoves(colour).contains(bestMove)) {
-                throw new IllegalStateException("AI selected an invalid move: " + bestMove);
-            }
-
-            return new MoveResult(bestMove, maxEval);
+            return maxEval;
         } else {
             int minEval = Integer.MAX_VALUE;
 
             for (Position3D move : moves) {
                 applyMove(move, colour == Colour.White ? Colour.Black : Colour.White); // Apply the move
-                MoveResult result = minimaxWithMove(state, depth - 1, true, colour, alpha, beta, move);
+                int score = minimax(state, depth - 1, true, colour, alpha, beta, move);
                 undoMove(move, colour); // Undo the move
 
-                System.err.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + result.score);
+                System.err.println("Depth: " + depth + ", Maximizing: " + maximizingPlayer + ", Move: " + move + ", Score: " + score);
                 System.err.println("-----------------------------------------");
 
-                if (result.score < minEval) {
-                    minEval = result.score;
-                    bestMove = move; // Update the best move
+                if (score < minEval) {
+                    minEval = score;
                 }
 
                 beta = Math.min(beta, minEval);
+
                 if (beta <= alpha) {
                     break; // Alpha-beta pruning
                 }
@@ -400,11 +401,9 @@ public class GameState implements Cloneable{
             System.err.println("=========================================");
             System.err.println("Possible Moves at Depth " + depth + ": " + getPossibleMoves(colour));
 
-            if (!getPossibleMoves(colour).contains(bestMove)) {
-                throw new IllegalStateException("AI selected an invalid move: " + bestMove);
-            }
+            
 
-            return new MoveResult(bestMove, minEval);
+            return minEval;
         }
     }
 
