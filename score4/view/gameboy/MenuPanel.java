@@ -88,20 +88,6 @@ public class MenuPanel extends JPanel{
             System.out.println("hello 2");
         });
 
-        //Minimax test button
-        add(testingMinimax);
-        testingMinimax.addActionListener((ActionEvent e) -> {
-
-           if(e.getSource() != testingMinimax) return;
-           GameboyPanel gbp3 = new GameboyPanel(new AIPlayer(1), new AIPlayer(2));
-           MenuPanel.this.removeAll();
-           MenuPanel.this.setLayout(new BorderLayout());
-           MenuPanel.this.add(gbp3, BorderLayout.CENTER);
-           MenuPanel.this.revalidate();
-           MenuPanel.this.repaint();
-           System.out.println("hello 3");
-        }); 
-
         //About button
         add(about);
         about.addActionListener((ActionEvent e) -> {

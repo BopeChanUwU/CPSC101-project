@@ -125,7 +125,8 @@ public class ControllerTwo implements ActionListener, GameboyController {
 
 
         }
-        if(score4.model.game_state.board.Line.containsLine(Bead.getTheBeads())) { // check if game is over
+        if(GameState.containsLine(Bead.getTheBeads(), score4.model.player.Colour.White)
+                || GameState.containsLine(Bead.getTheBeads(), score4.model.player.Colour.Black)) { // check if game is over
 
             //add win screen
             //find way to check if player1 or player2 won

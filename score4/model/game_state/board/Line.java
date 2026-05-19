@@ -2,8 +2,6 @@ package score4.model.game_state.board;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import score4.model.player.Bead;
-import score4.model.player.Colour;
 
 /**
  * This file is part of a Score4 game
@@ -24,9 +22,7 @@ public class Line {
     private final Position3D[] line = new Position3D[4];
 
     private static final ArrayList<Line> theLines = new ArrayList<>();
-    private static final ArrayList<Position3D> highValuePositions = new ArrayList<>();
     
-
     /**
      * This method returns a boolean by checking that your start does not equal to your end as 
      * you cant have a line with only one point and checking as well to see if your row, column,
@@ -72,55 +68,23 @@ public class Line {
         }
     }
 
-    public static ArrayList<Position3D> getHighValuePositions(){
-
-        if(highValuePositions.isEmpty()){
-            highValuePositions.add(new Position3D(0, 0, 0));
-            highValuePositions.add(new Position3D(3, 0, 0));
-            highValuePositions.add(new Position3D(0, 3, 0));
-            highValuePositions.add(new Position3D(3, 3, 0));
-            highValuePositions.add(new Position3D(1, 1, 1));
-            highValuePositions.add(new Position3D(1, 2, 1));
-            highValuePositions.add(new Position3D(2, 1, 1));
-            highValuePositions.add(new Position3D(2, 2, 1));
-            highValuePositions.add(new Position3D(1, 1, 2));
-            highValuePositions.add(new Position3D(1, 2, 2));
-            highValuePositions.add(new Position3D(2, 1, 2));
-            highValuePositions.add(new Position3D(2, 2, 2));
-            highValuePositions.add(new Position3D(0, 0, 3));
-            highValuePositions.add(new Position3D(3, 0, 3));
-            highValuePositions.add(new Position3D(0, 3, 3));
-            highValuePositions.add(new Position3D(3, 3, 3));
-        }
-
-        return highValuePositions;
-    }
-
     /**
      * This method returns an array list of all 76 possible lines.
      * @return ArrayList<Line> all possible lines
      */
     public static ArrayList<Line> allLines() {
         
-        ArrayList<Bead> beads = Bead.getTheBeads();
-
         if(theLines.isEmpty()) {
-
-            
-            for (int i = 0; i < beads.size(); i++) {
-                for (int j = i + 1; j < beads.size(); j++) {
-
-                    if(isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D())) {
-
-                        Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
-                        if(!theLines.contains(line)) {
-
-                            theLines.add(line);
-                        }
+            ArrayList<Position3D> positions = Position3D.allPositions();
+            for (int i = 0; i < positions.size(); i++) {
+                for (int j = i + 1; j < positions.size(); j++) {
+                    if (isLegalStartEnd(positions.get(i), positions.get(j))) {
+                        theLines.add(new Line(positions.get(i), positions.get(j)));
                     }
                 }
             }
         }
+
         return theLines;
     }
 
@@ -170,94 +134,6 @@ public class Line {
             ||p.equals(line[3]);
     }
 
-    /**
-     * Checks to see if there is a line of 4 beads of the same colour
-     * in the arraylist of beads passed in.
-     * @param beads ArrayList of Beads to check
-     * @param colour Colour to check for
-     * @return A boolean whether or not there is a line of 4 beads of the same colour
-     */
-    public static boolean containsLine(ArrayList<Bead> beads, Colour colour) {
-
-        boolean coloursMatch;
-        int count;
-        for (int i = 0; i < beads.size(); i++) {
-            for (int j = i + 1; j < beads.size(); j++) {
-
-                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D())) {
-
-                    Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
-                    coloursMatch = Bead.coloursMatch(beads.get(i).getColour(), beads.get(j).getColour());
-                    count = 0;
-
-                    for (Bead bead : beads) {
-                        if(line.hasPosition3D(bead.getPosition3D()) && bead.getColour() == colour) {
-                            count++;
-                        }
-                    }
-
-                    if(coloursMatch && count == 4) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     *  Counts the number of potential lines of 4 beads of the same colour
-     *  in the arraylist of beads passed in.
-     *  A potential line is a line that does not contain an opposite colour bead
-     * @param beads ArrayList of Beads to check
-     * @param colour Colour to check for
-     * @return An int representing the number of potential lines of 4 beads of the same colour
-     */
-    public static int countPotentialLines(ArrayList<Bead> beads, Colour colour) {
-
-        int count = 0;
-        int inArow = 0;
-        int totalLines = 0;
-
-        for (int i = 0 ; i < beads.size(); i++) {
-            for (int j = i + 1; j < beads.size(); j++) {
-
-                if(Line.isLegalStartEnd(beads.get(i).getPosition3D(),beads.get(j).getPosition3D())) {
-
-                    Line line = new Line(beads.get(i).getPosition3D(), beads.get(j).getPosition3D());
-                    
-                    for( Bead bead : beads) {
-
-                        if(getHighValuePositions().contains(bead.getPosition3D())) {
-                            totalLines += 5;
-                        }
-                        if(line.hasPosition3D(bead.getPosition3D()) && (!bead.getColour().equals(colour.opposite()))) {
-                            
-                            if(bead.getColour().equals(colour))
-                                inArow++;
-                            count++;
-                        }
-                        if(count == 4) {
-                            
-                            switch (inArow) {
-                                case 1 -> totalLines += 1;
-                                case 2 -> totalLines += 25;
-                                case 3 -> totalLines += 150;
-                                case 4 -> totalLines += 10000;
-                                default -> totalLines += 0;
-                            }
-                            
-                            count = 0;
-                            break; // No need to check further beads for this line
-                        }
-                    }
-                    // Check if the beads at the ends of the line are of the same colour
-                } 
-            }
-        }
-        return totalLines;
-    }
-
     @Override
     public int hashCode() {
 
@@ -268,13 +144,12 @@ public class Line {
      * Should only return true if "o" is a Line object containing the same Position3Ds. 
      */
     @Override
-    public boolean equals(Object o) { 
-
-        if(this.getClass() !=  o.getClass()) {
-            
-            return false;
-        }
-        return this.equals((Line) o);
+    public boolean equals(Object o) {
+        if (!(o instanceof Line other)) return false;
+        return line[0].equals(other.line[0])
+            && line[1].equals(other.line[1])
+            && line[2].equals(other.line[2])
+            && line[3].equals(other.line[3]);
     }
 
     /**
@@ -287,18 +162,5 @@ public class Line {
             "," + line[1].toString() +
             "," + line[2].toString() + 
             "," + line[3].toString() + "]";
-    }
-
-    /**
-     * Compares this line to a specified line to see if they have the same points
-     * @param ell a Line you wish to compare
-     * @return A boolean whether or not they contain the same Position3D objects
-     */
-    public boolean equals(Line ell) {
-
-        return line[0].equals(ell.getPosition3D(0))
-        && line[1].equals(ell.getPosition3D(1))
-        && line[2].equals(ell.getPosition3D(2))
-        && line[3].equals(ell.getPosition3D(3));
     }
 }

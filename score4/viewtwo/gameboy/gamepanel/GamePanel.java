@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import score4.controller.ControllerTwo;
+import score4.model.game_state.GameState;
+import score4.model.player.HumanPlayer;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
@@ -35,7 +37,8 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     private final BlackBeadComponent[] bBead = new BlackBeadComponent[32];
     private final ComponentManager compManager = new ComponentManager(this);
     private final JButton[] buttons = new JButton[16];
-    private final ControllerTwo controller = new ControllerTwo(this);
+    private final GameState gameState = new GameState(new HumanPlayer(1), new HumanPlayer(2));
+    private final ControllerTwo controller = new ControllerTwo(this, gameState);
 
     /**
      * constructs a GamePanel
