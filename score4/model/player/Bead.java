@@ -130,6 +130,16 @@ public class Bead implements Cloneable {
     }
 
     /**
+     * clears every bead that has been created so far; used when starting
+     * a fresh game board so stale beads left over from a previous game
+     * don't get counted when checking for a line
+     */
+    public static synchronized void clearBeads() {
+
+        theBeads.clear();
+    }
+
+    /**
      * gets the bead colour
      * @return Colour beadColour
      */

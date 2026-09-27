@@ -1,7 +1,6 @@
 package score4.model.game_state.board;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -169,9 +168,12 @@ public class Position3D {
     }
     
     @Override
-    public int hashCode() { 
-        
-        return Objects.hash(row,col,height);
+    public int hashCode() {
+
+        // row/col/height are each 0-3, so they pack losslessly into 2 bits apiece; this
+        // avoids Objects.hash()'s varargs array + autoboxing allocation on every call,
+        // which matters since Position3D is used as a HashMap key in hot evaluation paths
+        return (row << 4) | (col << 2) | height;
     }
 
     /** 

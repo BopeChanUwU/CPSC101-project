@@ -26,6 +26,7 @@ public class Board implements Cloneable {
      */
     public Board() {
 
+        Bead.clearBeads(); // starting a new board means starting a new game
         size = 4;
         gameBoard = new Peg[size][size];
         for (Peg[] gameBoard1 : gameBoard) {
@@ -42,6 +43,7 @@ public class Board implements Cloneable {
      */
     public Board(int size) {
 
+        Bead.clearBeads(); // starting a new board means starting a new game
         this.size = size;
         gameBoard = new Peg[size][size];
         for (Peg[] gameBoard1 : gameBoard) {

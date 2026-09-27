@@ -115,10 +115,10 @@ public class Line {
      */
     public final Position3D getPosition3D(int k) {
 
-        return new Position3D(
-            line[k].getRow(),
-            line[k].getColumn(),
-            line[k].getHeight());
+        // Position3D is immutable, so the stored point can be handed out directly instead
+        // of copying it - this method is called extremely often (every cell of every line
+        // scanned during evaluation), and the copy was pure allocation overhead
+        return line[k];
     }
 
     /**

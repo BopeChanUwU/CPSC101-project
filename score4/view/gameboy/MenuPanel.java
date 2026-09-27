@@ -34,7 +34,7 @@ public class MenuPanel extends JPanel{
 
     private  final JButton onePlayer = new JButton("Single Player");
     private final JButton twoPlayer = new JButton("multi-Player");
-    private final JButton testingMinimax = new JButton("Minimax Test");
+    private final JButton aiVsAi = new JButton("AI vs AI");
     private final JButton about = new JButton("About");
     /* idea use input from this panel to initialize the gamepanel  */
 
@@ -52,20 +52,14 @@ public class MenuPanel extends JPanel{
      * creates all the stuff inside the panel
      */
     public final void initialize(){
-        
-        add (new JLabel("<html><H1>SCORE 4!</H1></html>"
-                        )); //title label
-        //might need to add blank jlabels to fill space and push things down into location
-        for (int i = 0; i < 4; i++) {
-            add(new JLabel());
-        }
 
-        // 1 Player button
-        add(onePlayer);
+        // wire up button behaviour once; showMainMenu() (re)builds the
+        // visible layout and can be called again later, e.g. from a
+        // "back to menu" button, without re-registering listeners
         onePlayer.addActionListener((ActionEvent e) -> {
-            
+
             if(e.getSource() != onePlayer) return;
-            GameboyPanel gbp1 = new GameboyPanel(new HumanPlayer(1), new AIPlayer(2));
+            GameboyPanel gbp1 = new GameboyPanel(new HumanPlayer(1), new AIPlayer(2), this::showMainMenu);
             MenuPanel.this.removeAll();
             MenuPanel.this.setLayout(new BorderLayout());
             MenuPanel.this.add(gbp1, BorderLayout.CENTER);
@@ -74,12 +68,10 @@ public class MenuPanel extends JPanel{
             System.out.println("hello 1");
         });
 
-        //Multi Player button
-        add(twoPlayer);
         twoPlayer.addActionListener((ActionEvent e) -> {
 
             if(e.getSource() != twoPlayer) return;
-            GameboyPanel gbp2 = new GameboyPanel(new HumanPlayer(1), new HumanPlayer(2));
+            GameboyPanel gbp2 = new GameboyPanel(new HumanPlayer(1), new HumanPlayer(2), this::showMainMenu);
             MenuPanel.this.removeAll();
             MenuPanel.this.setLayout(new BorderLayout());
             MenuPanel.this.add(gbp2, BorderLayout.CENTER);
@@ -88,10 +80,14 @@ public class MenuPanel extends JPanel{
             System.out.println("hello 2");
         });
 
-        //About button
-        add(about);
+        aiVsAi.addActionListener((ActionEvent e) -> {
+
+            if(e.getSource() != aiVsAi) return;
+            showAISelection();
+        });
+
         about.addActionListener((ActionEvent e) -> {
-            
+
             if(e.getSource() != about) return;
             MenuPanel.this.removeAll();
             MenuPanel.this.setLayout(new BorderLayout());
@@ -102,7 +98,59 @@ public class MenuPanel extends JPanel{
             System.out.println("hello 4");});
 
         setBackground(new Color(73,71,134)); // currently purple
-        setVisible(true); 
+        showMainMenu();
+        setVisible(true);
+    }
+
+    /**
+     * shows the AI vs AI setup screen, where the evaluator (scoring
+     * heuristic) for each colour is chosen before the game starts
+     */
+    public void showAISelection(){
+
+        AISelectionPanel selection = new AISelectionPanel(
+            (whiteEvaluator, blackEvaluator) -> {
+
+                GameboyPanel gbp3 = new GameboyPanel(new AIPlayer(1), new AIPlayer(2),
+                    whiteEvaluator, blackEvaluator, this::showMainMenu);
+                MenuPanel.this.removeAll();
+                MenuPanel.this.setLayout(new BorderLayout());
+                MenuPanel.this.add(gbp3, BorderLayout.CENTER);
+                MenuPanel.this.revalidate();
+                MenuPanel.this.repaint();
+            },
+            this::showMainMenu
+        );
+
+        removeAll();
+        setLayout(new BorderLayout());
+        add(selection, BorderLayout.CENTER);
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * (re)builds the main menu layout; safe to call repeatedly, e.g.
+     * to return here from a game screen's back button
+     */
+    public void showMainMenu(){
+
+        removeAll();
+        setLayout(new GridLayout(9,1));
+
+        add(new JLabel("<html><H1>SCORE 4!</H1></html>")); //title label
+        //might need to add blank jlabels to fill space and push things down into location
+        for (int i = 0; i < 4; i++) {
+            add(new JLabel());
+        }
+
+        add(onePlayer);
+        add(twoPlayer);
+        add(aiVsAi);
+        add(about);
+
+        revalidate();
+        repaint();
     }
 
     /**

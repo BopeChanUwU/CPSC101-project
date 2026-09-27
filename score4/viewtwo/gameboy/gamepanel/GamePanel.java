@@ -3,13 +3,14 @@ package score4.viewtwo.gameboy.gamepanel;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.function.Consumer;
 import javax.swing.JButton;
 
 import javax.swing.JPanel;
 
 import score4.controller.ControllerTwo;
 import score4.model.game_state.GameState;
-import score4.model.player.HumanPlayer;
+import score4.model.player.Player;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.ComponentManager;
 import score4.viewtwo.gameboy.gamepanel.gamepanelcomponents.WhiteBeadComponent;
@@ -37,15 +38,20 @@ public class GamePanel extends JPanel /* implements PanelListener */{
     private final BlackBeadComponent[] bBead = new BlackBeadComponent[32];
     private final ComponentManager compManager = new ComponentManager(this);
     private final JButton[] buttons = new JButton[16];
-    private final GameState gameState = new GameState(new HumanPlayer(1), new HumanPlayer(2));
-    private final ControllerTwo controller = new ControllerTwo(this, gameState);
+    private final GameState gameState;
+    private final ControllerTwo controller;
 
     /**
      * constructs a GamePanel
+     * @param player1 Player white
+     * @param player2 Player black
+     * @param onStatus Consumer<String> called with a message when the game ends
      */
-    public GamePanel() {
+    public GamePanel(Player player1, Player player2, Consumer<String> onStatus) {
 
         super();
+        gameState = new GameState(player1, player2);
+        controller = new ControllerTwo(this, gameState, onStatus);
         setPreferredSize(new Dimension(screenWidth, screenHeight));
 
         setLayout(null);

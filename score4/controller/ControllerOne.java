@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.Timer;
 import score4.model.game_state.GameState;
 import score4.model.game_state.board.Board;
 import score4.model.game_state.board.Peg;
 import score4.model.game_state.board.Position3D;
 import score4.model.player.Bead;
 import score4.model.player.Colour;
+import score4.model.player.Player;
 import score4.view.gameboy.GameboyPanel;
 import score4.view.gameboy.gamepanel.GamePanel;
 import score4.view.gameboy.gamepanel.gamepanelcomponents.BlackBeadComponent;
@@ -33,15 +35,87 @@ public class ControllerOne implements ActionListener, GameboyController {
 
     private final GameboyPanel gameBoyPanel;
 
+    private Timer aiVsAiTimer;
+
     /**
-     * a one parameter constructor that makes a controller for 
+     * a one parameter constructor that makes a controller for
      * a given GamePanel
-     * @param gbp GamePanel 
+     * @param gbp GamePanel
      */
     public ControllerOne(GameboyPanel gbp, GameState gs) {
 
         gameBoyPanel = gbp;
         gameState = gs;
+
+        if (gameState.bothAI()) {
+
+            // no human input is needed, so lock the text field and
+            // drive the game forward automatically, one ply at a time
+            gameBoyPanel.getTextField().setEditable(false);
+            gameBoyPanel.getTextField().setText("AI vs AI...");
+
+            aiVsAiTimer = new Timer(100, e -> playNextAIMove());
+            aiVsAiTimer.start();
+        }
+    }
+
+    /**
+     * stops the AI vs AI auto-play loop, if one is running; safe to call
+     * even when there is no AI vs AI game in progress
+     */
+    public void stopAIVsAI() {
+
+        if (aiVsAiTimer != null) {
+
+            aiVsAiTimer.stop();
+        }
+    }
+
+    /**
+     * plays a single move for whichever AI player's turn it currently is,
+     * used to drive an AI vs AI game forward automatically
+     */
+    private void playNextAIMove() {
+
+        if (gameState.getIsOver()) {
+
+            aiVsAiTimer.stop();
+            return;
+        }
+
+        Player currentPlayer = gameState.getTurn();
+        Colour colour = currentPlayer.getColour();
+        GamePanel gp = gameBoyPanel.getGamePanel();
+
+        Position3D bestMove = gameState.findBestMove(6, colour);
+        gameState.applyMove(bestMove, colour);
+
+        System.err.println(colour + " AI played on " + bestMove);
+
+        if (colour == Colour.White) {
+
+            WhiteBeadComponent wBead = gp.getWhiteBead(gp.getCountWhite());
+            wBead.setBead(bestMove);
+        } else {
+
+            BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
+            bBead.setBead(bestMove);
+        }
+        gp.update(); // repaint
+
+        if (GameState.containsLine(Bead.getTheBeads(), colour)) {
+
+            System.out.println("Game Over");
+            gameBoyPanel.getTextField().setText(colour + " Wins! Game Over");
+            gameBoyPanel.getTextField().setEditable(false);
+            aiVsAiTimer.stop();
+        } else if (gameState.getDrawStatus()) {
+
+            System.out.println("Game Over");
+            gameBoyPanel.getTextField().setText("Draw! Game Over");
+            gameBoyPanel.getTextField().setEditable(false);
+            aiVsAiTimer.stop();
+        }
     }
 
     /**
@@ -145,54 +219,6 @@ public class ControllerOne implements ActionListener, GameboyController {
 
                 }
         
-            } else if(gameState.bothAI()) {
-                
-                // AI vs AI
-                GamePanel gp = gameBoyPanel.getGamePanel();
-                WhiteBeadComponent wBead = gp.getWhiteBead(gp.getCountWhite());
-                BlackBeadComponent bBead = gp.getBlackBead(gp.getCountBlack());
-    
-                // White AI's turn
-                /* model stuff */
-                Position3D bestMoveWhite = gameState.findBestMove(4, Colour.White);
-                System.err.println("White AI move: " + bestMoveWhite);
-                
-                gameState.applyMove(bestMoveWhite, Colour.White);
-    
-                System.err.println("White AI played on " + bestMoveWhite);
-    
-                /* set beads location in view */
-                wBead.setBead(bestMoveWhite);
-                gp.update(); // repaint 
-                
-                if(GameState.containsLine(Bead.getTheBeads(), Colour.White)) { // check if game is over
-    
-                    System.out.println("Game Over");
-                    gameBoyPanel.getTextField().setText("White Wins! Game Over");
-                    gameBoyPanel.getTextField().setEditable(false);
-                    
-                } else {
-    
-                //Black AI's turn
-                /* model stuff */
-                Position3D bestMoveBlack = gameState.findBestMove(2, Colour.Black);
-                System.err.println("Black AI move: " + bestMoveBlack);
-                
-                gameState.applyMove(bestMoveBlack, Colour.Black);
-    
-                System.err.println("Black AI played on " + bestMoveBlack);
-    
-                /* set beads location in view */
-                bBead.setBead(bestMoveBlack);
-                gp.update(); // repaint 
-                
-                if(GameState.containsLine(Bead.getTheBeads(), Colour.Black)) { // check if game is over
-    
-                    System.out.println("Game Over");
-                    gameBoyPanel.getTextField().setText("Black Wins! Game Over");
-                    gameBoyPanel.getTextField().setEditable(false);
-                } 
-            }
             } else {
 
                 // Human vs AI

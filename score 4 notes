@@ -1,4 +1,31 @@
+-------------------------- Minimax Optimization ------------------------------------------------------------------------------------------
+Given your current implementation (alpha-beta pruning + iterative deepening + basic heuristic), here's what's worth learning next, roughly ordered by impact:
 
+Speed
+Move ordering — the biggest single speedup available to you. Alpha-beta pruning is most effective when the best moves are searched first. If you always search the best move first, alpha-beta approaches O(b^(d/2)) instead of O(b^d) — effectively doubling your searchable depth for free. Look up:
+
+Killer move heuristic — store the 2 moves that caused a beta cutoff at each depth and try them first next time
+History heuristic — track how often each move caused a cutoff across the whole search and use that as a sorting key
+Your old moveComparator was the right idea but had a side-effect problem (it called applyMove inside a sort comparator). The killer/history approaches are cheaper and don't have that issue.
+
+Transposition table with Zobrist hashing — the same board position can be reached by different move orderings. Without a cache, you re-evaluate it every time. Zobrist hashing gives you a fast, cheap hash of any board state, and you store (hash → score, depth, flag) in a hash map. Look up: transposition table, Zobrist hashing.
+
+Aspiration windows — in iterative deepening, instead of searching depth N+1 with the full [-∞, +∞] window, use a narrow window around the score from depth N. Most of the time it succeeds and you get a faster search; if it fails you re-search with the full window. Look up: aspiration search.
+
+Accuracy
+Quiescence search — probably the most important accuracy improvement. Right now when you hit depth 0 you call evaluate, but the position might be "unstable" (e.g., the opponent is one move from winning). Quiescence search extends the search past depth 0 for "forcing" moves only (immediate wins/threats) until the position is quiet. This eliminates the horizon effect where the AI doesn't see a threat just beyond its search depth. Look up: quiescence search, horizon effect.
+
+Negamax — your current minimax has separate maximizing and minimizing branches. Negamax rewrites this as a single recursive case using score = -negamax(...), which is cleaner, less error-prone, and how most chess/game AI literature is written. Once you understand negamax, reading about advanced techniques becomes much easier. Look up: negamax.
+
+Fork/double-threat detection in the heuristic — a position where you have two simultaneous threats (the opponent can only block one) is essentially a forced win. Your heuristic doesn't currently weight this. A simple version: count lines where you have 3-in-a-row; if there are two or more immediate threats in one position, add a large bonus. Look up: threat-space search, double threat.
+
+Good resources
+Chess Programming Wiki (chessprogramming.org) — written for chess but almost everything applies directly to your game. Start with the pages on alpha-beta, move ordering, transposition tables, and quiescence search
+"Artificial Intelligence: A Modern Approach" (Russell & Norvig) — Chapter 5 covers game search thoroughly with good pseudocode
+Minimax series by Sebastian Lague on YouTube — short, visual, beginner-friendly walkthrough of minimax → alpha-beta → improvements
+Priority if you can only do one thing
+Quiescence search for accuracy (stops the AI from missing threats just past the search horizon), move ordering with killer moves for speed (cheap to implement, dramatic improvement to alpha-beta efficiency). Do those two before anything else.
+------------------------------------------------------------------------------------------------------------------------------------------------
 
 x off set between colums = 40
 y off set between rows = 64
